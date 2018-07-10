@@ -1,0 +1,52 @@
+\documentclass{ximera}
+
+\title[Examples:]{Choice answers}
+
+\begin{document}
+\begin{abstract}
+ Examples of using choice.
+\end{abstract}
+\maketitle
+\begin{problem}
+  \begin{selectAll}
+    \choice[correct]{A choice}
+    \choice[correct]{A choice}
+    \choice{Another choice}
+  \end{selectAll}
+\end{problem}
+\begin{problem}
+  \begin{selectAll}
+    \choice{A choice}
+    \choice{$\int e^x \ dx$}
+    \choice[correct]{A choice}
+    \choice{Another choice}
+    \choice[correct]{A choice}
+  \end{selectAll}
+\end{problem}
+\begin{problem}
+  \begin{multipleChoice}
+      \choice[correct]{A choice}
+      \choice{Another choice}
+  \end{multipleChoice}
+\end{problem}
+\begin{problem}
+  \begin{multipleChoice}
+      \choice{A choice}
+      \choice[correct]{A choice}
+      \choice{Another choice}
+    \end{multipleChoice}
+\end{problem}
+\begin{problem}
+  \begin{multipleChoice}
+      \choice{A choice}
+      \choice{A choice}
+      \choice[correct]{Another choice}
+    \end{multipleChoice}
+\end{problem}
+\begin{problem}
+    \wordChoice{\choice[correct]{A choice}\choice{Another choice}},
+  another \wordChoice{\choice{A choice} \choice[correct]{A choice}
+    \choice{Another choice}}, and another \wordChoice{\choice{A
+      choice} \choice{A choice} \choice[correct]{Another choice}}.
+\end{problem}
+\end{document}
