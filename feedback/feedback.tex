@@ -33,4 +33,26 @@ Feedback can be triggered by only correct answers:
   \end{feedback}
 \end{exercise}
 
+
+  No, really, my favorite number is $y = \answer[format=integer,id=y]{17}$.
+ (Type anything but $17$. Type something larger than $17$. Type something smaller than $17$. Type $17$.
+  \begin{feedback}[attempt]
+    You made a first attempt!
+  \end{feedback}
+
+  \begin{feedback}[y>17]
+    That number is TOO BIG.
+  \end{feedback}
+
+  \begin{feedback}[y<17]
+    That number is too small.
+  \end{feedback}
+
+  \begin{feedback}[correct]
+    I have always loved the number 17.
+  \end{feedback}
+\end{problem}
+
+
+
 \end{document}
