@@ -30,6 +30,22 @@ preamble like this:
 }
 \end{verbatim}
 
+To add graphics side-by-side, you can just place them in \verb|image| tags:
+
+\begin{image}
+  \includegraphics{chimera.jpg}\quad
+  \includegraphics{dna.jpg}
+\end{image}
+\begin{verbatim}
+\begin{image}
+\includegraphics{chimera.jpg}\quad
+\includegraphics{dna.jpg}
+\end{image}
+\end{verbatim}
+When done this way, the pictures will rearrange themselves depending on the width of the screen.
+
+
+
 Another way to include graphics is to use Tikz. In some sense this is
 preferred, as then the source produces the images.
 \begin{image}
