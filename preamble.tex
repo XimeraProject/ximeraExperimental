@@ -1,13 +1,30 @@
 %% You can put user macros here
 %% However, you cannot make new environments
 
-\graphicspath{{./}
+\graphicspath{
+{./}
 {graphicsAndVideos/}
 }
 
 \usepackage{tikz}
 \usepackage{tkz-euclide}
-\usetkzobj{all}
+
 \pgfplotsset{compat=1.7} % prevents compile error.
 
 \tikzstyle geometryDiagrams=[ultra thick,color=blue!50!black]
+
+\usepackage{lipsum}
+
+\newcommand{\ximera}{XiMeRa}
+
+
+
+%% FOR XIMERA CLS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\link}[2][]{\href{#2}{#1}% the optional argument,
+                                       % a name for the link as a clickable link
+\ifthenelse{\equal{#1}{}}% if no optional argument, then 
+{\url{#2}}% just print the name
+{\footnote{See #1 at \url{#2}}}}% include the link address as a footnote
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
