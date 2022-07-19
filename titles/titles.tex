@@ -27,14 +27,30 @@ activites need titles and an abstract.  For example:
 \end{document}
 \end{verbatim}
 
-Is sufficient.
 
 
 \section{Title styles}
 
 
+To help make a book, \ximera\ provides syle commands for the titles of the activities. These should be used in the \verb|xourse| file. 
 
+\begin{verbatim}
+\documentclass{xourse}
+\title{Title of your activity}
+\author{Your name here}
+\begin{document}
+\begin{abstract}
+  A one-sentence description of the xourse (optional).
+\end{abstract}
+\maketitle
 
+\chapterstyle
+\activity{path-to-someActivity.tex}
+\sectionstyle
+\activity{path-to-someOtherActivity.tex}
+
+\end{document}
+\end{verbatim}
 
 
 \end{document}
