@@ -1,3 +1,16 @@
 \newenvironment {prompt}{}{}
+\newcommand {\DeclareMathOperator }[2]{\@OldDeclareMathOperator {##1}{##2}\immediate \write \myfile {\unexpanded {\DeclareMathOperator }{\unexpanded {##1}}{\unexpanded {##2}}}}
 \newcommand {\ungraded }[0]{}
+\newcommand {\reserved@a }[2]{}
 \newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }
+\newcommand {\reserved@a }[1]{}
+\newcommand {\reserved@a }[2]{}
+\newcommand {\vnameref  }[1]{\unskip ~\nameref {##1}\@vpageref [\unskip ]{##1}}
+\newcommand {\ref  }[0]{\@ifstar \@refstar \T@ref }
+\newcommand {\pageref  }[0]{\@ifstar \@pagerefstar \T@pageref }
+\newcommand {\nameref  }[0]{\@ifstar \@namerefstar \T@nameref }
+\newcommand {\ST@wsf }[1]{\immediate \write \ST@sf {##1}}
+\newcommand {\reserved@a }[2]{}
+\newcommand {\reserved@a }[0]{\AtBeginDocument }
+\newcommand {\reserved@a }[1]{}
+\newcommand {\reserved@a }[2]{}

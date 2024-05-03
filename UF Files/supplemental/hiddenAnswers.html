@@ -21,7 +21,7 @@
 </p></div>   <div class="maketitle"></div>
 <a id="Q1-1-1"></a>
 <h4 class="likesubsectionHead"><a id="x1-1000"></a>The Problem, right-clicking</h4>
-<!--l. 12--><p class="noindent">In order to make Xronos accessible (as in DRC accessibility) we use a well supported
+<!--l. 12--><p class="noindent">In order to make Ximera accessible (as in DRC accessibility) we use a well supported
 and widely used library to render the mathematics in a way that is compatible with a
 whole lot of different accessibility options. One of these features is the automatic
 generating/providing of the LaTeX code that generates mathematics on the page
@@ -31,7 +31,7 @@ that code is exposed to the student (via a right-click menu in some cases)
 as-is.
 </p><!--l. 14--><p class="noindent">Unfortunately, this applies to <em>everything</em> in mathemode, which includes the <span class="obeylines-h"><span class="verb">\answer</span></span>
 command (which must be in mathemode). Moreover, since the answer command has,
-as it’s argument, the actual <em>answer</em> that Xronos is looking for, that means the
+as it’s argument, the actual <em>answer</em> that Ximera is looking for, that means the
 content of the answer command (a.k.a. the actual answer for the problem) is directly
 available to students. By way of example:
 </p>
@@ -71,7 +71,7 @@ example:
 <!--l. 48--></pre>
 <!--l. 50--><p class="noindent">However, the key that makes it work is the hidden previous line, which is
 <span class="obeylines-h"><span class="verb">\newcommand{\ansOne}{3!}</span></span>. Notice that I could actually leave the contents
-unsimplified (indeed, it has 3! and Xronos still took 6 as the answer). This can be
+unsimplified (indeed, it has 3! and Ximera still took 6 as the answer). This can be
 used to obfuscate even more if you feel so inclined, but there isn’t really any reason
 to do so.
 </p><!--l. 52--><p class="noindent">Also note that you can (and should) define the answer command in the <em>body</em> of the
@@ -83,7 +83,7 @@ destroyed during the compiling of the assignment.
 <!--l. 56--><p class="noindent">It is worth a note that you should have unique answer commands/macros for each
 answer box to avoid unexpected behavior (technically it <em>should</em> expand answers as
 they occur, but in practice you can run into some interesting expansion scope and
-timing quirks of Xronos here, so it’s best to avoid it).
+timing quirks of Ximera here, so it’s best to avoid it).
 </p><!--l. 58--><p class="noindent">Also, ideally you want to avoid defining commands that depend on
 other custom commands. For example you want to avoid something like:
 <span class="obeylines-h"><span class="verb">\newcommand{\ansTwo}{3 + \ansOne}</span></span>, writing instead <span class="obeylines-h"><span class="verb">\newcommand{\ansTwo}{3 + 3!}</span></span>.

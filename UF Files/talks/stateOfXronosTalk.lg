@@ -1,6 +1,6 @@
 htfcss: cmtt font-family: monospace,monospace;
-File: stateOfXronosTalk.html
-File: stateOfXronosTalk.tmp
+File: stateOfXimeraTalk.html
+File: stateOfXimeraTalk.tmp
 Font_Css("4"): .small-caps{font-variant: small-caps; }
 Font_Css("10"): .htf-cmbx {font-weight: bold; font-style:normal;}
 Font_Css("12"): .htf-calligraphy {font-family:cursive}

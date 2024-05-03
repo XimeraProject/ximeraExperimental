@@ -11,7 +11,7 @@ documentstyle\def\documentstyle{\let\documentstyle\HCode\expandafter\def\csname
 \HCode}{\documentstyle[tex4ht]}}}\makeatother\HCode ximera,charset=utf-8,-css.a
 .b.c.\input  factorCheck.tex
  (./factorCheck.tex
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.cls
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.cls
 Document Class: ximera 2018/10/28 v1.00 Simultaneously write print and online i
 nteractive materials
 
@@ -194,7 +194,7 @@ File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
 )
 Driver file for pgf: pgfsys-tex4ht.def
 
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/pgfsys-tex4ht.def
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/pgfsys-tex4ht.def
 File: pgfsys-tex4ht.def 2020/01/08 v3.1.5b (3.1.5b)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-svg.de
@@ -1270,7 +1270,7 @@ Package: translator 2019-05-31 v1.12a Easy translation of strings in LaTeX
 ))
 Package hyperref Info: Option `colorlinks' set `true' on input line 235.
 )
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.cfg
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.cfg
 (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/tex4ht.4ht
 version 2018-12-30-09:29
 --------------------------------------
@@ -1504,7 +1504,7 @@ version 2020-02-14-14:21
 (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/html4-math.4ht
 version 2019-12-16-15:21
 ))
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
 \MT@toks=\toks78
@@ -1529,7 +1529,7 @@ File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
 \c@identification=\count434
 
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:69: LaTeX Error: En
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:69: LaTeX Error: En
 vironment xarmaBoost undefined in `ximera.cfg'.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1542,7 +1542,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:71: LaTeX Error: En
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:71: LaTeX Error: En
 vironment shuffle undefined in `ximera.cfg'.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1556,7 +1556,7 @@ If that doesn't work, type  X <return>  to quit.
 
 \c@imagealt=\count435
 \c@choiceId=\count436
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:244: Illegal parame
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:244: Illegal parame
 ter number in definition of \desmos.
 <to be read again> 
                    c
@@ -1566,14 +1566,14 @@ You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
 are all screwed up? I'm going to assume that you meant ##.
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:320: Too many }'s.
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:320: Too many }'s.
 l.320 }
        
 You've closed more groups than you opened.
 Such booboos are generally harmless, so keep going.
 
 \c@footnoteNum=\count437
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:385: Illegal parame
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:385: Illegal parame
 ter number in definition of \footnote.
 <to be read again> 
                    0
@@ -1583,7 +1583,7 @@ You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
 are all screwed up? I'm going to assume that you meant ##.
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:385: Illegal parame
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:385: Illegal parame
 ter number in definition of \footnote.
 <to be read again> 
                    0
@@ -1899,7 +1899,7 @@ runsystem(sed -i "s/##\\([0-9]\\)/#\\1/g" factorCheck.jax)...executed.
 
 \eqtoks=\toks79
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.cfg:125: Extra \fi.
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.cfg:125: Extra \fi.
 l.125   \fi
            
 I'm ignoring this; it doesn't match any \if.

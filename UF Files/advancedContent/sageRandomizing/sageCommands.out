@@ -1,9 +1,9 @@
-\BOOKMARK [1][-]{section*.1}{Sage and Xronos}{}% 1
+\BOOKMARK [1][-]{section*.1}{Sage and Ximera}{}% 1
 \BOOKMARK [1][-]{section*.2}{How to Write Sage in LaTeX}{}% 2
 \BOOKMARK [2][-]{subsection*.3}{Phase One}{section*.2}% 3
 \BOOKMARK [2][-]{subsection*.4}{Phase Two}{section*.2}% 4
 \BOOKMARK [2][-]{subsection*.5}{Example}{section*.2}% 5
 \BOOKMARK [1][-]{section*.6}{Potential Pitfalls and Problems}{}% 6
 \BOOKMARK [2][-]{subsection*.7}{Composition is a little weird}{section*.6}% 7
-\BOOKMARK [2][-]{subsection*.8}{Xronos processes all the Sage code fully before being populated}{section*.6}% 8
-\BOOKMARK [2][-]{subsection*.9}{Strings are tricky to get Xronos to accept...}{section*.6}% 9
+\BOOKMARK [2][-]{subsection*.8}{Ximera processes all the Sage code fully before being populated}{section*.6}% 8
+\BOOKMARK [2][-]{subsection*.9}{Strings are tricky to get Ximera to accept...}{section*.6}% 9

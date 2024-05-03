@@ -9,10 +9,8 @@
 \maketitle
 
 
-\subsection{How feedback works}
-    There is a feedback environment to give feedback based on if the answer is correct, or if the student just tried something.
-    
-    \subsubsection*{How to generate/use the feedback environment.}
+\section*{Feedback}
+    \subsection*{How to generate/use the feedback environment.}
         
         Feedback can be provided to students using the feedback environment within a problem-style environment. The feedback environment takes some optional arguments (see below) to determine when it is displayed, but by default it is displayed after any attempt at the problem (regardless of whether that attempt was correct or incorrect). 
         
@@ -49,7 +47,6 @@
         \end{problem}     
    
 
-
     \subsection*{Optional Arguments}
     
         Currently feedback only has two optional arguments, which serve as triggers for when the feedback is displayed:
@@ -58,6 +55,14 @@
             \item[correct] The optional argument ``correct'' will ensure that the feedback is only displayed once the question has been flagged as ``correct'' and locked. This can be used for followup explanation of the problem once it has been correctly answered - in case you want to include information that would be too much information for a student still trying to answer it.
             \item[attempt] The optional argument ``attempt'' will display the feedback after any attempt, regardless of whether that attempt is correct or incorrect. This is the default behavior of feedback if no optional argument is provided, and note that it is the only behavior that gives feedback when a student gives a wrong answer. However, it also doesn't go away once the student gets the correct answer.
         \end{description}
+        
+    \subsection*{Examples}
+    
+        TBD
+        
+    \subsection*{Best Practices}
+    
+        TBD
         
         
     \subsection*{Potential Pitfalls and Problems}   

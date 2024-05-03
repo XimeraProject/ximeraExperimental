@@ -9,9 +9,9 @@ de"##1"{\Link##1}\expandafter\HCode\else\expandafter\Link\fi}\def\Link#1.a.b.c.
 documentstyle\def\documentstyle{\let\documentstyle\HCode\expandafter\def\csname
  tex4ht\endcsname{#1,html}\def\HCode####1{\documentstyle[tex4ht,}\@ifnextchar[{
 \HCode}{\documentstyle[tex4ht]}}}\makeatother\HCode ximera,charset=utf-8,-css.a
-.b.c.\input  stateOfXronosTalk.tex
- (./stateOfXronosTalk.tex
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.cls
+.b.c.\input  stateOfXimeraTalk.tex
+ (./stateOfXimeraTalk.tex
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.cls
 Document Class: ximera 2018/10/28 v1.00 Simultaneously write print and online i
 nteractive materials
 
@@ -194,7 +194,7 @@ File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
 )
 Driver file for pgf: pgfsys-tex4ht.def
 
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/pgfsys-tex4ht.def
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/pgfsys-tex4ht.def
 File: pgfsys-tex4ht.def 2020/01/08 v3.1.5b (3.1.5b)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-svg.de
@@ -919,10 +919,10 @@ Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
 \c@ST@cmdline=\count351
 \sagetexindent=\skip67
 
-(./stateOfXronosTalk.sagetex.sout)
+(./stateOfXimeraTalk.sagetex.sout)
 \sagecommandlineskip=\skip68
 ))
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.cfg
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.cfg
 (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/tex4ht.4ht
 version 2018-12-30-09:29
 --------------------------------------
@@ -935,15 +935,15 @@ version 2018-12-30-09:29
 ) (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/tex4ht.sty
 version 2019-03-18-15:24
 
---- needs --- tex4ht stateOfXronosTalk ---
+--- needs --- tex4ht stateOfXimeraTalk ---
 \tmp:cnt=\count352
-\openout15 = `stateOfXronosTalk.tmp'.
+\openout15 = `stateOfXimeraTalk.tmp'.
 
-(./stateOfXronosTalk.tmp)
+(./stateOfXimeraTalk.tmp)
 \tmp:dim=\skip69
- (./stateOfXronosTalk.xref)
+ (./stateOfXimeraTalk.xref)
 \:refout=\write6
-\openout6 = `stateOfXronosTalk.xref'.
+\openout6 = `stateOfXimeraTalk.xref'.
 
 
 (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/html4.4ht
@@ -1029,10 +1029,10 @@ version 2019-12-16-15:21
 --- Note --- for linear crosslinks of pages, use the command line option `next'
 
 --------------------------------------
-\openout15 = `stateOfXronosTalk.4ct'.
+\openout15 = `stateOfXimeraTalk.4ct'.
 
 \:tocout=\write7
-\openout7 = `stateOfXronosTalk.4tc'.
+\openout7 = `stateOfXimeraTalk.4tc'.
 
 
 (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/html4.4ht
@@ -1156,7 +1156,7 @@ version 2020-02-14-14:21
 (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/html4-math.4ht
 version 2019-12-16-15:21
 ))
-(/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht
+(/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
 \MT@toks=\toks59
@@ -1181,7 +1181,7 @@ File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
 \c@identification=\count355
 
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:69: LaTeX Error: En
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:69: LaTeX Error: En
 vironment xarmaBoost undefined in `ximera.cfg'.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1194,7 +1194,7 @@ Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:71: LaTeX Error: En
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:71: LaTeX Error: En
 vironment shuffle undefined in `ximera.cfg'.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1208,7 +1208,7 @@ If that doesn't work, type  X <return>  to quit.
 
 \c@imagealt=\count356
 \c@choiceId=\count357
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:244: Illegal parame
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:244: Illegal parame
 ter number in definition of \desmos.
 <to be read again> 
                    c
@@ -1218,14 +1218,14 @@ You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
 are all screwed up? I'm going to assume that you meant ##.
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:298: Too many }'s.
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:298: Too many }'s.
 l.298 }
        
 You've closed more groups than you opened.
 Such booboos are generally harmless, so keep going.
 
 \c@footnoteNum=\count358
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:363: Illegal parame
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:363: Illegal parame
 ter number in definition of \footnote.
 <to be read again> 
                    0
@@ -1235,7 +1235,7 @@ You meant to type ## instead of #, right?
 Or maybe a } was forgotten somewhere earlier, and things
 are all screwed up? I'm going to assume that you meant ##.
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.4ht:363: Illegal parame
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.4ht:363: Illegal parame
 ter number in definition of \footnote.
 <to be read again> 
                    0
@@ -1509,18 +1509,18 @@ version 2020-02-14-14:21
 (/usr/share/texlive/texmf-dist/tex/generic/tex4ht/html4-math.4ht
 version 2019-12-16-15:21
 ))
-runsystem(sed -i "/@/d" stateOfXronosTalk.jax)...executed.
+runsystem(sed -i "/@/d" stateOfXimeraTalk.jax)...executed.
 
-runsystem(sed -i "s/##\\([0-9]\\)/#\\1/g" stateOfXronosTalk.jax)...executed.
+runsystem(sed -i "s/##\\([0-9]\\)/#\\1/g" stateOfXimeraTalk.jax)...executed.
 
 \eqtoks=\toks60
 
-/home/jason/texmf/tex/latex/Xronos_Latex_Package/ximera.cfg:125: Extra \fi.
+/home/jason/texmf/tex/latex/Ximera_Latex_Package/ximera.cfg:125: Extra \fi.
 l.125   \fi
            
 I'm ignoring this; it doesn't match any \if.
 
-(./stateOfXronosTalk.oc)
+(./stateOfXimeraTalk.oc)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
 File: l3backend-dvips.def 2020-02-03 L3 backend support: dvips
 \l__pdf_internal_box=\box67
@@ -1531,8 +1531,8 @@ File: l3backend-dvips.def 2020-02-03 L3 backend support: dvips
 \g__pdf_backend_link_int=\count361
 \g__pdf_backend_link_sf_int=\count362
 )
-(./stateOfXronosTalk.aux)
-\openout1 = `stateOfXronosTalk.aux'.
+(./stateOfXimeraTalk.aux)
+\openout1 = `stateOfXimeraTalk.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 158.
 LaTeX Font Info:    ... okay on input line 158.
@@ -1564,7 +1564,7 @@ LaTeX Info: Redefining \ref on input line 158.
 LaTeX Info: Redefining \pageref on input line 158.
 LaTeX Info: Redefining \nameref on input line 158.
 \ST@sf=\write8
-\openout8 = `stateOfXronosTalk.sagetex.sage'.
+\openout8 = `stateOfXimeraTalk.sagetex.sage'.
 
 LaTeX Info: Redefining \microtypecontext on input line 158.
 Package microtype Info: Generating DVI output.
@@ -1587,7 +1587,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 )
 
-./stateOfXronosTalk.tex:6: LaTeX Error: Environment abstract undefined.
+./stateOfXimeraTalk.tex:6: LaTeX Error: Environment abstract undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -1600,7 +1600,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./stateOfXronosTalk.tex:8: LaTeX Error: \begin{document} ended by \end{abstract
+./stateOfXimeraTalk.tex:8: LaTeX Error: \begin{document} ended by \end{abstract
 }.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1622,7 +1622,7 @@ Package atveryend Info: Empty hook `BeforeClearDocument' on input line 15.
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 15.
- (./stateOfXronosTalk.aux)
+ (./stateOfXimeraTalk.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 15.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 15.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 15.
@@ -1636,4 +1636,4 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  71i,5n,102p,1266b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on stateOfXronosTalk.dvi (2 pages, 4236 bytes).
+Output written on stateOfXimeraTalk.dvi (2 pages, 4236 bytes).

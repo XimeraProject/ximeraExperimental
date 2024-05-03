@@ -5,5 +5,5 @@
 \doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-4000}{QQ2-1-4}{Example}}{2}\relax 
 \doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{1}{x1-5000}{QQ2-1-5}{Potential Pitfalls and Problems}}{2}\relax 
 \doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-6000}{QQ2-1-6}{Composition is a little weird}}{2}\relax 
-\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-7000}{QQ2-1-7}{Xronos processes all the Sage code fully before being populated}}{3}\relax 
-\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-8000}{QQ2-1-8}{Strings are tricky to get Xronos to accept...}}{4}\relax 
+\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-7000}{QQ2-1-7}{Ximera processes all the Sage code fully before being populated}}{3}\relax 
+\doTocEntry\toclikesubsection{}{\csname a:TocLink\endcsname{1}{x1-8000}{QQ2-1-8}{Strings are tricky to get Ximera to accept...}}{4}\relax 

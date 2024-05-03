@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head> <title>Sage and Xronos</title> 
+<!DOCTYPE html><html lang="en"><head> <title>Sage and Ximera</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 <meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
 <meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
@@ -16,7 +16,7 @@
 </script> 
 </div>
 <div class="abstract">
-<!--l. 7--><p class="noindent">How sage interacts with Xronos.
+<!--l. 7--><p class="noindent">How sage interacts with Ximera.
 </p></div>   <div class="maketitle"></div>
 <h3 class="likesectionHead"><a id="x1-1000"></a>How to Write Sage in LaTeX</h3>
 <!--l. 14--><p class="noindent">There are two phases to writing sage code using sagetex. The first phase is writing
@@ -42,11 +42,11 @@ always a bad idea.
 <h4 class="likesubsectionHead"><a id="x1-3000"></a>Phase Two</h4>
 <!--l. 31--><p class="noindent">The second phase is when you want to display the results of something from the sage
 code you executed to define all the variables/functions/etc you needed to populate
-the problem. In the current Xronos system, the only sage command that loads sage
+the problem. In the current Ximera system, the only sage command that loads sage
 content for the student to see, is the <span class="obeylines-h"><span class="verb">\sage</span></span> command. Most importantly, the other
 typical sage commands, like <span class="obeylines-h"><span class="verb">\sagestr</span></span> and <span class="obeylines-h"><span class="verb">\sageplot</span></span> do not work at all, and should
 be avoided. So you will want to only use the <span class="obeylines-h"><span class="verb">\sage</span></span> command to call content, even
-though other commands may work locally - they won’t work on a Xronos page <script type="text/javascript"> function footnotefunction(ID) { var x = document.getElementById(ID); if (x.style.display === "none") { x.style.color = "##002db3"; x.style.display = "inline"; } else { x.style.display = "none"; } } </script>   <span style="position=relative; vertical-align=baseline;"> <button onclick="footnotefunction(&#39;footnotei&#39;)" style="background:none!important; color:inherit; border:none; padding:0!important; font: inherit; cursor: pointer;"> <sup>[1]</sup> </button>   <span id="footnotei" style="display:none; font-family:Verdana, sans-serif; font-size:0.7em; line-height:1.1; display:inline; min-width:20em; position:absolute; left:25px; bottom:5px ; border:1px solid; padding:5px; color:##002db3; word-wrap:break-word; z-index=9999; overflow=auto;"> 
+though other commands may work locally - they won’t work on a Ximera page <script type="text/javascript"> function footnotefunction(ID) { var x = document.getElementById(ID); if (x.style.display === "none") { x.style.color = "##002db3"; x.style.display = "inline"; } else { x.style.display = "none"; } } </script>   <span style="position=relative; vertical-align=baseline;"> <button onclick="footnotefunction(&#39;footnotei&#39;)" style="background:none!important; color:inherit; border:none; padding:0!important; font: inherit; cursor: pointer;"> <sup>[1]</sup> </button>   <span id="footnotei" style="display:none; font-family:Verdana, sans-serif; font-size:0.7em; line-height:1.1; display:inline; min-width:20em; position:absolute; left:25px; bottom:5px ; border:1px solid; padding:5px; color:##002db3; word-wrap:break-word; z-index=9999; overflow=auto;"> 
                                                                   
 
                                                                   
@@ -99,9 +99,9 @@ after it on the page. Instead, you need to write: <pre>\begin{sagesilent}
 something more complex, like substituting in <script type="math/tex">3x+1</script> you would need to use extra
 parentheses, like <span class="obeylines-h"><span class="verb">p3f1( x=(3x+1) )</span></span>.
 
-<h4 class="likesubsectionHead"><a id="x1-7000"></a>Xronos processes all the Sage code fully before being populated</h4>
+<h4 class="likesubsectionHead"><a id="x1-7000"></a>Ximera processes all the Sage code fully before being populated</h4>
 <!--l. 90--><p class="noindent">Unlike when you compile locally (for most editors) all of the sage code is processed
-independently before it is populated into the page in Xronos. This means that if you
+independently before it is populated into the page in Ximera. This means that if you
 accidentally use the same variable for two different problems, the second definition of
 that variable will overwrite the value for that variable for <em>both</em> problems. In other
 words, if you had something like:
@@ -125,7 +125,7 @@ that variable is used - including the first problem. Annoyingly, you may compile
 locally, and depending on your editor, it may have shown the first function as <script type="math/tex">4x+5</script>
 leading to more confusion.
 
-<h4 class="likesubsectionHead"><a id="x1-8000"></a>Strings are tricky to get Xronos to accept...</h4>
+<h4 class="likesubsectionHead"><a id="x1-8000"></a>Strings are tricky to get Ximera to accept...</h4>
 <!--l. 109--><p class="noindent">Since sagetex usually uses the <span class="obeylines-h"><span class="verb">\sagestr</span></span> command to generate text, and
 since the <span class="obeylines-h"><span class="verb">\sage</span></span> command requires mathemode, it makes strings a little...
 interesting.

@@ -1,10 +1,10 @@
 \documentclass{ximera}
-\title{Sage and Xronos}
+\title{Sage and Ximera}
 
 
 \begin{document}
 \begin{abstract}
-     How sage interacts with Xronos.
+     How sage interacts with Ximera.
 \end{abstract}
 \maketitle
 
@@ -28,7 +28,7 @@ This generates the sage variable named \verb|p1f1| and \verb|p1ans|. This may se
 
 \subsection{Phase Two}
 
-The second phase is when you want to display the results of something from the sage code you executed to define all the variables/functions/etc you needed to populate the problem. In the current Xronos system, the only sage command that loads sage content for the student to see, is the \verb|\sage| command. Most importantly, the other typical sage commands, like \verb|\sagestr| and \verb|\sageplot| do not work at all, and should be avoided. So you will want to only use the \verb|\sage| command to call content, even though other commands may work locally - they won't work on a Xronos page\footnote{at least currently, but we are trying to fix that for the next iteration of the platform}.
+The second phase is when you want to display the results of something from the sage code you executed to define all the variables/functions/etc you needed to populate the problem. In the current Ximera system, the only sage command that loads sage content for the student to see, is the \verb|\sage| command. Most importantly, the other typical sage commands, like \verb|\sagestr| and \verb|\sageplot| do not work at all, and should be avoided. So you will want to only use the \verb|\sage| command to call content, even though other commands may work locally - they won't work on a Ximera page\footnote{at least currently, but we are trying to fix that for the next iteration of the platform}.
 
 \subsection{Example}
 Consider the following problem:
@@ -86,8 +86,8 @@ p3ans = p3f1(x=3)# Could also use p3f1(x=(3))
 If the substitution is just one variable, you can use ``x=var'' but if you need something more complex, like substituting in $3x+1$ you would need to use extra parentheses, like \verb|p3f1( x=(3x+1) )|.
 
 
-\subsection{Xronos processes all the Sage code fully before being populated}
-Unlike when you compile locally (for most editors) all of the sage code is processed independently before it is populated into the page in Xronos. This means that if you accidentally use the same variable for two different problems, the second definition of that variable will overwrite the value for that variable for \textit{both} problems. In other words, if you had something like:
+\subsection{Ximera processes all the Sage code fully before being populated}
+Unlike when you compile locally (for most editors) all of the sage code is processed independently before it is populated into the page in Ximera. This means that if you accidentally use the same variable for two different problems, the second definition of that variable will overwrite the value for that variable for \textit{both} problems. In other words, if you had something like:
 
 \begin{verbatim}
 \begin{sagesilent}
@@ -104,7 +104,7 @@ func2 = sin(x=(x - const1))
 \end{verbatim}
 Then the first function will come out as $\pi\cdot x + 5$ not $4x+5$ because the \verb|const1| sage variable was overwritten in the second problem's code and overwrote it for \textit{every} problem where that variable is used - including the first problem. Annoyingly, you may compile it locally, and depending on your editor, it may have shown the first function as $4x+5$ leading to more confusion.
 
-\subsection{Strings are tricky to get Xronos to accept...}
+\subsection{Strings are tricky to get Ximera to accept...}
 
 Since sagetex usually uses the \verb|\sagestr| command to generate text, and since the \verb|\sage| command requires mathemode, it makes strings a little... interesting.
 
