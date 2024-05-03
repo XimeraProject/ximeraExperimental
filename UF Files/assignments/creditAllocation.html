@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="en"><head> <title>Progress and Credit</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="creditAllocation.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="e4e49ceaf8e0991422ab0c18ceddb91cbf76803a preamble.tex"/><meta name="dependency" content="de94614ca7a4501148ca2547c832609303337518 assignments/creditAllocation.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\celsius }[0]{}
+\newcommand {\degree }[0]{}
+\newcommand {\ohm }[0]{}
+\newcommand {\log }[0]{\ln }
+\newcommand {\newrobustcmd }[0]{}
+\newcommand {\csshow }[1]{\begingroup \expandafter \endgroup \expandafter \show \csname #1\endcsname }
+\newcommand {\csmeaning }[1]{\ifcsname #1\endcsname \expandafter \meaning \csname #1\endcsname \else \detokenize {undefined}\fi }
+\newcommand {\ifdefmacro }[0]{}
+\newcommand {\ifdefparam }[0]{}
+\newcommand {\ifdefprotected }[0]{}
+\newcommand {\ifnumequal }[1]{\ifnumcomp {#1}=}
+\newcommand {\ifnumgreater }[1]{\ifnumcomp {#1}&#x003E;}
+\newcommand {\ifnumless }[1]{\ifnumcomp {#1}&#x003C;}
+\newcommand {\ifdimequal }[1]{\ifdimcomp {#1}=}
+\newcommand {\ifdimgreater }[1]{\ifdimcomp {#1}&#x003E;}
+\newcommand {\ifdimless }[1]{\ifdimcomp {#1}&#x003C;}
+\newcommand {\expandonce }[1]{\unexpanded \expandafter {#1}}
+\newcommand {\csexpandonce }[1]{\expandafter \expandonce \csname #1\endcsname }
+\newcommand {\protecting }[0]{}
+\newcommand {\csdef }[1]{\expandafter \def \csname #1\endcsname }
+\newcommand {\csedef }[1]{\expandafter \edef \csname #1\endcsname }
+\newcommand {\csgdef }[1]{\expandafter \gdef \csname #1\endcsname }
+\newcommand {\csxdef }[1]{\expandafter \xdef \csname #1\endcsname }
+\newcommand {\cslet }[2]{\expandafter \let \csname #1\endcsname #2}
+\newcommand {\letcs }[2]{\ifcsdef {#2} {\expandafter \let \expandafter #1\csname #2\endcsname } {\undef #1}}
+\newcommand {\csletcs }[2]{\ifcsdef {#2} {\expandafter \let \csname #1\expandafter \endcsname \csname #2\endcsname } {\csundef {#1}}}
+\newcommand {\csuse }[1]{\ifcsname #1\endcsname \csname #1\expandafter \endcsname \fi }
+\newcommand {\appto }[2]{\ifundef {#1} {\edef #1{\unexpanded {#2}}} {\edef #1{\expandonce #1\unexpanded {#2}}}}
+\newcommand {\eappto }[2]{\ifundef {#1} {\edef #1{#2}} {\edef #1{\expandonce #1#2}}}
+\newcommand {\gappto }[2]{\ifundef {#1} {\xdef #1{\unexpanded {#2}}} {\xdef #1{\expandonce #1\unexpanded {#2}}}}
+\newcommand {\xappto }[2]{\ifundef {#1} {\xdef #1{#2}} {\xdef #1{\expandonce #1#2}}}
+\newcommand {\preto }[2]{\ifundef {#1} {\edef #1{\unexpanded {#2}}} {\edef #1{\unexpanded {#2}\expandonce #1}}}
+\newcommand {\epreto }[2]{\ifundef {#1} {\edef #1{#2}} {\edef #1{#2\expandonce #1}}}
+\newcommand {\gpreto }[2]{\ifundef {#1} {\xdef #1{\unexpanded {#2}}} {\xdef #1{\unexpanded {#2}\expandonce #1}}}
+\newcommand {\xpreto }[2]{\ifundef {#1} {\xdef #1{#2}} {\xdef #1{#2\expandonce #1}}}
+\newcommand {\csappto }[1]{\expandafter \appto \csname #1\endcsname }
+\newcommand {\cseappto }[1]{\expandafter \eappto \csname #1\endcsname }
+\newcommand {\csgappto }[1]{\expandafter \gappto \csname #1\endcsname }
+\newcommand {\csxappto }[1]{\expandafter \xappto \csname #1\endcsname }
+\newcommand {\cspreto }[1]{\expandafter \preto \csname #1\endcsname }
+\newcommand {\csepreto }[1]{\expandafter \epreto \csname #1\endcsname }
+\newcommand {\csgpreto }[1]{\expandafter \gpreto \csname #1\endcsname }
+\newcommand {\csxpreto }[1]{\expandafter \xpreto \csname #1\endcsname }
+\newcommand {\csnumdef }[1]{\expandafter \numdef \csname #1\endcsname }
+\newcommand {\csnumgdef }[1]{\expandafter \numgdef \csname #1\endcsname }
+\newcommand {\csdimdef }[1]{\expandafter \dimdef \csname #1\endcsname }
+\newcommand {\csdimgdef }[1]{\expandafter \dimgdef \csname #1\endcsname }
+\newcommand {\csgluedef }[1]{\expandafter \gluedef \csname #1\endcsname }
+\newcommand {\csgluegdef }[1]{\expandafter \gluegdef \csname #1\endcsname }
+\newcommand {\mudef }[2]{\ifundef #1{\def #1{0mu}}{}\edef #1{\the \muexpr #2}}
+\newcommand {\csmudef }[1]{\expandafter \mudef \csname #1\endcsname }
+\newcommand {\csmugdef }[1]{\expandafter \mugdef \csname #1\endcsname }
+\newcommand {\listbreak }[0]{}
+\newcommand {\listadd }[2]{\ifblank {#2}{}{\appto #1{#2|}}}
+\newcommand {\listgadd }[2]{\ifblank {#2}{}{\gappto #1{#2|}}}
+\newcommand {\listcsadd }[1]{\expandafter \listadd \csname #1\endcsname }
+\newcommand {\listcseadd }[1]{\expandafter \listeadd \csname #1\endcsname }
+\newcommand {\listcsgadd }[1]{\expandafter \listgadd \csname #1\endcsname }
+\newcommand {\listcsxadd }[1]{\expandafter \listxadd \csname #1\endcsname }
+\newcommand {\listcsremove }[1]{\expandafter \listremove \csname #1\endcsname }
+\newcommand {\listcsgremove }[1]{\expandafter \listgremove \csname #1\endcsname }
+\newcommand {\dolistloop }[0]{\forlistloop \do }
+\newcommand {\dolistcsloop }[0]{\forlistcsloop \do }
+\newcommand {\AfterPreamble }[0]{\AtBeginDocument }
+\newcommand {\mathtoolsset }[1]{\setkeys {\MT_options_name: }{#1}}
+\newcommand {\refeq }[1]{\textup {\ref {#1}}}
+\newcommand {\lparen }[0]{(}
+\newcommand {\rparen }[0]{)}
+\newcommand {\ordinarycolon }[0]{:}
+\newcommand {\MT_test_for_tcb_other:nnnnn }[1]{\MH_if:w t#1\relax \expandafter \MH_use_choice_i:nnnn \MH_else: \MH_if:w c#1\relax \expandafter \expandafter \expandafter \MH_use_choice_ii:nnnn \MH_else: \MH_if:w b#1\relax \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \MH_use_choice_iii:nnnn \MH_else: \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \MH_use_choice_iv:nnnn \MH_fi: \MH_fi: \MH_fi: }
+\newcommand {\newcases }[6]{\newenvironment {#1}{\MT_start_cases:nnnn {#2}{#3}{#4}{#5}}{\MH_end_cases: \right #6}}
+\newcommand {\renewcases }[6]{\renewenvironment {#1}{\MT_start_cases:nnnn {#2}{#3}{#4}{#5}}{\MH_end_cases: \right #6}}
+\newcommand {\SwapAboveDisplaySkip }[0]{\noalign {\vskip -\abovedisplayskip \vskip \abovedisplayshortskip }}
+\newcommand {\vdotswithin }[1]{{\mathmakebox [\widthof {\ensuremath {{}#1{}}}][c]{{\vdots }}}}
+\newcommand {\MTFlushSpaceBelow }[0]{\\\noalign {\nobreak \vskip -\lineskip \vskip -\l_MT_shortvdotswithinadjustbelow_dim \vskip -\origjot \vskip \jot }}
+\newcommand {\mathmbox }[0]{\mathpalette \MT_mathmbox:nn }
+\newcommand {\crampedsubstack }[1]{\crampedsubarray {c}#1\endcrampedsubarray }
+\newcommand {\prescript  }[3]{\mathchoice {\MT_prescript_inner: {#1}{#2}{#3}{\scriptstyle }}{\MT_prescript_inner: {#1}{#2}{#3}{\scriptstyle }}{\MT_prescript_inner: {#1}{#2}{#3}{\scriptscriptstyle }}{\MT_prescript_inner: {#1}{#2}{#3}{\scriptscriptstyle }}}
+\newcommand {\spreadlines }[1]{\setlength {\jot }{#1}\ignorespaces }
+\newcommand {\newgathered }[4]{\newenvironment {#1}{\def \MT_gathered_pre: {#2}\def \MT_gathered_post: {#3}\def \MT_gathered_env_end: {#4}\MT_gathered_env }{\endMT_gathered_env }}
+\newcommand {\renewgathered }[4]{\renewenvironment {#1}{\def \MT_gathered_pre: {#2}\def \MT_gathered_post: {#3}\def \MT_gathered_env_end: {#4}\MT_gathered_env }{\endMT_gathered_env }}
+\newcommand {\lgathered }[0]{\def \MT_gathered_pre: {}\def \MT_gathered_post: {\hfil }\def \MT_gathered_env_end: {}\MT_gathered_env }
+\newcommand {\rgathered }[0]{\def \MT_gathered_pre: {\hfil }\def \MT_gathered_post: {}\def \MT_gathered_env_end: {}\MT_gathered_env }
+\newcommand {\gathered }[0]{\def \MT_gathered_pre: {\hfil }\def \MT_gathered_post: {\hfil }\def \MT_gathered_env_end: {}\MT_gathered_env }
+\newcommand {\splitfrac }[2]{\genfrac {}{}{0pt}{1}{\textstyle #1\quad \hfill }{\textstyle \hfill \quad \mathstrut #2}}
+\newcommand {\splitdfrac }[2]{\genfrac {}{}{0pt}{0}{#1\quad \hfill }{\hfill \quad \mathstrut #2}}
+\newcommand {\?\c__siunitx_minus_tl }[0]{\UseTextSymbol {TS1}\c__siunitx_minus_tl }
+\newcommand {\?\c__siunitx_mu_tl }[0]{\UseTextSymbol {TS1}\c__siunitx_mu_tl }
+\newcommand {\tabitem }[0]{\makebox [1em][r]{\textbullet ~}}
+\newcommand {\letterPlus }[0]{\makebox [0pt][l]{$+$}}
+\newcommand {\letterMinus }[0]{\makebox [0pt][l]{$-$}}
+\newcommand {\texttt }[1]{#1}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }
+\newcommand {\degree }[0]{\ensuremath {^\circ }}
+\newcommand {\celsius  }[0]{\ifmmode ^\circ \mathrm {C}\else $^\circ $C\fi }
+\newcommand {\ohm  }[0]{\ifmmode \Omega \else $\Omega $\fi }
+\newcommand {\dblcolon }[0]{\vcentcolon \mathrel {\mkern -.9mu}\vcentcolon }
+\newcommand {\coloneqq }[0]{\vcentcolon \mathrel {\mkern -1.2mu}=}
+\newcommand {\Coloneqq }[0]{\dblcolon \mathrel {\mkern -1.2mu}=}
+\newcommand {\coloneq }[0]{\vcentcolon \mathrel {\mkern -1.2mu}\mathrel {-}}
+\newcommand {\Coloneq }[0]{\dblcolon \mathrel {\mkern -1.2mu}\mathrel {-}}
+\newcommand {\eqqcolon }[0]{=\mathrel {\mkern -1.2mu}\vcentcolon }
+\newcommand {\Eqqcolon }[0]{=\mathrel {\mkern -1.2mu}\dblcolon }
+\newcommand {\eqcolon }[0]{\mathrel {-}\mathrel {\mkern -1.2mu}\vcentcolon }
+\newcommand {\Eqcolon }[0]{\mathrel {-}\mathrel {\mkern -1.2mu}\dblcolon }
+\newcommand {\colonapprox }[0]{\vcentcolon \mathrel {\mkern -1.2mu}\approx }
+\newcommand {\Colonapprox }[0]{\dblcolon \mathrel {\mkern -1.2mu}\approx }
+\newcommand {\colonsim }[0]{\vcentcolon \mathrel {\mkern -1.2mu}\sim }
+\newcommand {\Colonsim }[0]{\dblcolon \mathrel {\mkern -1.2mu}\sim }
+\newcommand {\nuparrow }[0]{\MH_nuparrow: }
+\newcommand {\ndownarrow }[0]{\MH_ndownarrow: }
+\newcommand {\bigtimes }[0]{\MH_csym_bigtimes: }</script><script type="text/javascript"> 
+</script> 
+</div>
+                                                                                                     
+<div class="abstract">
+<!--l. 8--><p class="noindent">How Xronos assigns progress/credit to students while they complete an assignment.
+</p></div>   <div class="maketitle"></div>
+   Xronos determines all credit in percentages for everything. An assignment is associated to a ’xourse’ file (xourse here is a
+document class). Within the xourse file is a list of activities and practices, which represent the tiles that students see when they
+open the assignment (see ’making an assignment’ tile for more).
+<a id="Q1-1-1"></a>
+<h4 class="likesubsectionHead"><a id="x1-1000"></a>Credit for an assignment</h4>
+<!--l. 15--><p class="noindent">Credit for an assignment is determined at the xourse level, where each tile (regardless of type or content) is equally weighted
+toward the percentage complete. So if you have 7 activities and 3 practice tiles, then each of those tiles is worth 10% of the credit
+for the overall assignment. This is good to keep in mind as you decide the content of each, since you want to be aware of how that
+impacts the weight of the content <em>within</em> the tile - although students rarely seem to put that level of thought into it
+themselves.
+<a id="Q1-1-3"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-2000"></a>Credit for a specific tile</h4>
+<!--l. 18--><p class="noindent">Like tiles at the assignment level, <em>environments</em> in a tile are what contribute to the progress. Somewhat unfortunately, the total
+progress of a given tile is broken up evenly at each breadth-first level for <em>any</em> environments.
+</p><!--l. 20--><p class="indent">   For example, let’s say you have the following layout in an assignment:
+</p><!--l. 22--><p class="indent">   </p><pre>            \begin{theorem}
+ <br/>                If $x$ is a real number, and $x=1$, then $x+x = 2$.
+ <br/>            \end{theorem}
+ <br/>            \begin{problem}
+ <br/>                In order to apply the theorem, $x$ must be (select all that apply):
+ <br/>                \begin{selectAll}
+ <br/>                    \choice{a variable}
+ <br/>                    \choice[correct]{a real number}
+ <br/>                    \choice{an arbitrary constant}
+ <br/>                    \choice[correct]{equal to 1}
+ <br/>                    \choice{Uh... what?}
+ <br/>                \end{selectAll}
+ <br/>                \begin{problem}% This opens when the previous problem is answered
+ <br/>                    What does the theorem conclude that $x+x$ equals?\\
+ <br/>                    $x + x = \answer{2}$
+ <br/>                \end{problem}
+ <br/>            \end{problem}
+ <br/>
+ <br/>            \begin{explanation}
+ <br/>                We have the theorem given to us, and it has two parts, the ‘‘if’’ statement that sets the necessary hypotheses to apply the theorem, and the ‘‘then’’ statement which tells us the result.
+ <br/>            \end{explanation}
+ <br/>
+ <br/>            \begin{problem}
+ <br/>                How last are you?
+ <br/>                \begin{multipleChoice}
+ <br/>                    \choice[correct]{Very.}
+ <br/>                    \choice[correct]{Somewhat.}
+ <br/>                    \choice[correct]{Not sure.}
+ <br/>                    \choice[correct]{Not much.}
+ <br/>                    \choice[correct]{Not at all.}
+                                                                                                     
+                                                                                                     
+ <br/>                \end{multipleChoice}
+ <br/>
+ <br/>        
+<!--l. 55--></pre>
+<!--l. 57--><p class="indent">   Each of the commands and environments above have their own sections in this guide, but for the sake of our current interest,
+we want to note that there are 4 top-level environments: a theorem, the first problem (which contains another problem) an
+explanation environment, and the last problem environment. That means each of these is worth one quarter of the
+completion of the page. Moreover, the first problem has a second followup problem - which itself has an <span class="obeylines-h"><span class="verb">\answer</span></span> box,
+and a multiple choice environment, which determines the percentage complete value of the containing problem
+environment. This is confusing to write out, but consider the following breakdown (which should hopefully be
+clearer)
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+  1: </dt><dd class="enumerate-enumitem">Theorem Environment: Worth 25% contingent on completion
+         <ul class="itemize1">
+         <li class="itemize">No interactives, so automatically and immediately flagged as complete.</li></ul>
+     </dd><dt class="enumerate-enumitem">
+  2: </dt><dd class="enumerate-enumitem">Problem Environment: “In order to apply the theorem...” Worth 25% contingent on completion
+         <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+       1: </dt><dd class="enumerate-enumitem">selectAll Environment Worth 50% of Problem Environment Credit - contingent on completion
+             <ul class="itemize1">
+             <li class="itemize">Getting a “correct” flag gives completion.</li></ul>
+         </dd><dt class="enumerate-enumitem">
+       2: </dt><dd class="enumerate-enumitem">Problem Environment Worth 50% of Problem Environment Credit - contingent on completion
+             <ul class="itemize1">
+             <li class="itemize">Getting a “correct” flag on the <span class="obeylines-h"><span class="verb">\answer</span></span> box gives completion.</li></ul>
+         </dd></dl>
+     </dd><dt class="enumerate-enumitem">
+  3: </dt><dd class="enumerate-enumitem">Explanation Environment: Worth 25% contingent on completion
+         <ul class="itemize1">
+         <li class="itemize">No interactives, so automatically and immediately flagged as complete.</li></ul>
+     </dd><dt class="enumerate-enumitem">
+  4: </dt><dd class="enumerate-enumitem">Problem Environment: “We have the theorem given to us...” Worth 25% contingent on completion
+         <ul class="itemize1">
+         <li class="itemize">Getting a “correct” flag gives completion.</li></ul>
+     </dd></dl>
+<!--l. 89--><p class="indent">   In table form: </p>
+<div class="center">
+<!--l. 90--><p class="noindent">
+</p>
+                                                                                                     
+                                                                                                     
+<div class="tabular"> <table id="TBL-1" class="tabular" cellspacing="0" cellpadding="0"><colgroup id="TBL-1-1g"><col id="TBL-1-1"/><col id="TBL-1-2"/><col id="TBL-1-3"/></colgroup><tbody><tr style="vertical-align:baseline;" id="TBL-1-1-"><td style="white-space:nowrap; text-align:left;" id="TBL-1-1-1" class="td11"> Environment                                                                                                                                               </td><td style="white-space:nowrap; text-align:center;" id="TBL-1-1-2" class="td11"> Local Level Credit  </td><td style="white-space:nowrap; text-align:center;" id="TBL-1-1-3" class="td11"> (Effective) Total Page Credit  </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-1-2-"><td style="white-space:nowrap; text-align:left;" id="TBL-1-2-1" class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr style="vertical-align:baseline;" id="TBL-01-2-"><td style="white-space:nowrap; text-align:left;" id="TBL-01-2-1" class="td11">                                                                                                    </td></tr><tr style="vertical-align:baseline;" id="TBL-01-3-"><td style="white-space:nowrap; text-align:left;" id="TBL-01-3-1" class="td11"></td>
+</tr><tr class="hline"><td><hr/></td><td><hr/></td><td><hr/></td></tr><tr style="vertical-align:baseline;" id="TBL-01-4-"><td style="white-space:nowrap; text-align:left;" id="TBL-01-4-1" class="td11"> Theorem 1                                                                                                                                                  </td><td style="white-space:nowrap; text-align:center;" id="TBL-01-4-2" class="td11">                  </td><td style="white-space:nowrap; text-align:center;" id="TBL-01-4-3" class="td11">            25%                  </td></tr><tr style="vertical-align:baseline;" id="TBL-01-5-"><td style="white-space:nowrap; text-align:left;" id="TBL-01-5-1" class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr style="vertical-align:baseline;" id="TBL-001-5-"><td style="white-space:nowrap; text-align:left;" id="TBL-001-5-1" class="td11"> </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-001-6-"><td style="white-space:nowrap; text-align:left;" id="TBL-001-6-1" class="td11">                                                                                                       </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-001-7-"><td style="white-space:nowrap; text-align:left;" id="TBL-001-7-1" class="td11"> Problem 1                                                                                                                                                   </td><td style="white-space:nowrap; text-align:center;" id="TBL-001-7-2" class="td11">                  </td><td style="white-space:nowrap; text-align:center;" id="TBL-001-7-3" class="td11">            25%                  </td></tr><tr style="vertical-align:baseline;" id="TBL-001-8-"><td style="white-space:nowrap; text-align:left;" id="TBL-001-8-1" class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr style="vertical-align:baseline;" id="TBL-0001-8-"><td style="white-space:nowrap; text-align:left;" id="TBL-0001-8-1" class="td11"> </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-0001-9-"><td style="white-space:nowrap; text-align:left;" id="TBL-0001-9-1" class="td11">                                                                                                       </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-0001-10-"><td style="white-space:nowrap; text-align:left;" id="TBL-0001-10-1" class="td11"> selectAll                                                                                                                                                     </td><td style="white-space:nowrap; text-align:center;" id="TBL-0001-10-2" class="td11">       50%           </td><td style="white-space:nowrap; text-align:center;" id="TBL-0001-10-3" class="td11">           12.5%                 </td></tr><tr style="vertical-align:baseline;" id="TBL-0001-11-"><td style="white-space:nowrap; text-align:left;" id="TBL-0001-11-1" class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr style="vertical-align:baseline;" id="TBL-00001-11-"><td style="white-space:nowrap; text-align:left;" id="TBL-00001-11-1" class="td11"> </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-00001-12-"><td style="white-space:nowrap; text-align:left;" id="TBL-00001-12-1" class="td11">                                                                                                       </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-00001-13-"><td style="white-space:nowrap; text-align:left;" id="TBL-00001-13-1" class="td11"> Problem 1.1                                                                                                                                                 </td><td style="white-space:nowrap; text-align:center;" id="TBL-00001-13-2" class="td11">       50%           </td><td style="white-space:nowrap; text-align:center;" id="TBL-00001-13-3" class="td11">           12.5%                 </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-00001-14-"><td style="white-space:nowrap; text-align:left;" id="TBL-00001-14-1" class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr style="vertical-align:baseline;" id="TBL-000001-14-"><td style="white-space:nowrap; text-align:left;" id="TBL-000001-14-1" class="td11">                                                                                                    </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-000001-15-"><td style="white-space:nowrap; text-align:left;" id="TBL-000001-15-1" class="td11">                                                                                                       </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-000001-16-"><td style="white-space:nowrap; text-align:left;" id="TBL-000001-16-1" class="td11"> Explanation                                                                                                                                                 </td><td style="white-space:nowrap; text-align:center;" id="TBL-000001-16-2" class="td11">                  </td><td style="white-space:nowrap; text-align:center;" id="TBL-000001-16-3" class="td11">            25%                  </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-000001-17-"><td style="white-space:nowrap; text-align:left;" id="TBL-000001-17-1" class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr style="vertical-align:baseline;" id="TBL-0000001-17-"><td style="white-space:nowrap; text-align:left;" id="TBL-0000001-17-1" class="td11">                                                                                                    </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-0000001-18-"><td style="white-space:nowrap; text-align:left;" id="TBL-0000001-18-1" class="td11">                                                                                                       </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-0000001-19-"><td style="white-space:nowrap; text-align:left;" id="TBL-0000001-19-1" class="td11"> Problem 2                                                                                                                                                   </td><td style="white-space:nowrap; text-align:center;" id="TBL-0000001-19-2" class="td11">                  </td><td style="white-space:nowrap; text-align:center;" id="TBL-0000001-19-3" class="td11">            25%                  </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-0000001-20-"><td style="white-space:nowrap; text-align:left;" id="TBL-0000001-20-1" class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr style="vertical-align:baseline;" id="TBL-00000001-20-"><td style="white-space:nowrap; text-align:left;" id="TBL-00000001-20-1" class="td11">                                                                                                    </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-00000001-21-"><td style="white-space:nowrap; text-align:left;" id="TBL-00000001-21-1" class="td11">                                                                                                       </td>
+</tr><tr style="vertical-align:baseline;" id="TBL-00000001-22-"><td style="white-space:nowrap; text-align:left;" id="TBL-00000001-22-1" class="td11"> answerBox                                                                                                                                                  </td><td style="white-space:nowrap; text-align:center;" id="TBL-00000001-22-2" class="td11">       100%          </td><td style="white-space:nowrap; text-align:center;" id="TBL-00000001-22-3" class="td11">            25%                  </td>
+</tr></tbody></table>
+</div></div>
+<!--l. 103--><p class="indent">   So, there’s three things to notice here.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">First, environments that don’t have interactives (i.e. some kind of way for students to answer and get validation)
+     automatically give credit as soon as the page is loaded. This also means that a large portion of the tile’s credit could
+     (theoretically) be given just for loading the page, let alone doing anything.
+     </li>
+     <li class="itemize">This can actually be a good thing - it’s a bit of a morale booster, and in practice students typically <em>really</em> strive for
+     perfect scores on these things since they have time to do it and want every fraction of a point they can get.
+     </li>
+     <li class="itemize">Secondly, the only things that can give credit <em>are</em> environments. This means, if you put some kind of interactive (like
+     an answer box) just floating around in the middle of the page without it being in an environment, it won’t actually
+     count toward credit for the tile.
+     </li>
+     <li class="itemize">Thirdly, since credit is split evenly at the top-level, that means that problems with lots of parallel nest problems or
+     paths, can end up with nested problems that are worth significantly less compared to another problem that isn’t a
+     nested problem. This can be reasonable or not depending on the problem design, but it is worth bearing in mind as
+     the one writing the problems.
+     </li></ul>
+    
+ 
+
+                                                                                                     
+                                                                                                     
+                                                                                                     
+
+
+</body></html>

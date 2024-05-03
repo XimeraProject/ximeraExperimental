@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="en"><head> <title>Equalities with Radicals</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="solvingUnsimplifiedRadicals.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="7ea8cc93be55a59ca458f574618cef15ddaf6c34 problemDesign/solvingUnsimplifiedRadicals.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+</script> 
+</div>
+<div class="abstract">
+<!--l. 8--><p class="noindent">A solution to the problem of making radical + value = radical + value style problems
+procedurally that remain suitably “nice” for precalc students.
+</p></div>   <div class="maketitle"></div>
+It is surprisingly difficult to random-generate a nice version of the classic <script type="math/tex">\sqrt {f(x)} = \sqrt {g(x)} + C</script> style
+problems that maintain nice solveability by hand for a student at this level. Austin
+Jacobs and Jason Nowell coded this version that abuses the fact that we can force
+two parabola to intersect each other on an integer lattice in predictable places,
+then generate the radicals by using inverse functions of the parabolas while
+inferring the solutions by applying the inverse process to the integer lattice
+geometrically.
+<!--l. 14--><p class="noindent">Apologies that the code is rather opaque - it requires a picture that no longer
+exists.
+</p><!--l. 17--><p class="noindent">Below is the explanation for the code as per Austin,
+</p>
+<div class="theorem-like problem-environment explanation" id="problem1"><a id="x1-5r1"></a>
+<!--l. 21--><p class="noindent">The core idea here is that square roots with a linear term as their argument can be
+thought of as the ”inverse” of a parabola. So what we are going to do is take two
+parabolas and then just draw a horizontal line at the y value we want to be our
+solution. The first parabola will be <script type="math/tex">F(x)=a1(x-b1)^2+c1</script>. As long as we choose a1, b1, and c1 to be
+integers, we know that putting in integers for x will force F(x) to be an integer (eg if <script type="math/tex">x=b1+2</script>
+then <script type="math/tex">F(x)=a1*4+c1)</script>. So we choose three integers and then pick a value for x-b1, which we’ll call
+p1w. This will give us the point <script type="math/tex">(b1+p1w, p1h)</script> with a guarantee of both coordinates being
+integers.
+</p><!--l. 23--><p class="noindent">Now we draw our horizontal line <script type="math/tex">y=p1h</script> which we know goes through that point (indeed,
+this will end up being our solution). We pick a horizontal distance to travel along this
+path, say C, and we specifically choose it to be an integer. This will be our ”+C” in
+the initial problem statement.
+</p><!--l. 25--><p class="noindent">We now have another integer point <script type="math/tex">(b1+p1w+C,p1h)</script>. This is our jumping point for the second
+parabola, G(x). The only thing we need to do now is pick a2, b2, c2, and d2, however
+we don’t need to pick <em>all</em> of these. Once we make some choices the rest will be
+fixed. For simplicity, choose a2 and d2. This will let us know that our second
+parabola will have its vertext at <script type="math/tex">(b1+p1w+C-d2, p1h-a2*d2^2)</script> and we only need to sort out from here
+what the appropriate b2 and c2 need to be. Since we have the vertex of the
+parabola, we know that b2 is the x value of that point and c2 is just the y
+value.
+</p><!--l. 28--><p class="noindent">Finally, we get the display expressions by taking the function inverses of F and
+G.
+</p><!--l. 30--></div>
+                                                                  
+
+                                                                  
+
+<script type="text/sagemath">
+def RandInt(a,b):
+    """ Returns a random integer in [`a`,`b`]. Note that `a` and `b` should be integers themselves to avoid unexpected behavior.
+    """
+    return QQ(randint(int(a),int(b)))
+    # return choice(range(a,b+1))
+
+def NonZeroInt(b,c, avoid = [0]):
+    """ Returns a random integer in [`b`,`c`] which is not in `av`.
+        If `av` is not specified, defaults to a non-zero integer.
+    """
+    while True:
+        a = RandInt(b,c)
+        if a not in avoid:
+            return a
+
+
+
+
+
+p1ans1 = 100
+p1ans2 = 200
+
+while p1ans1>50 or p1ans2>50:
+    # Make p(x)
+    p1c1 = NonZeroInt(1,5)# a
+    p1c2 = RandInt(1,5)# b
+    p1c3 = RandInt(1,5)# c
+
+    p1px = p1c1*(x-p1c2)^2 + p1c3
+
+                                                                  
+
+                                                                  
+    p1w = RandInt(1,3)
+
+    p1h = p1px(x=(p1c2+p1w))
+
+    p1wprime = RandInt(2,5)
+
+    p1bprime = RandInt(p1c2+1, 10)
+    p1aprime = NonZeroInt(1,5,[p1c1])
+    p1cprime = p1h - p1aprime*p1wprime^2
+
+    p1gap = p1bprime + p1wprime -p1c2 - p1w#RandInt(p1bprime - p1c2 - p1w + 1, 2*(p1bprime - p1c2 - p1w + 1))
+
+
+    p1left = sqrt((x - p1c3)/p1c1) + p1c2 + p1gap
+    p1right = sqrt((x - p1cprime)/p1aprime) + p1bprime
+
+
+    p1d = p1c2+p1gap-p1bprime
+    p1e = p1c3*p1aprime-p1cprime*p1c1-p1d^2*p1c1*p1aprime
+
+    p1A = (p1c1-p1aprime)^2
+    p1B = 2*(p1c1-p1aprime)*p1e - 4*p1d^2*p1aprime^2*p1c1
+    p1C = p1e^2 + 4*p1d^2*p1aprime^2*p1c1*p1c3
+
+    p1ans1 = (-p1B + sqrt(p1B^2 - 4*p1A*p1C))/(2*p1A)
+    p1ans2 = (-p1B - sqrt(p1B^2 - 4*p1A*p1C))/(2*p1A)
+
+    if p1left(x=p1ans1) == p1right(x=p1ans1):
+        if p1left(x=p1ans2)==p1right(x=p1ans2):
+            p1ans = p1ans1+p1ans2
+        else:
+            p1ans=p1ans1
+                                                                  
+
+                                                                  
+    else:
+        p1ans=p1ans2
+
+    if p1ans1==p1ans2:
+        if p1left(x=p1ans1)==p1right(x=p1ans1):
+            p1ans=p1ans1
+        else:
+            p1ans=LatexExpr(r"DNE")
+
+
+</script>
+<h3 class="likesectionHead"><a id="x1-1000"></a>The Finished Product</h3>
+<div role="article" class="problem-environment problem" id="problem2"><a id="x1-1001r2"></a> What is the <strong>sum</strong> of the answers to the following equality? <script type="math/tex; mode=display"> \sage {p1left} = \sage {p1right} </script> The sum of solutions is:
+<script type="math/tex">\answer {\sage {p1ans}}</script>.
+<h3 class="likesectionHead"><a id="x1-20002"></a>The magic</h3>
+<!--l. 125--><p class="noindent">Here is the sage code that generates the problem... as mentioned it is currently rather
+opaque.
+</p><!--l. 128--><pre> <br/>\begin{sagesilent}
+ <br/>
+ <br/>def RandInt(a,b):
+ <br/>    &#34;&#34;&#34; Returns a random integer in [‘a‘,‘b‘]. Note that ‘a‘ and ‘b‘ should be integers themselves to avoid unexpected behavior.
+ <br/>    &#34;&#34;&#34;
+ <br/>    return QQ(randint(int(a),int(b)))
+ <br/>    # return choice(range(a,b+1))
+ <br/>
+ <br/>def NonZeroInt(b,c, avoid = [0]):
+ <br/>    &#34;&#34;&#34; Returns a random integer in [‘b‘,‘c‘] which is not in ‘av‘.
+ <br/>        If ‘av‘ is not specified, defaults to a non-zero integer.
+ <br/>    &#34;&#34;&#34;
+ <br/>    while True:
+ <br/>        a = RandInt(b,c)
+                                                                  
+
+                                                                  
+ <br/>        if a not in avoid:
+ <br/>            return a
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>p1ans1 = 100
+ <br/>p1ans2 = 200
+ <br/>
+ <br/>while p1ans1&gt;50 or p1ans2&gt;50:
+ <br/>    # Make p(x)
+ <br/>    p1c1 = NonZeroInt(1,5)# a
+ <br/>    p1c2 = RandInt(1,5)# b
+ <br/>    p1c3 = RandInt(1,5)# c
+ <br/>
+ <br/>    p1px = p1c1*(x-p1c2)^2 + p1c3
+ <br/>
+ <br/>    p1w = RandInt(1,3)
+ <br/>
+ <br/>    p1h = p1px(x=(p1c2+p1w))
+ <br/>
+ <br/>    p1wprime = RandInt(2,5)
+ <br/>
+ <br/>    p1bprime = RandInt(p1c2+1, 10)
+ <br/>    p1aprime = NonZeroInt(1,5,[p1c1])
+ <br/>    p1cprime = p1h - p1aprime*p1wprime^2
+ <br/>
+ <br/>    p1gap = p1bprime + p1wprime -p1c2 - p1w#RandInt(p1bprime - p1c2 - p1w + 1, 2*(p1bprime - p1c2 - p1w + 1))
+ <br/>
+ <br/>
+ <br/>    p1left = sqrt((x - p1c3)/p1c1) + p1c2 + p1gap
+ <br/>    p1right = sqrt((x - p1cprime)/p1aprime) + p1bprime
+ <br/>
+ <br/>
+ <br/>    p1d = p1c2+p1gap-p1bprime
+ <br/>    p1e = p1c3*p1aprime-p1cprime*p1c1-p1d^2*p1c1*p1aprime
+ <br/>
+ <br/>    p1A = (p1c1-p1aprime)^2
+ <br/>    p1B = 2*(p1c1-p1aprime)*p1e - 4*p1d^2*p1aprime^2*p1c1
+ <br/>    p1C = p1e^2 + 4*p1d^2*p1aprime^2*p1c1*p1c3
+ <br/>
+ <br/>    p1ans1 = (-p1B + sqrt(p1B^2 - 4*p1A*p1C))/(2*p1A)
+ <br/>    p1ans2 = (-p1B - sqrt(p1B^2 - 4*p1A*p1C))/(2*p1A)
+ <br/>
+ <br/>    if p1left(x=p1ans1) == p1right(x=p1ans1):
+                                                                  
+
+                                                                  
+ <br/>        if p1left(x=p1ans2)==p1right(x=p1ans2):
+ <br/>            p1ans = p1ans1+p1ans2
+ <br/>        else:
+ <br/>            p1ans=p1ans1
+ <br/>    else:
+ <br/>        p1ans=p1ans2
+ <br/>
+ <br/>    if p1ans1==p1ans2:
+ <br/>        if p1left(x=p1ans1)==p1right(x=p1ans1):
+ <br/>            p1ans=p1ans1
+ <br/>        else:
+ <br/>            p1ans=LatexExpr(r&#34;DNE&#34;)
+ <br/>
+ <br/>
+ <br/>\end{sagesilent}
+ <br/>
+<!--l. 206--></pre>
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</div></body></html>

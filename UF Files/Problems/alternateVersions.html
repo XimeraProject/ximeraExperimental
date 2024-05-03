@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head> <title>Alternate ’problem’ Environments</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="alternateVersions.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="31944d81f654a532c938d4cabafe0a41d58895e1 Problems/alternateVersions.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+</script> 
+</div>
+<div class="abstract">
+<!--l. 7--><p class="noindent">Alternative problem environments. These work identically in every way, but
+have different ’titles’ and can be used to signal to students different types of
+problems.
+</p></div>   <div class="maketitle"></div>
+<a id="Q1-1-1"></a>
+<h4 class="likesubsectionHead"><a id="x1-1000"></a>How they work</h4>
+<!--l. 14--><p class="noindent">There are a number of alternative variants of the problem environment. The key
+thing to know is that they are <em>literally</em> the same as the problem environment in every
+meaningful way (they use the same commands and formatting macros under the
+hood as the problem environment), the only way they differ is the displayed name.
+Currently there are the following problem-style environments:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">problem
+     </li>
+     <li class="itemize">question
+     </li>
+     <li class="itemize">exercise
+     </li>
+     <li class="itemize">exploration</li></ul>
+<!--l. 23--><p class="noindent">There are ways to create new forms of these problem-style environments with
+different names, although it requires some minor alterations of the ximera.4ht file, so
+if you want to do this you would need to contact the Xronos admin on further steps
+to take.
+<a id="Q1-1-3"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-2000"></a>Numbering</h4>
+<!--l. 27--><p class="noindent">Notice the numbering of the following problem-style environments: </p><div role="article" class="problem-environment problem" id="problem1"><a id="x1-2001r1"></a> This is a
+problem, and the answer is 1! <script type="math/tex">\answer {1}</script>
+</div>
+<div role="article" class="problem-environment question" id="problem2"><a id="x1-2002r2"></a> This is a problem, and the answer is 2! <script type="math/tex">\answer {2}</script>
+</div>
+<div role="article" class="problem-environment exercise" id="problem3"><a id="x1-2003r3"></a> This is a problem, and the answer is 3! <script type="math/tex">\answer {6}</script>
+</div>
+                                                                  
+
+                                                                  
+<div role="article" class="problem-environment exploration" id="problem4"><a id="x1-2004r4"></a> This is a problem, and the answer is 4! <script type="math/tex">\answer {24}</script>
+</div>
+<!--l. 45--><p class="noindent">The problem-style environments share a counter by default in order to minimize
+student confusion when they ask about “problem 7”, to avoid the situation where
+they really meant the seventh problem on the page, and not actually “problem 7”, as
+this case there is only one problem-style environment with that number, making it
+easy to determine which problem the student is (theoretically at least) referring
+to.
+<a id="Q1-1-5"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-3000"></a>So why have different ones?</h4>
+<!--l. 49--><p class="noindent">Typically authors use the different types of problem environments to represent
+different styles of problems. For example, one might make any problem with
+sub-questions an “exploration” problem to tip students off that there are
+subproblems involved even before they see them. Likewise, a “problem” might be a
+difficult problem, an “exercise” might be a mechanical-only skillset problem,
+and an “exercise” might be an easier level problem. Again this is up to the
+content author, the option is there if you are interested, but it need not be
+used.
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</p></body></html>

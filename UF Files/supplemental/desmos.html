@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head> <title>Desmos Embeddings</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="desmos.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="f91f8809bb6f41a8e8a4dcb3f79ae2f50cd0e5e7 supplemental/desmos.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+</script> 
+</div>
+<div class="abstract">
+<!--l. 7--><p class="noindent">How to embed Desmos Lessons
+</p></div>   <div class="maketitle"></div>
+<a id="Q1-1-1"></a>
+<h4 class="likesubsectionHead"><a id="x1-1000"></a>How’s it work?</h4>
+<!--l. 13--><p class="noindent">You can embed Desmos lessons into Xronos easily, much like you can with YouTube,
+using the <span class="obeylines-h"><span class="verb">\desmos</span></span> command. Similarly to the youtube command, Desmos will take in
+a portion of the url (once the Desmos lesson is marked as embeddable) and configure
+everything else for you. By way of example, I have a lesson I give student to be
+able to play around with and understand translations and transformations
+here:
+</p><!--l. 15--><p class="noindent">Thus if you wanted to share a Desmos lesson at <a href="https://www.desmos.com/calculator/ryvd3xeltm" class="url">https://www.desmos.com/calculator/ryvd3xeltm</a>.
+To embed this, all we need is the string after the last slash, so we would use the
+command: <br class="newline"/><span class="obeylines-h"><span class="verb">\desmos{ryvd3xeltm}{}{500}</span></span> <script type="text/javascript"> function footnotefunction(ID) { var x = document.getElementById(ID); if (x.style.display === "none") { x.style.color = "##002db3"; x.style.display = "inline"; } else { x.style.display = "none"; } } </script>   <span style="position=relative; vertical-align=baseline;"> <button onclick="footnotefunction(&#39;footnotei&#39;)" style="background:none!important; color:inherit; border:none; padding:0!important; font: inherit; cursor: pointer;"> <sup>[1]</sup> </button>   <span id="footnotei" style="display:none; font-family:Verdana, sans-serif; font-size:0.7em; line-height:1.1; display:inline; min-width:20em; position:absolute; left:25px; bottom:5px ; border:1px solid; padding:5px; color:##002db3; word-wrap:break-word; z-index=9999; overflow=auto;">  <span style="color:#4D00B2;">(the second argument is the width - which
+defaults to the width of the window. The third is the height, which usually
+defaults to something too small, so I typically use 500 or so.)</span></span></span> . Which gives
+us:
+</p><!--l. 17--><p class="noindent"><iframe src="https://www.desmos.com/calculator/ryvd3xeltm" width="100%" height="500px" style="border: 1px solid ##ccc" frameborder="0">This browser does not support embedded elements.</iframe>
+<a id="Q1-1-3"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-2000"></a>Validation</h4>
+<!--l. 20--><p class="noindent">Playing around with Desmos lessons has no natural “completion” metric, so it is
+currently ungraded - meaning that student interaction doesn’t count toward progress
+on the page in any way.
+<a id="Q1-1-5"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-3000"></a>Optional Arguments</h4>
+<!--l. 24--><p class="noindent">There are currently no optional arguments for Desmos.
+<a id="Q1-1-7"></a>
+</p>
+                                                                  
+
+                                                                  
+<h4 class="likesubsectionHead"><a id="x1-4000"></a>Potential Pitfalls and Problems</h4>
+<a id="Q1-1-9"></a>
+<h5 class="likesubsubsectionHead"><a id="x1-5000"></a>No grade potential</h5>
+<!--l. 28--><p class="noindent">Since students can’t earn points from it, it can sometimes be difficult to motivate
+them to interact with a Desmos lesson. One option is to make followup problems that
+require some kind of manipulation within your Desmos lesson in order to be able to
+answer them, but finding a motivational method is up to the creativity of the
+author.
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</p></body></html>

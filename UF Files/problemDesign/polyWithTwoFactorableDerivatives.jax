@@ -1,0 +1,371 @@
+\newenvironment {prompt}{}{}
+\newcommand {\DeclareMathOperator }[2]{\@OldDeclareMathOperator {##1}{##2}\immediate \write \myfile {\unexpanded {\DeclareMathOperator }{\unexpanded {##1}}{\unexpanded {##2}}}}
+\newcommand {\ungraded }[0]{}
+\newcommand {\polymul }[1]{\pld@GetPoly {\pld@polya \pld@polyb }{\pld@MultiplyPoly ##1\pld@polya \pld@polyb \ignorespaces }}
+\newcommand {\polydiv }[1]{\begingroup \let \pld@stage \maxdimen \pld@GetPoly {\pld@polya \pld@polyb }{\pld@DividePoly \pld@polya \pld@polyb \let ##1\pld@quotient \let \polyremainder \pld@remainder \pld@RestoreAftergroup ##1\polyremainder \relax \endgroup \ignorespaces }}
+\newcommand {\polygcd }[1]{\begingroup \let \pld@stage \maxdimen \pld@GetPoly {\pld@polya \pld@polyb }{\pld@LongEuclideanPoly \pld@polya \pld@polyb \global \let \@gtempa \pld@vb \endgroup \let ##1\@gtempa \ignorespaces }}
+\newcommand {\polyfactorize }[0]{\pld@GetPoly \pld@current {\pld@Factorize \pld@current \ensuremath {\pld@allines }}}
+\newcommand {\polyprint }[0]{\pld@GetPoly {\pld@polya }{\ensuremath {\pld@PrintPoly \pld@polya }}}
+\newcommand {\polyadd }[1]{\pld@GetPoly {\pld@polya \pld@polyb }{\let ##1\pld@polya \pld@ExtendPoly ##1\pld@polyb \pld@Simplify ##1\ignorespaces }}
+\newcommand {\polysub }[1]{\pld@GetPoly {\pld@polya \pld@polyb }{\def \pld@tempoly {\pld@R {-1}1}\pld@MultiplyPoly \pld@polyb \pld@polyb \pld@tempoly \let ##1\pld@polya \pld@ExtendPoly ##1\pld@polyb \pld@Simplify ##1\ignorespaces }}
+\newcommand {\floatstyle }[1]{\@ifundefined {fs@##1}{\float@error {##1}}{\def \float@style {##1}}}
+\newcommand {\float@error }[1]{\PackageError {float}{Unknown float style `##1' }{\@eha }}
+\newcommand {\floatname }[2]{\@namedef {fname@##1}{##2}}
+\newcommand {\floatplacement }[2]{\@namedef {fps@##1}{##2}}
+\newcommand {\floatevery }[2]{\csname @float@every@##1\endcsname ={##2}}
+\newcommand {\restylefloat }[0]{\@ifstar \float@restyle@ \float@restyle }
+\newcommand {\float@restyle@ }[1]{\float@restyle {##1}\expandafter \let \csname @float@c@##1\endcsname =\@caption }
+\newcommand {\float@restyle }[1]{\expandafter \edef \csname fst@##1\endcsname {\expandafter \noexpand \csname fs@\float@style \endcsname }\@namedef {##1}{\@nameuse {fst@##1}\@float@setevery {##1}\@float {##1}}\@namedef {##1*}{\@nameuse {fst@##1}\@float@setevery {##1}\@dblfloat {##1}}\expandafter \let \csname end##1\endcsname \float@end \expandafter \let \csname end##1*\endcsname \float@dblend \expandafter \let \csname @float@c@##1\endcsname =\float@caption \@ifundefined {@float@every@##1}{\expandafter \newtoks \csname @float@every@##1\endcsname }{}\@nameuse {@float@every@##1}={}}
+\newcommand {\newfloat }[3]{\@namedef {ext@##1}{##3} \let \float@do =\relax \xdef \@tempa {\noexpand \float@exts {\the \float@exts \float@do {##3}}}\@tempa \floatplacement {##1}{##2}\@ifundefined {fname@##1}{\floatname {##1}{##1}}{} \expandafter \edef \csname ftype@##1\endcsname {\value {float@type}}\addtocounter {float@type}{\value {float@type}} \restylefloat {##1}\expandafter \edef \csname fnum@##1\endcsname {\expandafter \noexpand \csname fname@##1\endcsname {} \expandafter \noexpand \csname the##1\endcsname } \@ifnextchar [{\float@newx {##1}}{\@ifundefined {c@##1}{\newcounter {##1}\@namedef {the##1}{\arabic {##1}}}{}}}
+\newcommand {\float@makebox }[1]{\vbox {\hsize =##1 \@parboxrestore \@fs@pre \@fs@iftopcapt \ifvoid \@floatcapt \else \unvbox \@floatcapt \par \@fs@mid \fi \unvbox \@currbox \else \unvbox \@currbox \ifvoid \@floatcapt \else \par \@fs@mid \unvbox \@floatcapt \fi \fi \par \@fs@post \vskip \z@ }}
+\newcommand {\float@end }[0]{\@endfloatbox \global \setbox \@currbox \float@makebox \columnwidth \let \@endfloatbox \relax \end@float }
+\newcommand {\float@endH }[0]{\@endfloatbox \vskip \intextsep \if@flstyle \setbox \@currbox \float@makebox \columnwidth \fi \box \@currbox \vskip \intextsep \relax }
+\newcommand {\float@dblend }[0]{\@endfloatbox \global \setbox \@currbox \float@makebox \textwidth \let \@endfloatbox \relax \end@dblfloat }
+\newcommand {\caption }[0]{\ifx \@captype \@undefined \@latex@error {\noexpand \caption outside float}\@ehd \expandafter \@gobble \else \refstepcounter \@captype \let \@tempf \@caption \expandafter \ifx \csname @float@c@\@captype \endcsname \relax \else \expandafter \expandafter \let \expandafter \@tempf \csname @float@c@\@captype \endcsname \fi \fi \@dblarg {\@tempf \@captype }}
+\newcommand {\listof }[2]{\@ifundefined {ext@##1}{\float@error {##1}}{\@namedef {l@##1}{\@dottedtocline {1}{1.5em}{2.3em}}\float@listhead {##2}\begingroup \setlength {\parskip }{\z@ }\@starttoc {\@nameuse {ext@##1}}\endgroup }}
+\newcommand {\float@listhead }[1]{\@ifundefined {chapter}{\def \@tempa {\section *}}{\def \@tempa {\chapter *}}\@tempa {##1\@mkboth {\MakeUppercase {##1}}{\MakeUppercase {##1}}}}
+\newcommand {\float@addtolists }[1]{\def \float@do ####1{\addtocontents {####1}{##1}} \the \float@exts }
+\newcommand {\floatc@plain }[2]{\setbox \@tempboxa \hbox {{\@fs@cfont ##1:} ##2}\ifdim \wd \@tempboxa >\hsize {\@fs@cfont ##1:} ##2\par \else \hbox to\hsize {\hfil \box \@tempboxa \hfil }\fi }
+\newcommand {\fs@plain }[0]{\def \@fs@cfont {\rmfamily }\let \@fs@capt \floatc@plain \def \@fs@pre {}\def \@fs@post {}\def \@fs@mid {\vspace \abovecaptionskip \relax }\let \@fs@iftopcapt \iffalse }
+\newcommand {\fs@plaintop }[0]{\fs@plain \def \@fs@mid {\vspace \belowcaptionskip \relax }\let \@fs@iftopcapt \iftrue }
+\newcommand {\floatc@ruled }[2]{{\@fs@cfont ##1} ##2\par }
+\newcommand {\fs@ruled }[0]{\def \@fs@cfont {\bfseries }\let \@fs@capt \floatc@ruled \def \@fs@pre {\hrule height.8pt depth0pt \kern 2pt}\def \@fs@post {\kern 2pt\hrule \relax }\def \@fs@mid {\kern 2pt\hrule \kern 2pt}\let \@fs@iftopcapt \iftrue }
+\newcommand {\fs@boxed }[0]{\def \@fs@cfont {\bfseries }\let \@fs@capt \floatc@plain \def \@fs@pre {\setbox \@currbox \vbox {\hbadness 10000 \moveleft 3.4pt\vbox {\advance \hsize by6.8pt \hrule \hbox to\hsize {\vrule \kern 3pt \vbox {\kern 3pt\box \@currbox \kern 3pt}\kern 3pt\vrule }\hrule }}}\def \@fs@mid {\kern 2pt}\def \@fs@post {}\let \@fs@iftopcapt \iffalse }
+\newcommand {\celsius }[0]{}
+\newcommand {\degree }[0]{}
+\newcommand {\ohm }[0]{}
+\newcommand {\vb@xt@ }[0]{\vbox to}
+\newcommand {\Gm@vrules@mpi }[0]{\hb@xt@ \@tempdima {\llap {\Gm@vrule }\ignorespaces \hskip \textwidth \Gm@vrule \hskip \marginparsep \llap {\Gm@vrule }\hfil \Gm@vrule }}
+\newcommand {\Gm@vrules@mpii }[0]{\hb@xt@ \@tempdima {\hskip -\marginparwidth \hskip -\marginparsep \llap {\Gm@vrule }\ignorespaces \hskip \marginparwidth \rlap {\Gm@vrule }\hskip \marginparsep \llap {\Gm@vrule }\hskip \textwidth \rlap {\Gm@vrule }\hss }}
+\newcommand {\Gm@pageframes }[0]{\vb@xt@ \z@ {\ifGm@showcrop \vb@xt@ \z@ {\vskip -1\Gm@truedimen in\vskip \Gm@layoutvoffset \hb@xt@ \z@ {\hskip -1\Gm@truedimen in\hskip \Gm@layouthoffset \vb@xt@ \Gm@layoutheight {\let \protect \relax \hb@xt@ \Gm@layoutwidth {\Gm@cropmark (-1,1,-3,3)\hfil \Gm@cropmark (1,1,3,3)}\vfil \hb@xt@ \Gm@layoutwidth {\Gm@cropmark (-1,-1,-3,-3)\hfil \Gm@cropmark (1,-1,3,-3)}}\hss }\vss }\fi \ifGm@showframe \if@twoside \ifodd \count \z@ \let \@themargin \oddsidemargin \else \let \@themargin \evensidemargin \fi \fi \moveright \@themargin \vb@xt@ \z@ {\vskip \topmargin \vb@xt@ \z@ {\vss \Gm@hrule }\vskip \headheight \vb@xt@ \z@ {\vss \Gm@hruled }\vskip \headsep \vb@xt@ \z@ {\vss \Gm@hrule }\@tempdima \textwidth \advance \@tempdima by \marginparsep \advance \@tempdima by \marginparwidth \if@mparswitch \ifodd \count \z@ \Gm@vrules@mpi \else \Gm@vrules@mpii \fi \else \Gm@vrules@mpi \fi \vb@xt@ \z@ {\vss \Gm@hrule }\vskip \footskip \vb@xt@ \z@ {\vss \Gm@hruled }\vss }\fi }}
+\newcommand {\geometry }[1]{\Gm@clean \setkeys {Gm}{##1}\Gm@process }
+\newcommand {\Gm@changelayout  }[0]{\setlength {\@colht }{\textheight } \setlength {\@colroom }{\textheight }\setlength {\vsize }{\textheight } \setlength {\columnwidth }{\textwidth }\if@twocolumn \advance \columnwidth -\columnsep \divide \columnwidth \tw@ \@firstcolumntrue \fi \setlength {\hsize }{\columnwidth }\setlength {\linewidth }{\hsize }}
+\newcommand {\newgeometry }[1]{\clearpage \Gm@restore@org \Gm@initnewgm \Gm@newgmtrue \setkeys {Gm}{##1}\Gm@newgmfalse \Gm@process \ifnum \mag =\@m \else \Gm@magtooffset \fi \Gm@changelayout \Gm@showparams {newgeometry}}
+\newcommand {\restoregeometry }[0]{\clearpage \Gm@restore@pkg \Gm@changelayout }
+\newcommand {\savegeometry }[1]{\Gm@save \expandafter \edef \csname Gm@restore@@##1\endcsname {\Gm@restore }}
+\newcommand {\loadgeometry }[1]{\clearpage \@ifundefined {Gm@restore@@##1}{\PackageError {geometry}{\string \loadgeometry : name `##1' undefined}{The name `##1' should be predefined with \string \savegeometry }}{\@nameuse {Gm@restore@@##1}\Gm@changelayout }}
+\newcommand {\log }[0]{\ln }
+\newcommand {\pgfopts@options@clist }[0]{}
+\newcommand {\pgfopts@options@execute }[0]{}
+\newcommand {\pgfopts@key@path }[0]{}
+\newcommand {\pgfopts@process@options }[1]{\def \pgfopts@options@clist {}\def \pgfopts@options@execute {}\def \pgfopts@key@path {##1/}\ifx \@currext \@clsextension \else \expandafter \pgfopts@check@class@options \fi \pgfopts@process@local@options \pgfopts@options@execute \let \CurrentOption \@empty \AtEndOfPackage {\let \@unprocessedoptions \relax }}
+\newcommand {\pgfopts@current@option }[0]{}
+\newcommand {\pgfopts@check@class@options }[0]{\ifpgfopts@process@class \ifx \@classoptionslist \relax \else \expandafter \expandafter \expandafter \pgfopts@check@class@options@aux \fi \fi }
+\newcommand {\pgfopts@check@class@options@aux }[0]{\@for \pgfopts@current@option :=\@classoptionslist \do {\pgfkeysifdefined {\pgfopts@key@path \pgfopts@get@key@name \pgfopts@current@option /.@cmd}{\pgfopts@list@add \pgfopts@options@clist \pgfopts@current@option \@expandtwoargs \@removeelement \pgfopts@current@option \@unusedoptionlist \@unusedoptionlist }{}}}
+\newcommand {\pgfopts@local@options }[0]{}
+\newcommand {\pgfopts@process@local@options }[0]{\begingroup \@ifundefined {opt@\@currname .\@currext }{\endgroup }{\toks@ \expandafter \expandafter \expandafter {\csname opt@\@currname .\@currext \endcsname }\expandafter \endgroup \expandafter \def \expandafter \pgfopts@local@options \expandafter {\the \toks@ }\pgfopts@process@local@options@aux@i }}
+\newcommand {\pgfopts@process@local@options@aux@i }[0]{\ifx \@currext \@clsextension \expandafter \pgfopts@process@local@options@class \else \expandafter \pgfopts@process@local@options@package \fi \ifx \pgfopts@options@clist \@empty \else \expandafter \pgfopts@process@local@options@aux@ii \fi }
+\newcommand {\pgfopts@process@local@options@aux@ii }[0]{\begingroup \toks@ \expandafter {\pgfopts@options@clist }\edef \pgfopts@options@execute {\noexpand \pgfkeys {\pgfopts@key@path .cd,\the \toks@ }}\expandafter \endgroup \expandafter \def \expandafter \pgfopts@options@execute \expandafter {\pgfopts@options@execute }}
+\newcommand {\pgfopts@process@local@options@class }[0]{\pgfkeysifdefined {\pgfopts@key@path .unknown/.@cmd}{\pgfopts@list@add \pgfopts@options@clist \@classoptionslist } {\pgfopts@process@local@options@class@aux }}
+\newcommand {\pgfopts@process@local@options@class@aux }[0]{\@for \pgfopts@current@option :=\pgfopts@local@options \do {\pgfkeysifdefined {\pgfopts@key@path \pgfopts@get@key@name \pgfopts@current@option /.@cmd}{\pgfopts@list@add \pgfopts@options@clist \pgfopts@current@option }{\pgfopts@list@add \@unusedoptionlist \pgfopts@current@option }}}
+\newcommand {\pgfopts@process@local@options@package }[0]{\pgfopts@list@add \pgfopts@options@clist \pgfopts@local@options }
+\newcommand {\pgfopts@get@key@name }[1]{\expandafter \pgfopts@get@key@name@aux ##1=\@nil }
+\newcommand {\pgfopts@list@add@temp }[0]{}
+\newcommand {\pgfopts@list@add }[2]{\pgfopts@list@add@a@toks \expandafter {##2}\def \pgfopts@list@add@temp {##2}\pgfopts@list@add@b@toks \expandafter {##1}\ifx \pgfopts@options@clist \@empty \edef ##1{\the \pgfopts@list@add@a@toks }\else \ifx \pgfopts@list@add@temp \@empty \else \edef ##1{\the \pgfopts@list@add@b@toks ,\the \pgfopts@list@add@a@toks }\fi \fi }
+\newcommand {\ProcessPgfOptions }[0]{\pgfopts@process@classtrue \pgfopts@star@check }
+\newcommand {\ProcessPgfPackageOptions }[0]{\pgfopts@process@classfalse \pgfopts@star@check }
+\newcommand {\pgfopts@star@check }[0]{\@ifstar {\begingroup \edef \@tempa {\endgroup \noexpand \pgfopts@process@options {/\@currname }}\@tempa }{\pgfopts@process@options }}
+\newcommand {\newrobustcmd }[0]{}
+\newcommand {\renewrobustcmd }[0]{\@star@or@long \etb@renew@command }
+\newcommand {\providerobustcmd }[0]{\@star@or@long \etb@provide@command }
+\newcommand {\csshow }[1]{\begingroup \expandafter \endgroup \expandafter \show \csname ##1\endcsname }
+\newcommand {\csmeaning }[1]{\ifcsname ##1\endcsname \expandafter \meaning \csname ##1\endcsname \else \detokenize {undefined}\fi }
+\newcommand {\ifdef }[1]{\ifdefined ##1\expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\ifundef }[1]{\ifdefined ##1\ifx ##1\relax \expandafter \expandafter \expandafter \@firstoftwo \else \expandafter \expandafter \expandafter \@secondoftwo \fi \else \expandafter \@firstoftwo \fi }
+\newcommand {\ifcsdef }[1]{\ifcsname ##1\endcsname \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\ifcsundef }[1]{\ifcsname ##1\endcsname \expandafter \ifx \csname ##1\endcsname \relax \expandafter \expandafter \expandafter \@firstoftwo \else \expandafter \expandafter \expandafter \@secondoftwo \fi \else \expandafter \@firstoftwo \fi }
+\newcommand {\ifdefmacro }[0]{}
+\newcommand {\ifcsmacro }[1]{\ifcsdef {##1} {\expandafter \ifdefmacro \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifdefprefix }[1]{\ifdefmacro {##1} {\etb@ifdefprefix {##1}} {\@secondoftwo }}
+\newcommand {\ifcsprefix }[1]{\ifcsdef {##1} {\expandafter \ifdefprefix \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifdefparam }[0]{}
+\newcommand {\ifcsparam }[1]{\ifcsdef {##1} {\expandafter \ifdefparam \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifdefprotected }[0]{}
+\newcommand {\ifcsprotected }[1]{\ifcsdef {##1} {\expandafter \ifdefprotected \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifdefltxprotect }[1]{\begingroup \edef \etb@resrvda {\string ##1}\def \etb@resrvdb {##1}\edef \etb@resrvdb {\expandafter \strip@prefix \meaning \etb@resrvdb }\edef \etb@resrvda {\ifx \etb@resrvda \etb@resrvdb \noexpand \x@protect \noexpand ##1\fi \noexpand \protect \expandafter \noexpand \csname \expandafter \@gobble \string ##1 \endcsname }\expandafter \endgroup \ifx ##1\etb@resrvda \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\ifcsltxprotect }[1]{\ifcsdef {##1} {\expandafter \ifdefltxprotect \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifdefempty }[1]{\ifundef {##1} {\@secondoftwo } {\ifdefmacro {##1} {\ifdefparam {##1} {\@secondoftwo } {\etb@ifdefempty {##1}}} {\@secondoftwo }}}
+\newcommand {\ifcsempty }[1]{\ifcsundef {##1} {\@secondoftwo } {\expandafter \ifdefparam \csname ##1\endcsname {\@secondoftwo } {\expandafter \etb@ifdefempty \csname ##1\endcsname }}}
+\newcommand {\ifdefvoid }[1]{\ifundef {##1} {\@firstoftwo } {\ifdefmacro {##1} {\ifdefparam {##1} {\@secondoftwo } {\etb@ifdefempty {##1}}} {\@secondoftwo }}}
+\newcommand {\ifcsvoid }[1]{\ifcsundef {##1} {\@firstoftwo } {\expandafter \ifdefparam \csname ##1\endcsname {\@secondoftwo } {\expandafter \etb@ifdefempty \csname ##1\endcsname }}}
+\newcommand {\ifdefequal }[2]{\ifundef {##1} {\@secondoftwo } {\ifundef {##2} {\@secondoftwo } {\ifx ##1##2\expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }}}
+\newcommand {\ifcsequal }[2]{\ifcsundef {##1} {\@secondoftwo } {\ifcsundef {##2} {\@secondoftwo } {\expandafter \ifx \csname ##1\expandafter \endcsname \csname ##2\endcsname \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }}}
+\newcommand {\ifdefstrequal }[2]{\ifdefmacro {##1} {\ifdefmacro {##2} {\begingroup \edef \etb@tempa {\expandafter \strip@prefix \meaning ##1}\edef \etb@tempb {\expandafter \strip@prefix \meaning ##2}\ifx \etb@tempa \etb@tempb \aftergroup \@firstoftwo \else \aftergroup \@secondoftwo \fi \endgroup } {\@secondoftwo }} {\@secondoftwo }}
+\newcommand {\ifcsstrequal }[2]{\ifcsundef {##1} {\@secondoftwo } {\ifcsundef {##2} {\@secondoftwo } {\expandafter \ifdefstrequal \csname ##1\expandafter \endcsname \csname ##2\endcsname }}}
+\newcommand {\ifdefstring }[2]{\ifdefmacro {##1} {\begingroup \edef \etb@tempa {\expandafter \strip@prefix \meaning ##1}\edef \etb@tempb {\detokenize {##2}}\ifx \etb@tempa \etb@tempb \aftergroup \@firstoftwo \else \aftergroup \@secondoftwo \fi \endgroup } {\@secondoftwo }}
+\newcommand {\ifcsstring }[2]{\ifcsundef {##1} {\@secondoftwo } {\expandafter \ifdefstring \csname ##1\endcsname {##2}}}
+\newcommand {\ifdefcounter }[1]{\etb@ifcounter ##1&}
+\newcommand {\ifcscounter }[1]{\ifcsdef {##1} {\expandafter \ifdefcounter \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifltxcounter }[1]{\ifcsdef {c@##1} {\expandafter \ifdefcounter \csname c@##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifdeflength }[1]{\etb@iflength ##1&}
+\newcommand {\ifcslength }[1]{\ifcsdef {##1} {\expandafter \ifdeflength \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifdefdimen }[1]{\etb@ifdimen ##1&}
+\newcommand {\ifcsdimen }[1]{\ifcsdef {##1} {\expandafter \ifdefdimen \csname ##1\endcsname } {\@secondoftwo }}
+\newcommand {\ifstrequal }[2]{\begingroup \edef \etb@tempa {\detokenize {##1}}\edef \etb@tempb {\detokenize {##2}}\ifx \etb@tempa \etb@tempb \aftergroup \@firstoftwo \else \aftergroup \@secondoftwo \fi \endgroup }
+\newcommand {\ifstrempty }[1]{\expandafter \ifx \expandafter &\detokenize {##1}&\expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\ifblank }[1]{\expandafter \ifx \expandafter \relax \detokenize \expandafter {\@gobble ##1?}\relax \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\notblank }[1]{\expandafter \ifx \expandafter \relax \detokenize \expandafter {\@gobble ##1?}\relax \expandafter \@secondoftwo \else \expandafter \@firstoftwo \fi }
+\newcommand {\ifnumcomp }[3]{\ifnum \numexpr ##1\relax ##2\numexpr ##3\relax \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\ifnumequal }[1]{\ifnumcomp {##1}=}
+\newcommand {\ifnumgreater }[1]{\ifnumcomp {##1}>}
+\newcommand {\ifnumless }[1]{\ifnumcomp {##1}<}
+\newcommand {\ifnumodd }[1]{\ifodd \numexpr ##1\relax \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\ifdimcomp }[3]{\ifdim \dimexpr ##1\relax ##2\dimexpr ##3\relax \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }
+\newcommand {\ifdimequal }[1]{\ifdimcomp {##1}=}
+\newcommand {\ifdimgreater }[1]{\ifdimcomp {##1}>}
+\newcommand {\ifdimless }[1]{\ifdimcomp {##1}<}
+\newcommand {\ifboolexpe }[1]{\etb@be@beg \etb@be@bgroup ##1(&\etb@be@end }
+\newcommand {\ifboolexpr }[1]{\etb@boolexpr {##1}}
+\newcommand {\whileboolexpr }[2]{\etb@boolexpr {##1}{##2\whileboolexpr {##1}{##2}}{}}
+\newcommand {\unlessboolexpr }[2]{\etb@boolexpr {##1}{}{##2\unlessboolexpr {##1}{##2}}}
+\newcommand {\expandonce }[1]{\unexpanded \expandafter {##1}}
+\newcommand {\csexpandonce }[1]{\expandafter \expandonce \csname ##1\endcsname }
+\newcommand {\protecting }[0]{}
+\newcommand {\csdef }[1]{\expandafter \def \csname ##1\endcsname }
+\newcommand {\csedef }[1]{\expandafter \edef \csname ##1\endcsname }
+\newcommand {\csgdef }[1]{\expandafter \gdef \csname ##1\endcsname }
+\newcommand {\csxdef }[1]{\expandafter \xdef \csname ##1\endcsname }
+\newcommand {\protected@csedef }[0]{\etb@protected \csedef }
+\newcommand {\protected@csxdef }[0]{\etb@protected \csxdef }
+\newcommand {\cslet }[2]{\expandafter \let \csname ##1\endcsname ##2}
+\newcommand {\letcs }[2]{\ifcsdef {##2} {\expandafter \let \expandafter ##1\csname ##2\endcsname } {\undef ##1}}
+\newcommand {\csletcs }[2]{\ifcsdef {##2} {\expandafter \let \csname ##1\expandafter \endcsname \csname ##2\endcsname } {\csundef {##1}}}
+\newcommand {\csuse }[1]{\ifcsname ##1\endcsname \csname ##1\expandafter \endcsname \fi }
+\newcommand {\undef }[1]{\let ##1\etb@undefined }
+\newcommand {\gundef }[1]{\global \let ##1\etb@undefined }
+\newcommand {\csundef }[1]{\cslet {##1}\etb@undefined }
+\newcommand {\csgundef }[1]{\global \cslet {##1}\etb@undefined }
+\newcommand {\appto }[2]{\ifundef {##1} {\edef ##1{\unexpanded {##2}}} {\edef ##1{\expandonce ##1\unexpanded {##2}}}}
+\newcommand {\eappto }[2]{\ifundef {##1} {\edef ##1{##2}} {\edef ##1{\expandonce ##1##2}}}
+\newcommand {\gappto }[2]{\ifundef {##1} {\xdef ##1{\unexpanded {##2}}} {\xdef ##1{\expandonce ##1\unexpanded {##2}}}}
+\newcommand {\xappto }[2]{\ifundef {##1} {\xdef ##1{##2}} {\xdef ##1{\expandonce ##1##2}}}
+\newcommand {\protected@eappto }[0]{\etb@protected \eappto }
+\newcommand {\protected@xappto }[0]{\etb@protected \xappto }
+\newcommand {\preto }[2]{\ifundef {##1} {\edef ##1{\unexpanded {##2}}} {\edef ##1{\unexpanded {##2}\expandonce ##1}}}
+\newcommand {\epreto }[2]{\ifundef {##1} {\edef ##1{##2}} {\edef ##1{##2\expandonce ##1}}}
+\newcommand {\gpreto }[2]{\ifundef {##1} {\xdef ##1{\unexpanded {##2}}} {\xdef ##1{\unexpanded {##2}\expandonce ##1}}}
+\newcommand {\xpreto }[2]{\ifundef {##1} {\xdef ##1{##2}} {\xdef ##1{##2\expandonce ##1}}}
+\newcommand {\protected@epreto }[0]{\etb@protected \epreto }
+\newcommand {\protected@xpreto }[0]{\etb@protected \xpreto }
+\newcommand {\csappto }[1]{\expandafter \appto \csname ##1\endcsname }
+\newcommand {\cseappto }[1]{\expandafter \eappto \csname ##1\endcsname }
+\newcommand {\csgappto }[1]{\expandafter \gappto \csname ##1\endcsname }
+\newcommand {\csxappto }[1]{\expandafter \xappto \csname ##1\endcsname }
+\newcommand {\protected@cseappto }[0]{\etb@protected \cseappto }
+\newcommand {\protected@csxappto }[0]{\etb@protected \csxappto }
+\newcommand {\cspreto }[1]{\expandafter \preto \csname ##1\endcsname }
+\newcommand {\csepreto }[1]{\expandafter \epreto \csname ##1\endcsname }
+\newcommand {\csgpreto }[1]{\expandafter \gpreto \csname ##1\endcsname }
+\newcommand {\csxpreto }[1]{\expandafter \xpreto \csname ##1\endcsname }
+\newcommand {\protected@csepreto }[0]{\etb@protected \csepreto }
+\newcommand {\protected@csxpreto }[0]{\etb@protected \csxpreto }
+\newcommand {\numdef }[2]{\ifundef ##1{\let ##1\z@ }{}\edef ##1{\the \numexpr ##2}}
+\newcommand {\numgdef }[2]{\ifundef ##1{\let ##1\z@ }{}\xdef ##1{\the \numexpr ##2}}
+\newcommand {\csnumdef }[1]{\expandafter \numdef \csname ##1\endcsname }
+\newcommand {\csnumgdef }[1]{\expandafter \numgdef \csname ##1\endcsname }
+\newcommand {\dimdef }[2]{\ifundef ##1{\let ##1\z@ }{}\edef ##1{\the \dimexpr ##2}}
+\newcommand {\dimgdef }[2]{\ifundef ##1{\let ##1\z@ }{}\xdef ##1{\the \dimexpr ##2}}
+\newcommand {\csdimdef }[1]{\expandafter \dimdef \csname ##1\endcsname }
+\newcommand {\csdimgdef }[1]{\expandafter \dimgdef \csname ##1\endcsname }
+\newcommand {\gluedef }[2]{\ifundef ##1{\let ##1\z@skip }{}\edef ##1{\the \glueexpr ##2}}
+\newcommand {\gluegdef }[2]{\ifundef ##1{\let ##1\z@skip }{}\xdef ##1{\the \glueexpr ##2}}
+\newcommand {\csgluedef }[1]{\expandafter \gluedef \csname ##1\endcsname }
+\newcommand {\csgluegdef }[1]{\expandafter \gluegdef \csname ##1\endcsname }
+\newcommand {\mudef }[2]{\ifundef ##1{\def ##1{0mu}}{}\edef ##1{\the \muexpr ##2}}
+\newcommand {\mugdef }[2]{\ifundef ##1{\let ##1\z@ }{}\xdef ##1{\the \muexpr ##2}}
+\newcommand {\csmudef }[1]{\expandafter \mudef \csname ##1\endcsname }
+\newcommand {\csmugdef }[1]{\expandafter \mugdef \csname ##1\endcsname }
+\newcommand {\defcounter }[2]{\ifcsundef {c@##1} {\etb@noglobal \@nocounterr {##1}}{\csname c@##1\endcsname \numexpr ##2\relax }}
+\newcommand {\deflength }[2]{\ifundef {##1} {\etb@noglobal \etb@err@nolen {##1}}{##1\glueexpr ##2\relax }}
+\newcommand {\newbool }[1]{\expandafter \@ifdefinable \csname if##1\endcsname {\expandafter \newif \csname if##1\endcsname }}
+\newcommand {\providebool }[1]{\ifcsundef {if##1} {\expandafter \newif \csname if##1\endcsname } {\begingroup \edef \@tempa {\expandafter \meaning \csname if##1\endcsname }\ifx \@tempa \etb@isfalse \else \ifx \@tempa \etb@istrue \else \etb@error {\@backslashchar if##1 not a boolean}\@eha \fi \fi \endgroup }}
+\newcommand {\setbool }[2]{\ifcsundef {if##1} {\etb@noglobal \etb@err@nobool {##1}} {\ifcsundef {##1##2} {\etb@noglobal \etb@err@boolval {##2}} {\csname ##1##2\endcsname }}}
+\newcommand {\booltrue }[1]{\ifcsundef {if##1} {\etb@noglobal \etb@err@nobool {##1}} {\csname ##1true\endcsname }}
+\newcommand {\boolfalse }[1]{\ifcsundef {if##1} {\etb@noglobal \etb@err@nobool {##1}} {\csname ##1false\endcsname }}
+\newcommand {\ifbool }[1]{\ifcsundef {if##1} {\etb@err@nobool {##1}\@gobbletwo } {\csname if##1\endcsname \expandafter \@firstoftwo \else \expandafter \@secondoftwo \fi }}
+\newcommand {\notbool }[1]{\ifcsundef {if##1} {\etb@err@nobool {##1}\@gobbletwo } {\csname if##1\endcsname \expandafter \@secondoftwo \else \expandafter \@firstoftwo \fi }}
+\newcommand {\newtoggle }[1]{\ifcsdef {etb@tgl@##1} {\etb@error {Toggle '##1' already defined}\@eha } {\cslet {etb@tgl@##1}\@secondoftwo }}
+\newcommand {\providetoggle }[1]{\ifcsdef {etb@tgl@##1} {} {\cslet {etb@tgl@##1}\@secondoftwo }}
+\newcommand {\settoggle }[2]{\ifcsdef {etb@tgl@##1} {\ifcsdef {etb@toggle##2} {\csletcs {etb@tgl@##1}{etb@toggle##2}} {\etb@noglobal \etb@err@boolval {##2}}} {\etb@noglobal \etb@err@notoggle {##1}}}
+\newcommand {\toggletrue }[1]{\ifcsdef {etb@tgl@##1} {\cslet {etb@tgl@##1}\etb@toggletrue } {\etb@noglobal \etb@err@notoggle {##1}}}
+\newcommand {\togglefalse }[1]{\ifcsdef {etb@tgl@##1} {\cslet {etb@tgl@##1}\etb@togglefalse } {\etb@noglobal \etb@err@notoggle {##1}}}
+\newcommand {\iftoggle }[1]{\ifcsdef {etb@tgl@##1} {\csname etb@tgl@##1\endcsname } {\etb@err@notoggle {##1}\@gobbletwo }}
+\newcommand {\nottoggle }[1]{\ifcsdef {etb@tgl@##1} {\csname etb@tgl@##1\endcsname \@secondoftwo \@firstoftwo } {\etb@err@notoggle {##1}\@gobbletwo }}
+\newcommand {\robustify }[1]{\ifundef {##1} {\etb@error {\string ##1 undefined}\@eha } {\ifdefmacro {##1} {\ifdefltxprotect {##1} {\letcs \etb@resrvda {\expandafter \@gobble \string ##1 }\@tempswatrue } {\let \etb@resrvda ##1\@tempswafalse }\ifdefparam \etb@resrvda {\etb@ifscanable \etb@resrvda {\etb@robustify \etb@resrvda \let ##1\etb@resrvda } {\etb@error {Failed to robustify \string ##1} {The command is special and cannot be handled by \string \robustify .}\@tempswafalse }} {\protected \edef ##1{\expandonce \etb@resrvda }}\if@tempswa \csundef {\expandafter \@gobble \string ##1 }\fi \undef \etb@resrvda } {\etb@error {\string ##1 not a macro}\@eha }}}
+\newcommand {\ifpatchable }[0]{\etb@dbg@trce \ifpatchable \begingroup \@makeother \#\@ifstar \etb@ifpatchable@i \etb@ifpatchable }
+\newcommand {\patchcmd }[0]{\etb@dbg@trce \patchcmd \begingroup \@makeother \#\etb@patchcmd }
+\newcommand {\apptocmd }[0]{\etb@dbg@trce \apptocmd \begingroup \@makeother \#\etb@hooktocmd \etb@append }
+\newcommand {\pretocmd }[0]{\etb@dbg@trce \pretocmd \begingroup \@makeother \#\etb@hooktocmd \etb@prepend }
+\newcommand {\tracingpatches }[0]{\etb@info {Enabling tracing}\input {etoolbox.def}\global \let \tracingpatches \relax }
+\newcommand {\rmntonum }[1]{\ifblank {##1} {} {\expandafter \etb@rti@end \number \numexpr \expandafter \etb@rti@prs \detokenize {##1}&\relax }}
+\newcommand {\ifrmnum }[1]{\ifblank {##1} {\@secondoftwo } {\expandafter \etb@ifr@prs \detokenize {##1}\relax }}
+\newcommand {\DeclareListParser }[0]{\@ifstar {\etb@defparser \etb@defparser@arg } {\etb@defparser \etb@defparser@do }}
+\newcommand {\listbreak }[0]{}
+\newcommand {\listadd }[2]{\ifblank {##2}{}{\appto ##1{##2|}}}
+\newcommand {\listeadd }[2]{\begingroup \edef \etb@tempa {\endgroup \noexpand \ifblank {##2}}\etb@tempa {}{\eappto ##1{##2|}}}
+\newcommand {\listgadd }[2]{\ifblank {##2}{}{\gappto ##1{##2|}}}
+\newcommand {\listxadd }[2]{\begingroup \edef \etb@tempa {\endgroup \noexpand \ifblank {##2}}\etb@tempa {}{\xappto ##1{##2|}}}
+\newcommand {\listcsadd }[1]{\expandafter \listadd \csname ##1\endcsname }
+\newcommand {\listcseadd }[1]{\expandafter \listeadd \csname ##1\endcsname }
+\newcommand {\listcsgadd }[1]{\expandafter \listgadd \csname ##1\endcsname }
+\newcommand {\listcsxadd }[1]{\expandafter \listxadd \csname ##1\endcsname }
+\newcommand {\listremove }[2]{\etb@listremove {##1}{##2}\def }
+\newcommand {\listgremove }[2]{\etb@listremove {##1}{##2}\gdef }
+\newcommand {\listcsremove }[1]{\expandafter \listremove \csname ##1\endcsname }
+\newcommand {\listcsgremove }[1]{\expandafter \listgremove \csname ##1\endcsname }
+\newcommand {\ifinlist }[2]{\begingroup \def \etb@tempa ####1|##1|####2&{\endgroup \ifblank {####2}\@secondoftwo \@firstoftwo }\expandafter \etb@tempa \expandafter |##2|##1|&}
+\newcommand {\xifinlist }[1]{\begingroup \edef \etb@tempa {\endgroup \ifinlist {##1}}\etb@tempa }
+\newcommand {\ifinlistcs }[2]{\expandafter \etb@ifinlistcs@i \csname ##2\endcsname {##1}}
+\newcommand {\xifinlistcs }[1]{\begingroup \edef \etb@tempa {\endgroup \ifinlistcs {##1}}\etb@tempa }
+\newcommand {\forlistloop }[2]{\expandafter \etb@forlistloop \expandafter {##2}{##1}}
+\newcommand {\forlistcsloop }[2]{\expandafter \expandafter \expandafter \etb@forlistloop \expandafter \expandafter \expandafter {\csname ##2\endcsname }{##1}}
+\newcommand {\dolistloop }[0]{\forlistloop \do }
+\newcommand {\dolistcsloop }[0]{\forlistcsloop \do }
+\newcommand {\AtEndPreamble }[0]{\gappto \@endpreamblehook }
+\newcommand {\@endpreamblehook }[0]{}
+\newcommand {\AfterPreamble }[0]{\AtBeginDocument }
+\newcommand {\AfterEndPreamble }[0]{\gappto \@afterendpreamblehook }
+\newcommand {\@afterendpreamblehook }[0]{}
+\newcommand {\AfterEndDocument }[0]{\gappto \@afterenddocumenthook }
+\newcommand {\@afterenddocumenthook }[0]{}
+\newcommand {\AtBeginEnvironment }[1]{\csgappto {@begin@##1@hook}}
+\newcommand {\AtEndEnvironment }[1]{\csgappto {@end@##1@hook}}
+\newcommand {\BeforeBeginEnvironment }[1]{\csgappto {@beforebegin@##1@hook}}
+\newcommand {\AfterEndEnvironment }[1]{\csgappto {@afterend@##1@hook}}
+\newcommand {\Inline  }[0]{\begingroup \def \Expand {\Expand }\def \Super {\Super }\def \UnsafeExpand {\UnsafeExpand }\def \MultiExpand {\MultiExpand }\def \Recurse {\Recurse }\def \NoExpand {\NoExpand }\def \Q@END {\Q@END }\ID@toks {}\@testtrue \ID@starfalse \ID@starstarfalse \ID@bangfalse \futurelet \@foo \ID@scandef }
+\newcommand {\ID@scandef }[0]{\let \next \ID@saveprefix \if@test \ifx \@foo *\ifID@star \ifID@bang \let \next \ID@sd@lastcheck \else \let \next \ID@sd@checkagain \fi \ID@starstartrue \else \let \next \ID@sd@checkagain \ID@startrue \fi \fi \ifx \@foo !\ifID@bang \else \ID@bangtrue \xa \let \xa \next \ifID@starstar \ID@sd@lastcheck \else \ID@sd@checkagain \fi \fi \fi \fi \ifx \@foo \def \def \next {\ID@start \def }\fi \ifx \@foo \gdef \def \next {\ID@start \gdef }\fi \ifcat \noexpand \@foo \space \def \next {\ID@toks \xa \xa \xa {\xa \the \xa \ID@toks \space }\xa \futurelet \xa \@foo \xa \ID@scandef \ID@unspace }\fi \@testfalse \ifx \@foo \edef \@testtrue \fi \ifx \@foo \xdef \@testtrue \fi \ifx \@foo \newcommand \@testtrue \fi \ifx \@foo \renewcommand \@testtrue \fi \ifx \@foo \DeclareRobustCommand \@testtrue \fi \if@test \PackageError {inlinedef}{Only \protect \def \space and \protect \gdef \space are allowed after \protect \Inline ,\MessageBreak but some other type of definition was found}\@eha \let \next \ID@abort \fi \@testfalse \ifx \@foo \bgroup \@testtrue \fi \ifx \@foo \let \@testtrue \fi \if@test \PackageError {inlinedef}{No \protect \def \space or \protect \gdef \space found after \protect \Inline }\@ehd \def \next {\ID@abort {}}\fi \next }
+\newcommand {\ID@saveprefix }[1]{\ID@toks \xa {\the \ID@toks ##1}\futurelet \@foo \ID@scandef }
+\newcommand {\ID@abort }[0]{}
+\newcommand {\ID@start }[0]{}
+\newcommand {\ID@fixparams }[0]{\begingroup \ID@toks {}\futurelet \@foo \ID@fp@start }
+\newcommand {\ID@fp@start }[0]{\let \next \ID@fp@normal \ifx \@foo \Q@END \let \next \ID@fp@end \fi \ifcat \noexpand \@foo ####\let \next \ID@fp@param \fi \ifcat \noexpand \@foo \space \def \next {\ID@toks \xa \xa \xa {\xa \the \xa \ID@toks \space }\xa \futurelet \xa \@foo \xa \ID@fp@start \ID@unspace }\fi \next }
+\newcommand {\ID@fp@normal }[1]{\ID@toks \xa {\the \ID@toks ##1}\futurelet \@foo \ID@fp@start }
+\newcommand {\ID@fp@param }[2]{\def \@arg {##################2}\ifcat \noexpand \@foo ####\def \@arg {{##################2}}\fi \ifx \@foo \Q@END \def \@arg {{##################2}}\fi \ID@toks \xa \xa \xa {\xa \the \xa \ID@toks \@arg }\futurelet \@foo \ID@fp@start }
+\newcommand {\ID@fp@end }[1]{\xa \endgroup \xa \def \xa \ID@fixedparams \xa {\the \ID@toks }}
+\newcommand {\ID@def }[3]{\global \ID@abortedfalse \let \@reservedc ##1\def \@macroname {##1}\ID@fixparams ##2\Q@END \def \@reservedb ##2{}\edef \@reservedb {\xa \ID@getprefix \meaning \@reservedb \Q@END }\ifx ##1\undefined \let \@reserveda \undefined \else \edef \@reserveda {\xa \ID@getprefix \meaning ##1\Q@END }\fi \ifID@bang \else \ID@checkusage \fi \ifID@aborted \else \ID@toks {}\ID@scan ##3\Q@END {}\fi \ifID@aborted \def \command {}\else \let ##1\relax \toks 0\ID@toks \toks 1\xa {\ID@prefix }\toks 2{##2}\edef \command {\the \toks 1##1\the \toks 2{\the \toks 0}}\fi \global \ID@toks \xa {\ID@fixedparams }\expandafter \endgroup \command }
+\newcommand {\ID@scan }[0]{\futurelet \@foo \ID@switch }
+\newcommand {\ID@switch }[0]{\let \next \ID@normal \ifx \@foo \Q@END \let \next \@gobble \fi \ifx \@foo \@reservedc \ifID@star \ifID@starstar \let \next \ID@expandmacro \else \let \next \ID@expandsuper \fi \fi \fi \ifx \@foo \Super \let \next \ID@expandsuper \fi \ifx \@foo \Expand \let \next \ID@expandnext \fi \ifx \@foo \UnsafeExpand \let \next \ID@expandunsafe \fi \ifx \@foo \MultiExpand \let \next \ID@expandmulti \fi \ifx \@foo \NoExpand \let \next \ID@noexpandnext \fi \ifx \@foo \Recurse \def \next {\xa \xa \xa \ID@scan \xa \xa \xa \NoExpand \xa \@macroname \@gobble }\fi \ifcat \noexpand \@foo \space \let \next \ID@space \fi \ifcat \noexpand \@foo \bgroup \let \next \ID@trygroup \fi \next }
+\newcommand {\ID@space }[0]{\ID@toks \xa \xa \xa {\xa \the \xa \ID@toks \space }\xa \ID@scan \ID@unspace }
+\newcommand {\ID@unspace }[0]{}
+\newcommand {\ID@trygroup }[0]{}
+\newcommand {\ID@recurse }[1]{\begingroup \ID@toks {}\ID@scan ##1\Q@END {}\xa \endgroup \xa \ID@toks \xa \xa \xa {\xa \the \xa \ID@toks \xa {\the \ID@toks }}\ID@scan }
+\newcommand {\ID@normal }[1]{\ID@toks \xa {\the \ID@toks ##1}\ID@scan }
+\newcommand {\ID@noexpandnext }[2]{\ID@toks \xa {\the \ID@toks ##2}\ID@scan }
+\newcommand {\ID@checkusage }[0]{\ifx \@reserveda \@reservedb \else \ifx \@reserveda \undefined \else \global \ID@abortedtrue \ifx \@foo \Super \PackageError {inlinedef}{Cannot use \protect \Super \space in \expandafter \protect \@macroname \space because\MessageBreak parameter lists don't match:\MessageBreak `\@reservedb ' (new) != `\@reserveda ' (old)}\@eha \else \ifID@bang \PackageError {inlinedef}{Cannot use \protect \Inline * auto-expansion in \expandafter \protect \@macroname \MessageBreak because parameter lists don't match:\MessageBreak `\@reservedb ' (new) != `\@reserveda ' (old)}\@eha \else \PackageError {inlinedef}{Parameter lists for \expandafter \protect \@macroname \space don't match:\MessageBreak `\@reservedb ' (new) != `\@reserveda ' (old)\MessageBreak Use !-form of \protect \Inline \space to ignore this}\@eha \fi \fi \fi \fi }
+\newcommand {\ID@checkredef }[0]{\ifx \@reserveda \undefined \PackageError {inlinedef}{Cannot use \ifx \@foo \Super \protect \Super \space \else \protect \Inline ** \fi in \expandafter \protect \@macroname \space because \MessageBreak it hasn't been defined yet}\@eha \global \ID@abortedtrue \fi }
+\newcommand {\ID@expandsuper }[1]{\ID@checkusage \ID@checkredef \ifID@aborted \else \ID@toks \xa \xa \xa \xa \xa \xa \xa {\xa \xa \xa \the \xa \xa \xa \ID@toks \xa \@reservedc \ID@fixedparams }\fi \ID@scan }
+\newcommand {\ID@expandnext }[2]{\ID@toks \xa \xa \xa {\xa \the \xa \ID@toks ##2}\ID@scan }
+\newcommand {\ID@expandmulti }[3]{\begingroup \ID@count ##2\relax \ID@toks {##3}\@testtrue \ifnum \ID@count <\@ne \@testfalse \fi \@whilesw \if@test \fi {\ID@toks \xa \xa \xa {\the \ID@toks }\advance \ID@count \m@ne \ifnum \ID@count <\@ne \@testfalse \fi }\xa \endgroup \xa \ID@toks \xa \xa \xa {\xa \the \xa \ID@toks \the \ID@toks }\ID@scan }
+\newcommand {\ID@expandunsafe }[1]{\expandafter \ID@scan }
+\newcommand {\ID@expandmacro }[1]{\expandafter \ID@scan \@reservedc }
+\newcommand {\ID@getprefix }[0]{}
+\newcommand {\ExpandIfT }[2]{\MultiExpand {3}{\@ExpandIfTF {##1}{##2}{}}}
+\newcommand {\ExpandIfF }[2]{\MultiExpand {3}{\@ExpandIfTF {##1}{}{##2}}}
+\newcommand {\ExpandIfTF }[3]{\MultiExpand {3}{\@ExpandIfTF {##1}{##2}{##3}}}
+\newcommand {\InlineNoDef }[1]{\begingroup \def \Expand {\Expand }\def \Super {\Super }\def \UnsafeExpand {\UnsafeExpand }\def \MultiExpand {\MultiExpand }\def \Recurse {\Recurse }\def \NoExpand {\NoExpand }\def \Q@END {\Q@END }\ID@toks {}\@testtrue \ID@starfalse \ID@starstarfalse \ID@bangfalse \ID@scan ##1\Q@END {}\expandafter \endgroup \the \ID@toks }
+\newcommand {\forest@env }[1]{\let \forest@external@next \forest@begin \forest@was@tikzexternalwasenablefalse \ifdefined \tikzexternal@tikz@replacement \ifx \tikz \tikzexternal@tikz@replacement \forest@was@tikzexternalwasenabletrue \tikzexternaldisable \fi \fi \forest@externalize@tree@false \ifforest@external@ \ifforest@was@tikzexternalwasenable \forest@env@ \fi \fi \forest@standardnode@calibrate \forest@external@next {##1}}
+\newcommand {\MHPrecedingSpacesOff }[0]{\MH_let:NwN \@xargdef \MH_nospace_xargdef:nwwn }
+\newcommand {\MHPrecedingSpacesOn }[0]{\MH_let:NwN \@xargdef \MH_kernel_xargdef:nwwn }
+\newcommand {\mathtoolsset }[1]{\setkeys {\MT_options_name: }{##1}}
+\newcommand {\newtagform }[1]{\@ifundefined {MT_tagform_##1:n}{\@ifnextchar [{\MT_define_tagform:nwnn ##1}{\MT_define_tagform:nwnn ##1[]}}{\PackageError {mathtools}{The tag form `##1' is already defined\MessageBreak You probably want to look up \@backslashchar renewtagform instead}{I will just ignore your wish for now.}}}
+\newcommand {\renewtagform }[1]{\@ifundefined {MT_tagform_##1:n}{\PackageError {mathtools}{The tag form `##1' is not defined\MessageBreak You probably want to look up \@backslashchar newtagform instead}{I will just ignore your wish for now.}}{\@ifnextchar [{\MT_define_tagform:nwnn ##1}{\MT_define_tagform:nwnn ##1[]}}}
+\newcommand {\usetagform }[1]{\@ifundefined {MT_tagform_##1:n}{\PackageError {mathtools}{You have chosen the tag form `##1'\MessageBreak but it appears to be undefined}{I will use the default tag form instead.}\@namedef {tagform@}{\@nameuse {MT_tagform_default:n}}}{\@namedef {tagform@}{\@nameuse {MT_tagform_##1:n}}}\MH_if_boolean:nT {show_only_refs}{\MH_let:NwN \MT_prev_tagform:n \tagform@ \def \tagform@ ####1{\MT_extended_tagform:n {####1}}}}
+\newcommand {\refeq }[1]{\textup {\ref {##1}}}
+\newcommand {\MT@newlabel }[1]{\global \@namedef {MT_r_##1}{}}
+\newcommand {\MT_showonlyrefs_true: }[0]{\MH_if_boolean:nF {show_only_refs}{\MH_set_boolean_T:n {show_only_refs}\MH_let:NwN \MT_incr_eqnum: \incr@eqnum \MH_let:NwN \incr@eqnum \@empty \MH_let:NwN \MT_array_parbox_restore: \@arrayparboxrestore \@xp \def \@xp \@arrayparboxrestore \@xp {\@arrayparboxrestore \MH_let:NwN \incr@eqnum \@empty }\MH_let:NwN \MT_prev_tagform:n \tagform@ \MH_let:NwN \MT_eqref:n \eqref \MH_let:NwN \MT_refeq:n \refeq \MH_let:NwN \MT_maketag:n \maketag@@@ \MH_let:NwN \maketag@@@ \MT_extended_maketag:n \def \tagform@ ####1{\MT_extended_tagform:n {####1}}\MH_let:NwN \eqref \MT_extended_eqref:n \MH_let:NwN \refeq \MT_extended_refeq:n }}
+\newcommand {\nonumber }[0]{\if@eqnsw \MH_if_meaning:NN \incr@eqnum \@empty \MH_if_boolean:nF {show_only_refs}{\addtocounter {equation}\m@ne }\MH_fi: \MH_fi: \MH_let:NwN \print@eqnum \@empty \MH_let:NwN \incr@eqnum \@empty \global \@eqnswfalse }
+\newcommand {\noeqref }[1]{\@bsphack \@for \@tempa :=##1\do {\@safe@activestrue \edef \@tempa {\expandafter \@firstofone \@tempa }\@ifundefined {r@\@tempa }{\protect \G@refundefinedtrue \@latex@warning {Reference `\@tempa ' on page \thepage \space undefined (\string \noeqref )}}{}\if@filesw \protected@write \@auxout {}{\string \MT@newlabel {\@tempa }}\fi \@safe@activesfalse }\@esphack }
+\newcommand {\reserved@a }[0]{}
+\newcommand {\reserved@a }[0]{}
+\newcommand {\underbracket }[0]{\@ifnextchar [{\MT_underbracket_I:w }{\MT_underbracket_I:w [\l_MT_bracketheight_fdim ]}}
+\newcommand {\overbracket }[0]{\@ifnextchar [{\MT_overbracket_I:w }{\MT_overbracket_I:w [\l_MT_bracketheight_fdim ]}}
+\newcommand {\lparen }[0]{(}
+\newcommand {\rparen }[0]{)}
+\newcommand {\ordinarycolon }[0]{:}
+\newcommand {\MT_test_for_tcb_other:nnnnn }[1]{\MH_if:w t##1\relax \expandafter \MH_use_choice_i:nnnn \MH_else: \MH_if:w c##1\relax \expandafter \expandafter \expandafter \MH_use_choice_ii:nnnn \MH_else: \MH_if:w b##1\relax \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \MH_use_choice_iii:nnnn \MH_else: \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \MH_use_choice_iv:nnnn \MH_fi: \MH_fi: \MH_fi: }
+\newcommand {\MT_start_mult:N }[1]{\MT_test_for_tcb_other:nnnnn {##1}{\MH_let:NwN \MT_next: \vtop }{\MH_let:NwN \MT_next: \vcenter }{\MH_let:NwN \MT_next: \vbox }{\PackageError {mathtools}{Invalid position specifier. I'll try to recover with `c'}\@ehc }\collect@body \MT_mult_internal:n }
+\newcommand {\MT_mult_internal:n }[1]{\MH_if_boolean:nF {outer_mult}{\alignedspace@left }\MT_next: \bgroup \Let@ \def \l_MT_multline_lastline_fint {0}\chardef \dspbrk@context \@ne \restore@math@cr \MH_let:NwN \math@cr@@ \MT_mult_mathcr_atat:w \MH_let:NwN \shoveleft \MT_shoveleft:wn \MH_let:NwN \shoveright \MT_shoveright:wn \spread@equation \MH_set_boolean_F:n {mult_firstline}\MT_measure_mult:n {##1}\MH_if_dim:w \l_MT_multwidth_dim <\l_MT_multline_measure_fdim \MH_setlength:dn \l_MT_multwidth_dim {\l_MT_multline_measure_fdim }\fi \MH_set_boolean_T:n {mult_firstline}\MH_if_num:w \l_MT_multline_lastline_fint =\@ne \MH_let:NwN \math@cr@@ \MT_mult_firstandlast_mathcr:w \MH_fi: \ialign \bgroup \hfil \strut@ $\m@th \displaystyle {}####$\hfil \crcr \hfilneg ##1}
+\newcommand {\MT_measure_mult:n }[1]{\begingroup \measuring@true \g_MT_multlinerow_int \@ne \MH_let:NwN \label \MT_gobblelabel:w \MH_let:NwN \tag \gobble@tag \setbox \z@ \vbox {\ialign {\strut@ $\m@th \displaystyle {}####$\crcr ##1\crcr }}\xdef \l_MT_multline_measure_fdim {\the \wdz@ }\advance \g_MT_multlinerow_int \m@ne \xdef \l_MT_multline_lastline_fint {\number \g_MT_multlinerow_int }\endgroup \g_MT_multlinerow_int \@ne }
+\newcommand {\MultlinedHook }[0]{\renewenvironment {subarray}[1]{\vcenter \bgroup \Let@ \restore@math@cr \default@tag \let \math@cr@@ \AMS@math@cr@@ \baselineskip \fontdimen 10\scriptfont \tw@ \advance \baselineskip \fontdimen 12\scriptfont \tw@ \lineskip \thr@@ \fontdimen 8\scriptfont \thr@@ \lineskiplimit \lineskip \ialign \bgroup \ifx c####1\hfil \fi $\m@th \scriptstyle ########$\hfil \crcr }{\crcr \egroup \egroup }\renewenvironment {crampedsubarray}[1]{\vcenter \bgroup \Let@ \restore@math@cr \default@tag \let \math@cr@@ \AMS@math@cr@@ \baselineskip \fontdimen 10\scriptfont \tw@ \advance \baselineskip \fontdimen 12\scriptfont \tw@ \lineskip \thr@@ \fontdimen 8\scriptfont \thr@@ \lineskiplimit \lineskip \ialign \bgroup \ifx c####1\hfil \fi $\m@th \scriptstyle \kern -\nulldelimiterspace \radical \z@ {########}$\hfil \crcr }{\crcr \egroup \egroup }\def \MT_smallmatrix_begin:N ####1{\Let@ \restore@math@cr \default@tag \let \math@cr@@ \AMS@math@cr@@ \baselineskip 6\ex@ \lineskip 1.5\ex@ \lineskiplimit \lineskip \csname MT_smallmatrix_####1_begin:\endcsname }\renewenvironment {smallmatrix}{\null \,\vcenter \bgroup \Let@ \restore@math@cr \default@tag \let \math@cr@@ \AMS@math@cr@@ \baselineskip 6\ex@ \lineskip 1.5\ex@ \lineskiplimit \lineskip \ialign \bgroup \hfil $\m@th \scriptstyle ########$\hfil &&\thickspace \hfil $\m@th \scriptstyle ########$\hfil \crcr }{\crcr \egroup \egroup \,}}
+\newcommand {\MT_delim_default_inner_wrappers:n }[1]{\@namedef {MT_delim_\MH_cs_to_str:N ##1_star_wrapper:nnn}####1####2####3{\mathopen {}\mathclose \bgroup ####1####2\aftergroup \egroup ####3}\@namedef {MT_delim_\MH_cs_to_str:N ##1_nostarscaled_wrapper:nnn}####1####2####3{\mathopen {####1}####2\mathclose {####3}}\@namedef {MT_delim_\MH_cs_to_str:N ##1_nostarnonscaled_wrapper:nnn}####1####2####3{\mathopen ####1####2\mathclose ####3}}
+\newcommand {\reDeclarePairedDelimiterInnerWrapper }[3]{\@ifundefined {MT_delim_\MH_cs_to_str:N ##1_##2_wrapper:nnn}{\PackageError {mathtools}{Wrapper not found for \string ##1 and option '##2'.\MessageBreak Either \string ##1 is not defined, or you are using the \MessageBreak 'nostar' option, which is no longer supported. \MessageBreak Please use 'nostarnonscaled' or 'nostarscaled \MessageBreak instead. }{Seethemanual}}{\@namedef {MT_delim_\MH_cs_to_str:N ##1_##2_wrapper:nnn}####1####2####3{##3}}}
+\newcommand {\DeclarePairedDelimiter }[3]{\@ifdefinable {##1}{\MT_delim_default_inner_wrappers:n {##1}\@namedef {MT_delim_\MH_cs_to_str:N ##1_star:}####1{\@nameuse {MT_delim_\MH_cs_to_str:N ##1_star_wrapper:nnn}{\left ##2}{####1}{\right ##3}}\@xp \@xp \@xp \newcommand \@xp \csname MT_delim_\MH_cs_to_str:N ##1_nostar:\endcsname [2][\\@gobble]{\def \@tempa {\\@gobble}\def \@tempb {####1}\ifx \@tempa \@tempb \@nameuse {MT_delim_\MH_cs_to_str:N ##1_nostarnonscaled_wrapper:nnn}{##2}{####2}{##3}\else \MT_etb_ifblank:nnn {####1}{\@nameuse {MT_delim_\MH_cs_to_str:N ##1_nostarnonscaled_wrapper:nnn}{##2}{####2}{##3}}{\@nameuse {MT_delim_\MH_cs_to_str:N ##1_nostarscaled_wrapper:nnn}{\@nameuse {\MH_cs_to_str:N ####1l}##2}{####2}{\@nameuse {\MH_cs_to_str:N ####1r}##3}}\fi }\DeclareRobustCommand {##1}{\@ifstar {\@nameuse {MT_delim_\MH_cs_to_str:N ##1_star:}}{\@nameuse {MT_delim_\MH_cs_to_str:N ##1_nostar:}}}}}
+\newcommand {\MT_delim_inner_generator:nnnnnnn }[7]{\@xp \@xp \@xp \newcommand \@xp \csname MT_delim_\MH_cs_to_str:N ##1_nostar_inner:\endcsname [##2]{##3\def \@tempa {\@MHempty }\@xp \def \@xp \@tempb \@xp {\delimsize }\ifx \@tempa \@tempb \@nameuse {MT_delim_\MH_cs_to_str:N ##1_nostarnonscaled_wrapper:nnn}{##4}{##7}{##5}\else \MT_etb_ifdefempty_x:nnn {\delimsize }{\@nameuse {MT_delim_\MH_cs_to_str:N ##1_nostarnonscaled_wrapper:nnn}{##4}{##7}{##5}}{\@nameuse {MT_delim_\MH_cs_to_str:N ##1_nostarscaled_wrapper:nnn}{\@xp \@xp \@xp \csname \@xp \MH_cs_to_str:N \delimsize l\endcsname ##4}{##7}{\@xp \@xp \@xp \csname \@xp \MH_cs_to_str:N \delimsize r\endcsname ##5}}\fi ##6\endgroup }}
+\newcommand {\newcases }[6]{\newenvironment {##1}{\MT_start_cases:nnnn {##2}{##3}{##4}{##5}}{\MH_end_cases: \right ##6}}
+\newcommand {\renewcases }[6]{\renewenvironment {##1}{\MT_start_cases:nnnn {##2}{##3}{##4}{##5}}{\MH_end_cases: \right ##6}}
+\newcommand {\dcases }[0]{\MT_start_cases:nnnn {\quad }{$\m@th \displaystyle {####}$\hfil }{$\m@th \displaystyle {####}$\hfil }{\lbrace }}
+\newcommand {\dcases* }[0]{\MT_start_cases:nnnn {\quad }{$\m@th \displaystyle {####}$\hfil }{{####}\hfil }{\lbrace }}
+\newcommand {\rcases }[0]{\MT_start_cases:nnnn {\quad }{$\m@th {####}$\hfil }{$\m@th {####}$\hfil }{.}}
+\newcommand {\rcases* }[0]{\MT_start_cases:nnnn {\quad }{$\m@th {####}$\hfil }{{####}\hfil }{.}}
+\newcommand {\drcases }[0]{\MT_start_cases:nnnn {\quad }{$\m@th \displaystyle {####}$\hfil }{$\m@th \displaystyle {####}$\hfil }{.}}
+\newcommand {\drcases* }[0]{\MT_start_cases:nnnn {\quad }{$\m@th \displaystyle {####}$\hfil }{{####}\hfil }{.}}
+\newcommand {\cases* }[0]{\MT_start_cases:nnnn {\quad }{$\m@th {####}$\hfil }{{####}\hfil }{\lbrace }}
+\newcommand {\psmallmatrix }[0]{\@nameuse {psmallmatrixhook}\mathopen {}\mathclose \bgroup \left (\MT_smallmatrix_begin:N c}
+\newcommand {\bsmallmatrix }[0]{\@nameuse {bsmallmatrixhook}\mathopen {}\mathclose \bgroup \left [\MT_smallmatrix_begin:N c}
+\newcommand {\Bsmallmatrix }[0]{\@nameuse {Bsmallmatrixhook}\mathopen {}\mathclose \bgroup \left \lbrace \MT_smallmatrix_begin:N c}
+\newcommand {\vsmallmatrix }[0]{\@nameuse {vsmallmatrixhook}\mathopen {}\mathclose \bgroup \left \lvert \MT_smallmatrix_begin:N c}
+\newcommand {\Vsmallmatrix }[0]{\@nameuse {Vsmallmatrixhook}\mathopen {}\mathclose \bgroup \left \lVert \MT_smallmatrix_begin:N c}
+\newcommand {\adjustlimits }[6]{\sbox \z@ {$\m@th \displaystyle ##1$}\sbox \tw@ {$\m@th \displaystyle ##4$}\@tempdima =\dp \z@ \advance \@tempdima -\dp \tw@ \MH_if_dim:w \@tempdima >\z@ \mathop {##1}\limits ##2{##3}\MH_else: \mathop {##1\MT_vphantom:Nn \displaystyle {##4}}\limits ##2{\def \finsm@sh {\ht \z@ \z@ \box \z@ }\mathsm@sh \scriptstyle {\MT_cramped_internal:Nn \scriptstyle {##3}}\MT_vphantom:Nn \scriptstyle {\MT_cramped_internal:Nn \scriptstyle {##6}}}\MH_fi: \MH_if_dim:w \@tempdima >\z@ \mathop {##4\MT_vphantom:Nn \displaystyle {##1}}\limits ##5{\MT_vphantom:Nn \scriptstyle {\MT_cramped_internal:Nn \scriptstyle {##3}}\def \finsm@sh {\ht \z@ \z@ \box \z@ }\mathsm@sh \scriptstyle {\MT_cramped_internal:Nn \scriptstyle {##6}}}\MH_else: \mathop {##4}\limits ##5{##6}\MH_fi: }
+\newcommand {\SwapAboveDisplaySkip }[0]{\noalign {\vskip -\abovedisplayskip \vskip \abovedisplayshortskip }}
+\newcommand {\Aboxed }[1]{\let \bgroup {\romannumeral -`}\@Aboxed ##1&&\ENDDNE }
+\newcommand {\vdotswithin }[1]{{\mathmakebox [\widthof {\ensuremath {{}##1{}}}][c]{{\vdots }}}}
+\newcommand {\MTFlushSpaceAbove }[0]{\expandafter \MT_remove_tag_unless_inner:n \expandafter {\@currenvir }\\\noalign {\nobreak \vskip -\baselineskip \vskip -\lineskip \vskip -\l_MT_shortvdotswithinadjustabove_dim \vskip -\origjot \vskip \jot }\noalign {\expandafter \MT_remove_tag_unless_inner:n \expandafter {\@currenvir }}}
+\newcommand {\MTFlushSpaceBelow }[0]{\\\noalign {\nobreak \vskip -\lineskip \vskip -\l_MT_shortvdotswithinadjustbelow_dim \vskip -\origjot \vskip \jot }}
+\newcommand {\shortintertext }[0]{\@amsmath@err {\Invalid@@ \shortintertext }\@eha }
+\newcommand {\clap }[1]{\hb@xt@ \z@ {\hss ##1\hss }}
+\newcommand {\mathmbox }[0]{\mathpalette \MT_mathmbox:nn }
+\newcommand {\mathmakebox }[0]{\@ifnextchar [\MT_mathmakebox_I:w \mathmbox }
+\newcommand {\crampedsubarray }[1]{\vcenter \bgroup \Let@ \restore@math@cr \default@tag \baselineskip \fontdimen 10\scriptfont \tw@ \advance \baselineskip \fontdimen 12\scriptfont \tw@ \lineskip \thr@@ \fontdimen 8\scriptfont \thr@@ \lineskiplimit \lineskip \ialign \bgroup \ifx c##1\hfil \fi $\m@th \scriptstyle \kern -\nulldelimiterspace \radical \z@ {####}$\hfil \crcr }
+\newcommand {\crampedsubstack }[1]{\crampedsubarray {c}##1\endcrampedsubarray }
+\newcommand {\MT_prescript_inner: }[4]{\@mathmeasure \z@ ##4{\MT_prescript_sup: {##1}}\@mathmeasure \tw@ ##4{\MT_prescript_sub: {##2}}\MH_if_dim:w \wd \tw@ >\wd \z@ \setbox \z@ \hbox to\wd \tw@ {\hfil \unhbox \z@ }\MH_else: \setbox \tw@ \hbox to\wd \z@ {\hfil \unhbox \tw@ }\MH_fi: \mathop {}\mathopen {\vphantom {\MT_prescript_arg: {##3}}}^{\box \z@ }\sb {\box \tw@ }\MT_prescript_arg: {##3}}
+\newcommand {\prescript  }[3]{\mathchoice {\MT_prescript_inner: {##1}{##2}{##3}{\scriptstyle }}{\MT_prescript_inner: {##1}{##2}{##3}{\scriptstyle }}{\MT_prescript_inner: {##1}{##2}{##3}{\scriptscriptstyle }}{\MT_prescript_inner: {##1}{##2}{##3}{\scriptscriptstyle }}}
+\newcommand {\spreadlines }[1]{\setlength {\jot }{##1}\ignorespaces }
+\newcommand {\newgathered }[4]{\newenvironment {##1}{\def \MT_gathered_pre: {##2}\def \MT_gathered_post: {##3}\def \MT_gathered_env_end: {##4}\MT_gathered_env }{\endMT_gathered_env }}
+\newcommand {\renewgathered }[4]{\renewenvironment {##1}{\def \MT_gathered_pre: {##2}\def \MT_gathered_post: {##3}\def \MT_gathered_env_end: {##4}\MT_gathered_env }{\endMT_gathered_env }}
+\newcommand {\lgathered }[0]{\def \MT_gathered_pre: {}\def \MT_gathered_post: {\hfil }\def \MT_gathered_env_end: {}\MT_gathered_env }
+\newcommand {\rgathered }[0]{\def \MT_gathered_pre: {\hfil }\def \MT_gathered_post: {}\def \MT_gathered_env_end: {}\MT_gathered_env }
+\newcommand {\gathered }[0]{\def \MT_gathered_pre: {\hfil }\def \MT_gathered_post: {\hfil }\def \MT_gathered_env_end: {}\MT_gathered_env }
+\newcommand {\splitfrac }[2]{\genfrac {}{}{0pt}{1}{\textstyle ##1\quad \hfill }{\textstyle \hfill \quad \mathstrut ##2}}
+\newcommand {\splitdfrac }[2]{\genfrac {}{}{0pt}{0}{##1\quad \hfill }{\hfill \quad \mathstrut ##2}}
+\newcommand {\?\c__siunitx_minus_tl }[0]{\UseTextSymbol {TS1}\c__siunitx_minus_tl }
+\newcommand {\?\c__siunitx_mu_tl }[0]{\UseTextSymbol {TS1}\c__siunitx_mu_tl }
+\newcommand {\languagealias }[2]{\expandafter \def \csname tr@ml@##1\endcsname {##2}}
+\newcommand {\languagepath }[1]{\def \trans@languagepath {##1}}
+\newcommand {\usedictionary }[1]{\g@addto@macro \trans@dictionaries {\usedictionary {##1}}}
+\newcommand {\tabitem }[0]{\makebox [1em][r]{\textbullet ~}}
+\newcommand {\letterPlus }[0]{\makebox [0pt][l]{$+$}}
+\newcommand {\letterMinus }[0]{\makebox [0pt][l]{$-$}}
+\newcommand {\texttt }[1]{##1}
+\newcommand {\reserved@a }[2]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }
+\newcommand {\reserved@a }[1]{}
+\newcommand {\reserved@a }[2]{}
+\newcommand {\vnameref  }[1]{\unskip ~\nameref {##1}\@vpageref [\unskip ]{##1}}
+\newcommand {\ref  }[0]{\@ifstar \@refstar \T@ref }
+\newcommand {\pageref  }[0]{\@ifstar \@pagerefstar \T@pageref }
+\newcommand {\nameref  }[0]{\@ifstar \@namerefstar \T@nameref }
+\newcommand {\ST@wsf }[1]{\immediate \write \ST@sf {##1}}
+\newcommand {\degree }[0]{\ensuremath {^\circ }}
+\newcommand {\celsius  }[0]{\ifmmode ^\circ \mathrm {C}\else $^\circ $C\fi }
+\newcommand {\ohm  }[0]{\ifmmode \Omega \else $\Omega $\fi }
+\newcommand {\dblcolon }[0]{\vcentcolon \mathrel {\mkern -.9mu}\vcentcolon }
+\newcommand {\coloneqq }[0]{\vcentcolon \mathrel {\mkern -1.2mu}=}
+\newcommand {\Coloneqq }[0]{\dblcolon \mathrel {\mkern -1.2mu}=}
+\newcommand {\coloneq }[0]{\vcentcolon \mathrel {\mkern -1.2mu}\mathrel {-}}
+\newcommand {\Coloneq }[0]{\dblcolon \mathrel {\mkern -1.2mu}\mathrel {-}}
+\newcommand {\eqqcolon }[0]{=\mathrel {\mkern -1.2mu}\vcentcolon }
+\newcommand {\Eqqcolon }[0]{=\mathrel {\mkern -1.2mu}\dblcolon }
+\newcommand {\eqcolon }[0]{\mathrel {-}\mathrel {\mkern -1.2mu}\vcentcolon }
+\newcommand {\Eqcolon }[0]{\mathrel {-}\mathrel {\mkern -1.2mu}\dblcolon }
+\newcommand {\colonapprox }[0]{\vcentcolon \mathrel {\mkern -1.2mu}\approx }
+\newcommand {\Colonapprox }[0]{\dblcolon \mathrel {\mkern -1.2mu}\approx }
+\newcommand {\colonsim }[0]{\vcentcolon \mathrel {\mkern -1.2mu}\sim }
+\newcommand {\Colonsim }[0]{\dblcolon \mathrel {\mkern -1.2mu}\sim }
+\newcommand {\nuparrow }[0]{\MH_nuparrow: }
+\newcommand {\ndownarrow }[0]{\MH_ndownarrow: }
+\newcommand {\bigtimes }[0]{\MH_csym_bigtimes: }
+\newcommand {\usedictionary }[1]{\@for \trans@lang :=\trans@languages \do {\ifx \trans@lang \@empty \else \expandafter \ifx \csname ver@##1-\trans@lang .dict\endcsname \relax \edef \trans@temp {\def \noexpand \trans@defaultto {\trans@lang }\noexpand \InputIfFileExists {##1-\trans@lang .dict}{}{}\def \noexpand \trans@defaultto {\trans@defaultto }}\trans@temp \fi \fi }}
+\newcommand {\reserved@a }[2]{}
+\newcommand {\reserved@a }[0]{\AtBeginDocument }
+\newcommand {\reserved@a }[1]{}
+\newcommand {\reserved@a }[2]{}

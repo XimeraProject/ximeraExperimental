@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en"><head> <title>Sage and Xronos</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="sageCommands.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="2f15d3c8e2a06d59fd356dbfbc584613cde723cd advancedContent/sageRandomizing/sageCommands.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+</script> 
+</div>
+<div class="abstract">
+<!--l. 7--><p class="noindent">How sage interacts with Xronos.
+</p></div>   <div class="maketitle"></div>
+<h3 class="likesectionHead"><a id="x1-1000"></a>How to Write Sage in LaTeX</h3>
+<!--l. 14--><p class="noindent">There are two phases to writing sage code using sagetex. The first phase is writing
+the actual code, which generates all the content you want to utilize, and the
+second phase is calling parts of the code from the first phase to display or
+use.
+</p>
+<h4 class="likesubsectionHead"><a id="x1-2000"></a>Phase One</h4>
+<!--l. 18--><p class="noindent">The first phase should almost certainly be written in the “sagesilent” block, which is
+where you write pure sage code that contains everything from generating
+the function you want to display, to the answer you want the student to
+enter.
+</p><!--l. 20--><p class="noindent">For example, we would write something like the following: </p><pre>\begin{sagesilent}
+ <br/>p1f1 = 3*x+1
+ <br/>p1ans = 10
+ <br/>\end{sagesilent}
+<!--l. 26--></pre>This generates the sage variable named <span class="obeylines-h"><span class="verb">p1f1</span></span> and <span class="obeylines-h"><span class="verb">p1ans</span></span>. This may seem like an odd
+answer scheme but there is a good reason for it (see the “potential pitfalls section
+below”. There is also a “sageblock” environment, but this tries to display the running
+sage code as if it was being done in a sagecell prompt as you go, which is almost
+always a bad idea.
+
+<h4 class="likesubsectionHead"><a id="x1-3000"></a>Phase Two</h4>
+<!--l. 31--><p class="noindent">The second phase is when you want to display the results of something from the sage
+code you executed to define all the variables/functions/etc you needed to populate
+the problem. In the current Xronos system, the only sage command that loads sage
+content for the student to see, is the <span class="obeylines-h"><span class="verb">\sage</span></span> command. Most importantly, the other
+typical sage commands, like <span class="obeylines-h"><span class="verb">\sagestr</span></span> and <span class="obeylines-h"><span class="verb">\sageplot</span></span> do not work at all, and should
+be avoided. So you will want to only use the <span class="obeylines-h"><span class="verb">\sage</span></span> command to call content, even
+though other commands may work locally - they won’t work on a Xronos page <script type="text/javascript"> function footnotefunction(ID) { var x = document.getElementById(ID); if (x.style.display === "none") { x.style.color = "##002db3"; x.style.display = "inline"; } else { x.style.display = "none"; } } </script>   <span style="position=relative; vertical-align=baseline;"> <button onclick="footnotefunction(&#39;footnotei&#39;)" style="background:none!important; color:inherit; border:none; padding:0!important; font: inherit; cursor: pointer;"> <sup>[1]</sup> </button>   <span id="footnotei" style="display:none; font-family:Verdana, sans-serif; font-size:0.7em; line-height:1.1; display:inline; min-width:20em; position:absolute; left:25px; bottom:5px ; border:1px solid; padding:5px; color:##002db3; word-wrap:break-word; z-index=9999; overflow=auto;"> 
+                                                                  
+
+                                                                  
+<span style="color:#4D00B2;">(at least currently, but we are trying to fix that for the next iteration of the platform)</span></span></span>
+.
+</p>
+<h4 class="likesubsectionHead"><a id="x1-4000"></a>Example</h4>
+<!--l. 34--><p class="noindent">Consider the following problem: </p><script type="text/sagemath">p2f1 = 3*x+1
+p2ans = p2f1(x=4)
+</script>
+<div role="article" class="problem-environment problem" id="problem1"><a id="x1-4001r1"></a> Let <script type="math/tex">f(x) = \sage {p2f1}</script>. Then <script type="math/tex">f(4) = \answer {\sage {p2ans}}</script>
+</div>
+<!--l. 43--><p class="noindent">The above problem is generated with the following code:
+</p><!--l. 45--><pre>\begin{sagesilent}
+ <br/>p2f1 = 3*x+1
+ <br/>p2ans = p2f1(x=4)
+ <br/>\end{sagesilent}
+ <br/>\begin{problem}
+ <br/>Let $f(x) = \sage{p2f1}$. Then $f(4) = \answer{\sage{p2ans}}$
+ <br/>\end{problem}
+<!--l. 53--></pre>
+<!--l. 55--><p class="noindent">The composition bit may look a little odd, but you can see why this is necessary in
+the “Pitfalls and Problems” section below.
+</p>
+<h3 class="likesectionHead"><a id="x1-5000"></a>Potential Pitfalls and Problems</h3>
+<h4 class="likesubsectionHead"><a id="x1-6000"></a>Composition is a little weird</h4>
+<!--l. 63--><p class="noindent">When doing composition in sage, it (now) requires you to use “x = ()” style notation.
+For example, if you use something like:
+</p><!--l. 65--><pre>\begin{sagesilent}
+ <br/>## Function for first problem:
+ <br/>p3c1 = 4
+ <br/>p3c2 = 5
+ <br/>p3f1 = const1*x+const2
+ <br/># Answer is just f(3)
+                                                                  
+
+                                                                  
+ <br/>p3ans = p3f1(3)
+ <br/>\end{sagesilent}
+<!--l. 74--></pre>Sage will error and you will get a “spinning wheel of death” that kills everything
+after it on the page. Instead, you need to write: <pre>\begin{sagesilent}
+ <br/>## Function for first problem:
+ <br/>p3c1 = 4
+ <br/>p3c2 = 5
+ <br/>p3f1 = const1*x+const2
+ <br/># Answer is just f(3)
+ <br/>p3ans = p3f1(x=3)# Could also use p3f1(x=(3))
+ <br/>\end{sagesilent}
+<!--l. 85--></pre>If the substitution is just one variable, you can use “x=var” but if you need
+something more complex, like substituting in <script type="math/tex">3x+1</script> you would need to use extra
+parentheses, like <span class="obeylines-h"><span class="verb">p3f1( x=(3x+1) )</span></span>.
+
+<h4 class="likesubsectionHead"><a id="x1-7000"></a>Xronos processes all the Sage code fully before being populated</h4>
+<!--l. 90--><p class="noindent">Unlike when you compile locally (for most editors) all of the sage code is processed
+independently before it is populated into the page in Xronos. This means that if you
+accidentally use the same variable for two different problems, the second definition of
+that variable will overwrite the value for that variable for <em>both</em> problems. In other
+words, if you had something like:
+</p><!--l. 92--><pre>\begin{sagesilent}
+ <br/>## Function for first problem:
+ <br/>const1 = 4
+ <br/>const2 = 5
+ <br/>func1 = const1*x+const2
+ <br/>
+ <br/>## Function for second problem:
+ <br/>const1 = pi
+ <br/>func2 = sin(x=(x - const1))
+ <br/>
+ <br/>\end{sagesilent}
+<!--l. 104--></pre>Then the first function will come out as <script type="math/tex">\pi \cdot x + 5</script> not <script type="math/tex">4x+5</script> because the <span class="obeylines-h"><span class="verb">const1</span></span> sage variable was
+                                                                  
+
+                                                                  
+overwritten in the second problem’s code and overwrote it for <em>every</em> problem where
+that variable is used - including the first problem. Annoyingly, you may compile it
+locally, and depending on your editor, it may have shown the first function as <script type="math/tex">4x+5</script>
+leading to more confusion.
+
+<h4 class="likesubsectionHead"><a id="x1-8000"></a>Strings are tricky to get Xronos to accept...</h4>
+<!--l. 109--><p class="noindent">Since sagetex usually uses the <span class="obeylines-h"><span class="verb">\sagestr</span></span> command to generate text, and
+since the <span class="obeylines-h"><span class="verb">\sage</span></span> command requires mathemode, it makes strings a little...
+interesting.
+</p><!--l. 111--><p class="noindent">In particular, trying to actually display strings, you get some weird latex code.
+Consider the following code: </p><pre>\begin{sagesilent}
+ <br/>p4str = ’this is a string’
+ <br/>p4ans = ’yes’
+ <br/>\end{sagesilent}
+ <br/>\begin{problem}
+ <br/>Is the following text?
+ <br/>\[
+ <br/>\sage{p4str}
+ <br/>\]
+ <br/>Type ‘‘yes’’ or ‘‘no’’ (without the quotes!)
+ <br/>$\answer{\sage{p4ans}}$
+ <br/>\end{problem}
+<!--l. 125--></pre>You get: <script type="text/sagemath">p4str = 'this is a string'
+p4ans = 'yes'
+</script>
+<div role="article" class="problem-environment problem" id="problem2"><a id="x1-8001r2"></a> Is the following text? <script type="math/tex; mode=display"> \sage {p4str} </script> Type “yes” or “no” (without the quotes!) <script type="math/tex">\answer {\sage {p4ans}}</script>
+</div>
+<!--l. 140--><p class="noindent">The text shows up correctly as a string of text, but it is surrounded by brackets and
+the LaTeX command. Moreover, if you type in yes (or even ’yes’) it won’t work.
+Indeed, if you were to check the code to see what answer it was expecting, you
+would discover that it is expecting <span class="obeylines-h"><span class="verb">\textit{yes}</span></span> - just like the displayed
+string.
+</p><!--l. 143--><p class="noindent">But, there is a way to get a string to display correctly, both in actual text and in the
+validator - by using the “LatexExpr(r’string’)” command. So if we make some minor
+modifications to our previous code:
+</p><!--l. 145--><pre>                                                                  
+
+                                                                  
+\begin{sagesilent}
+ <br/>p5str = LatexExpr(r’\text{this is a string}’)
+ <br/>p5ans = LatexExpr(r’yes’)
+ <br/>\end{sagesilent}
+ <br/>\begin{problem}
+ <br/>Is the following text?
+ <br/>\[
+ <br/>\sage{p5str}
+ <br/>\]
+ <br/>Type ‘‘yes’’ or ‘‘no’’ (without the quotes!)
+ <br/>$\answer{\sage{p5ans}}$
+ <br/>\end{problem}
+<!--l. 158--></pre>
+<!--l. 160--><p class="noindent">Then we get: </p><script type="text/sagemath">p5str = LatexExpr(r'\text{this is a string}')
+p5ans = LatexExpr(r'yes')
+</script>
+<div role="article" class="problem-environment problem" id="problem3"><a id="x1-8002r3"></a> Is the following text? <script type="math/tex; mode=display"> \sage {p5str} </script> Type “yes” or “no” (without the quotes!) <script type="math/tex">\answer {\sage {p5ans}}</script>
+</div> Which both displays the problem, and accepts the answer, correctly. Notice that we
+need to use the <span class="obeylines-h"><span class="verb">\text</span></span> command when we want to display text correctly to the
+student - otherwise mathmode will display the provided text as if it were in
+mathmode (i.e. without any spaces, and as if all letters were variables). Also note
+that we didn’t use “format=string” in the answer command - indeed, doing so makes
+the validation fail because of how LaTeX handles fonts in mathmode (this is deep
+LaTeX magic, so you probably don’t want details - suffice it to say it isn’t something
+that can be easily fixed or worked around with the current system). This means that
+the validator is really thinking that the ’y’, ’e’, and ’s’ are variables, so any
+permutation of those variables would be accepted. This doesn’t typically
+impact student answers however, but it might be worth remembering just in
+case.
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</body></html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en"><head> <title>samePlane</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="testPlane.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="8fb0d6f755c9a2f45e7707ac97fad426fc5e3864 Validators/testPlane.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+var AnsOne;
+var AnsTwo;
+var AnsThree;</script> 
+</div>
+<div class="abstract">
+<!--l. 6--><p class="noindent">This demonstrates the validator that tests for points to represent the same
+plane.
+</p></div>   <div class="maketitle"></div>
+<div class="javascript" id="javascript1"><script type="text/javascript">// NOTE: The below are intended to be used in a validator environment, rather than the validator argument of an \answer.
+
+// testPlane function tests list a against list b element-wise to
+// make sure that the ratio is the same value for each,
+// ie a = k.*b; eg a = [1, 1, 2]
+// b could be [3, 3, 6] but not [3, 3, 5].
+// This can be tricky if one of the inputs is zero though.
+function testPlane(a,b) {
+  var ratioVec = [];
+  var result = 1;
+  for (i = 0; i < a.length; i++) {
+    if (b[i] == 0) {
+      if (a[i].evaluate() != 0){
+        result = 0;
+      }
+    }
+    else {
+      var tempRat = a[i].evaluate()/b[i];
+      ratioVec.push(tempRat);
+      console.log(tempRat);
+    }
+  }
+  ratioVec.sort();
+  var endPoint = ratioVec.length-1;
+  if (ratioVec[0] == ratioVec[endPoint]) {
+    result = result*1;
+  }
+                                                                  
+
+                                                                  
+  else {
+    result = result*0;
+  }
+
+    // Throw in a default check to make sure student doesn't just use all 0s
+    // Going a bit overboard in case we want longer vectors in future.
+
+    var isAllZero = 0;
+    for (i = 0; i < a.length; i++) {
+      if(a[i].evaluate() !== 0) {
+        isAllZero = 1;
+        break;
+      }
+    }
+
+    result = result*isAllZero;
+  return result;
+};
+
+
+// End of Validators intended to (only) be used in validator environments.
+
+</script></div>
+<div role="article" class="problem-environment problem" id="problem2"><a id="x1-8r1"></a> This problem shows the ’samePlane’ validator. It’s intended to detect any equivalent
+expression that generates the same plane. Note that formatting is tricky for
+authoring the problem as it requires that you use the validator environment to test
+multiple answer boxes simultaneously, and you must enter the predicted answers and
+the ids of the supplied answers in as lists using brackets, and in the same order. Thus
+if your id for the <script type="math/tex">x</script> coefficient has ‘id=x’, the <script type="math/tex">y</script> coefficient has ‘id=y’ and the <script type="math/tex">z</script>
+coefficient has ‘id=z’ (in their respective <span class="obeylines-h"><span class="verb">\answer</span></span> commands optional argument)
+and the expression you want for the plane is, say, <script type="math/tex">-3x, 5y + z = 0</script>, then you would use the
+following:<br class="newline"/>
+<!--l. 67--><pre>                                                                  
+
+                                                                  
+        Plug in any expression that generates the plane defined by $x + y + 2z = 0$.
+ <br/>        \begin{validator}[{testPlane([x,y,z],[1,1,2])}]
+ <br/>            \[
+ <br/>                \answer[id=x]{1}x + \answer[id=y]{1}y + \answer[id=y]{2}z = 0
+ <br/>            \]
+ <br/>        \end{validator}
+ <br/>    
+<!--l. 74--></pre>
+<!--l. 76--><p class="noindent">The code is demonstrated below, try various equal and non-equal coefficients and see
+how it goes. Note that this also works correctly if you feel like making some of the
+coefficients zero for whatever reason.
+</p><!--l. 78--><p class="noindent">Plug in any expression that generates the plane defined by <script type="math/tex">x + y + 2z = 0</script>. </p><div class="validator" id="validator3"><script type="text/javascript">function validator3() { return testPlane([AnsOne,AnsTwo,AnsThree],[1,1,2]); }</script><script type="math/tex; mode=display"> \answer [id=AnsOne]{1}x + \answer [id=AnsTwo]{1}y + \answer [id=AnsThree]{2}z = 0 </script></div>
+<!--l. 85--><p class="noindent">As a footnote, due to peculiar coding, the value included the the answer command’s
+mandatory argument is never used. So you could have used <span class="obeylines-h"><span class="verb">\answer[id=x]{673}</span></span>
+instead of <span class="obeylines-h"><span class="verb">\answer[id=x]{1}</span></span> and as long as you entered the correct values into
+the validator environment, it would still only take correct answers for the <script type="math/tex">x</script>
+coefficient.
+</p></div>
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</body></html>

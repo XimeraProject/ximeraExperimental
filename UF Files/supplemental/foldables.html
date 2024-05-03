@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head> <title>Expandable Content</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="foldables.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="bf60e1690bfa5e7c1d45d74a7c65333c6b9c7553 supplemental/foldables.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+</script> 
+</div>
+<div class="abstract">
+<!--l. 7--><p class="noindent">Demo of collapsible/expandable content.
+</p></div>   <div class="maketitle"></div>
+<a id="Q1-1-1"></a>
+<h4 class="likesubsectionHead"><a id="x1-1000"></a>How to make expandable content</h4>
+<!--l. 12--><p class="noindent">You can include content that expands out, or collapses back in (i.e.
+expandable/collapsible boxes, which starts expanded or collapsed). To do this you
+want to use one of two environments, either the foldable environment or expandable
+environment.
+</p><!--l. 14--><p class="noindent">Thus to have collapsible content that starts compressed, we would type something
+like: </p><pre>        \begin{expandable}
+ <br/>            This text will be hidden inside an expandable bar with an arrow prompt to the right.
+ <br/>        \end{expandable}
+ <br/>    
+<!--l. 19--></pre>
+<!--l. 21--><p class="noindent">Which gives:
+</p>
+<div data-original="expandable" id="foldable1" class="foldable">
+<!--l. 24--><p class="noindent">This text will be hidden inside an expandable bar with arrow prompt to the right. </p></div>
+<!--l. 27--><p class="noindent">And to have collapsible content that starts expanded, we would type something like
+this:
+</p><!--l. 29--><pre>        \begin{foldable}
+ <br/>            This text will be visible, but inside a collapsible box with an arrow prompt to the right.
+ <br/>        \end{foldable}
+ <br/>    
+<!--l. 33--></pre>
+                                                                  
+
+                                                                  
+<!--l. 35--><p class="noindent">Which gives:
+</p>
+<div id="foldable2" class="foldable"> This text will be visible, but inside a collapsible box with an arrow prompt to the
+right. </div>
+<!--l. 41--><p class="noindent">In theory you could use this to subdivide your content a little more cleanly and
+provide optional commentary and such that students can collapse/expand as they
+want.
+<a id="Q1-1-3"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-2000"></a>Optional Arguments</h4>
+<!--l. 44--><p class="noindent">There are currently no optional arguments for these environments.
+<a id="Q1-1-5"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-3000"></a>Potential Pitfalls and Problems</h4>
+<a id="Q1-1-7"></a>
+<h5 class="likesubsubsectionHead"><a id="x1-4000"></a>The Collapsible Arrow is Subtle</h5>
+<!--l. 49--><p class="noindent">As you may notice, the arrow that lets you collapse/expand the included content can
+be pretty small and far to the right, depending on the device and/or window
+size/resolution the student has, so you may consider prompting them to let them
+know that some content is expandable so they see the arrow to expand and read info
+if they are interested. You could also include the environment within other
+environments to shrink it’s size (e.g. inside an explanation environment or something
+similar) which may help.
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</p></body></html>

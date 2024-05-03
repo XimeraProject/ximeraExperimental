@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en"><head> <title>Numeric  Targeted
+Feedback</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="targetedFeedback.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="49e97116ffdd2a482d64c796fbdc61775122ab4d Validators/targetedFeedback.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }
+\newcommand {\feedbackOutput }[1]{ \HCode {&#x003C;p id=&#x0022;#1&#x0022;&#x003E;} \HCode {&#x003C;/p&#x003E;} }</script><script type="text/javascript"> 
+var inputOne;
+</script> 
+</div>
+<div class="abstract">
+<!--l. 19--><p class="noindent">Generic testing link.
+</p></div>   <div class="maketitle"></div>
+<div class="javascript" id="javascript1"><script type="text/javascript">//  A validator that also allows for targeted feedback.
+//  Currently only works with numeric answers with some limitations (read comments in the validator).
+//
+//  Moreover, you need to use the corresponding ``\feedbackOutput" command which builds the html for the output.
+//  You need the argument of the \feedbackOutput command to match the 'outputName' that you enter in the
+//      validator function (see the example; using the output name 'outputOne'.
+//      Note that the apostrophes are necessary as JS needs it to be a string.
+//
+//  Finally, the input for the validator needs to be written in javascript code, not LaTeX which is a pain.
+//      See the note in the validator; in short you need to use Math.e or Math.pi for the math constants.
+//      For a list of javascript usable functions go to:
+//          https://www.w3schools.com/js/js_math.asp
+//      Keep in mind that the math module (all lowercase, as oppose to Math) is not loaded.
+//          Among other things, this means there are no complex numbers or complex valued functions.
+
+
+function feedbackFunc(studentInput,outputName,ansCheck,ansFeedback,defaultfeedback='') {
+    var studentAns = studentInput.evaluate();
+
+    // Note that you can use e and pi by using Math.E and Math.PI;
+    //      but these are using javascript values, not Ximera equalities.
+    // This means testing equality is a lot more fragile;
+    //      in particular function equality will be nearly pointless to test.
+
+    // Set the default feedback text, for a student answer that doesn't match any predicted answer.
+    var feedbackText = defaultfeedback;
+                                                                  
+
+                                                                  
+
+    // Now loop through the expected list and see if the student entered an expected answer.
+    for (var i = 0; i < ansCheck.length; i++) {
+        // If the students answer matches the current expected answer, print the corresponding feedback.
+        if (studentAns==ansCheck[i]) {
+            feedbackText = 'Feedback: ' + ansFeedback[i];
+        }
+        // If you have found the correct answer, return correct and we're done.
+        if (studentAns==ansCheck[0]) {
+            return 1;
+            }
+    }
+
+    // Print the feedback to the dummy element we built with \feedbackOutput.
+    document.getElementById(outputName).innerHTML = feedbackText;
+
+    // If we have gotten this far, we haven't found the right answer, so return false.
+    return 0;
+}
+</script></div>
+<div role="article" class="problem-environment problem" id="problem2"><a id="x1-7r1"></a> Testing new feedback mechanism. The correct answer is <script type="math/tex">\frac {20}{3}</script>. But try typing in 4 or <script type="math/tex">5-e</script> first
+for targeted feedback example. This is to demonstrate that you can use some
+irrational constants, but keep in mind that they are javascript coded, not latex coded.
+See tex file for more detail. This validator currently only works with numeric values,
+and even then only kinda.
+<!--l. 93--><div class="validator" id="validator3"><script type="text/javascript">function validator3() { return feedbackFunc(inputOne,'outputOne',[6+2/3,5-Math.E,Math.PI/6,4],['Correct!','Try going up 1+e+2/3','You entered the arcsin(1/2)','Try going up 8/3'],'Feedback: Was Not Expecting That! Try entering four...'); }</script><script type="math/tex">\answer [id=inputOne]{x}</script>.  <p id="outputOne"> </p>  </div>
+
+</div>
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</body></html>

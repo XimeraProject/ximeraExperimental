@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head> <title>YouTube Embeddings</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="youTube.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="f613d4c0f8dcababdf34e46bcd54b89ce80498be supplemental/youTube.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+</script> 
+</div>
+<div class="abstract">
+<!--l. 7--><p class="noindent">How to embed YouTube videos, and how they are validated.
+</p></div>   <div class="maketitle"></div>
+<a id="Q1-1-1"></a>
+<h4 class="likesubsectionHead"><a id="x1-1000"></a>How it works</h4>
+<!--l. 13--><p class="noindent">YouTube content can be embedded (when embedding that video is allowed by the
+video’s owner) easily in Xronos by using the <span class="obeylines-h"><span class="verb">\youtube</span></span> command. The command has
+most of the embedding and url information already built in, so the only thing
+you need to include is the part of the url that comes after the “v=” in the
+url.
+</p><!--l. 15--><p class="noindent">For example, in order to embed the video found at the url:
+<a href="https://www.youtube.com/watch?v=FvgF95i0_lw" class="url">https://www.youtube.com/watch?v=FvgF95i0_lw</a> you would use the command
+<span class="obeylines-h"><span class="verb">\youtube{FvgF95i0_lw}</span></span> which would embed the video into the page, like
+this:
+</p>
+<div class="video youtube-player" data-youtube="FvgF95i0_lw">_</div>
+<a id="Q1-1-3"></a>
+<h4 class="likesubsectionHead"><a id="x1-2000"></a>How is it validated?</h4>
+<!--l. 21--><p class="noindent">YouTube videos count toward the progress of a tile, but it only checks to see
+what the saved progress of watching the video is. So if a student watches
+the video all the way to the end, then they would get full credit for that
+segment of their grade (see the previous tile on <a href="https://xronos.clas.ufl.edu/examples/exampleCore/assignments/creditAllocation">how credit broken up and
+assigned/earned</a>).
+<a id="Q1-1-5"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-3000"></a>Optional arguments</h4>
+<!--l. 25--><p class="noindent">There are no optional arguments for the youtube command at this point.
+<a id="Q1-1-7"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-4000"></a>Potential Pitfalls and Problems</h4>
+<a id="Q1-1-9"></a>
+<h5 class="likesubsubsectionHead"><a id="x1-5000"></a>Progress is tied to time stamp of last watched</h5>
+<!--l. 29--><p class="noindent">It is noteworthy that the credit gained for a video is tied to the percentage last
+completed of the video. This has two main points to consider.
+                                                                  
+
+                                                                  
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+ (a) </dt><dd class="enumerate-enumitem">If the student skips to the end of the video, they can immediately get credit
+     for watching the video, even though they didn’t watch it. This information
+     is captured - so we plan on allowing or disallowing this ability in the future,
+     and possibly having a notification for when students skip ahead for credit
+     instead of watching video.
+     </dd><dt class="enumerate-enumitem">
+ (b) </dt><dd class="enumerate-enumitem">Sometimes YouTube will stop the video a second or two before the actual
+     end  of  the  video.  We  implemented  a  “good  enough”  feature  to  video
+     watching to account for this - basically if they watch more than 95% or
+     so of the video it counts as full credit, but depending on the length of the
+     video, this can sometimes still have a video registered as not completed by
+     enough to mark the tile as not fully completed. This, in turn, can cause
+     students to lose their minds as they try to assure their instructor that they
+     watched everything fully and did everyone on the page, but can’t get full
+     credit.
+     </dd></dl>
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</body></html>

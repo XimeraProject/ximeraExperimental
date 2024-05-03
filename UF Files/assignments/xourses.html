@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head> <title>Xourse and Ximera File Layout</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"/> 
+<!-- charset=utf-8,-css,html,htex4ht,xhtml --> 
+<meta name="src" content="xourses.tex"/> 
+<meta name="author" content=""/> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"/> 
+<meta name="ximera" content="version 0.0.1"/> 
+<link href="https://xronos.clas.ufl.edu/public/v1.8.2/stylesheets/base.css" media="screen"/> 
+<script type="text/javascript" async="" src="https://xronos.clas.ufl.edu/public/javascripts/standalone.min.js"></script> 
+<meta name="dependency" content="1a867cb1d927b01663124e1e1fc8f942844ddff5 assignments/xourses.tex"/></head><body> 
+<div class="preamble"><script type="math/tex">\newenvironment {prompt}{}{}
+\newcommand {\ungraded }[0]{}
+\newcommand {\HyperFirstAtBeginDocument }[0]{\AtBeginDocument }</script><script type="text/javascript"> 
+</script> 
+</div>
+<div class="abstract">
+<!--l. 7--><p class="noindent">How to write and layout the xourse and ximera documentClass file to build an
+assignment.
+</p></div>   <div class="maketitle"></div>
+There are two document classes for making a Xronos assignment. The ’xourse’ type is
+the file that turns into the page with all the tiles on it that students click on to load
+the page with the actual content on it. The tiles with the actual content are ’ximera’
+documentClass. We discuss the xourse documentClass here, whereas the rest of this
+documentation is largely for the content that goes into the ximera documentClass
+files.
+<a id="Q1-1-1"></a>
+<h4 class="likesubsectionHead"><a id="x1-1000"></a>Preambles</h4>
+<!--l. 14--><p class="noindent">The preamble is handled rather... oddly for a variety of highly technical reasons
+beyond the scope of even this documentation. The takeaway however is that
+best-practice is to create a preamble file and input that file wherever you need a
+preamble - including the xourse file and any ximera files.
+</p><!--l. 16--><p class="noindent">It’s important to know that any preamble you include in any ximera documentClass
+document will be obliterated as part of the publishing process - instead it will pull
+the preamble from the xourse documentClass, so it’s important to make sure you put
+everything for every preamble you need into the one file that is loaded in the xourse
+documentClass file - although in order to compile via pdflatex locally, you will also
+want to input that same preamble file into most of your ximera documentClass files
+as well.
+</p><!--l. 18--><p class="noindent">The only exception to the previous preamble being obliterated is the title command
+and its content.
+<a id="Q1-1-3"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-2000"></a>Title, Subtitle, and making them appear</h4>
+<!--l. 21--><p class="noindent">The <span class="obeylines-h"><span class="verb">\title</span></span> command is what generates the title of the tile, and the subtitle for a tile
+is generated using the ‘abstract’ environment - the content of that environment is
+what gets put as the subtitle/description. The title command should be placed before
+the <span class="obeylines-h"><span class="verb">\begin{document}</span></span> command, whereas the abstract should be placed <em>after</em> the
+<span class="obeylines-h"><span class="verb">\begin{document}</span></span> command. Finally, in order to make the title and subtitle to
+appear on the tile, you must use the <span class="obeylines-h"><span class="verb">\maketitle</span></span> command. This is especially
+important, since otherwise the tile is blank and remarkably difficult to see on some
+devices.
+                                                                  
+
+                                                                  
+<a id="Q1-1-5"></a>
+</p>
+<h4 class="likesubsectionHead"><a id="x1-3000"></a>Xourse File Content</h4>
+<!--l. 24--><p class="noindent">The xourse documentClass contains the links to the tiles, and the nature of those
+tiles is determined by the command used to load them. There are two options, the
+<span class="obeylines-h"><span class="verb">\activity</span></span> command creates a full sized tile, with a title and description displayed,
+and the <span class="obeylines-h"><span class="verb">\practice</span></span> command creates a thin tile that shows only the progress bar,
+without a title or description. These commands are effectively an <span class="obeylines-h"><span class="verb">\include</span></span>
+command, so they should point to a ximera documentClass file (note that the
+file itself doesn’t need any special configuration to be an activity versus
+practice).
+</p><!--l. 26--><p class="noindent">You can also use the <span class="obeylines-h"><span class="verb">\part</span></span> command to make a darker tile that is not clickable,
+which can be useful to divide up your content. Moreover, there is also a
+<span class="obeylines-h"><span class="verb">\chapterstyle</span></span> and <span class="obeylines-h"><span class="verb">\sectionstyle</span></span> command, which make all activities after those
+commands have slightly different coloring - e.g. chapterstyle makes the tile slightly
+darker than section style, which is the default. Thus you could have a xourse file that
+looks something like:
+</p><!--l. 28--><pre>        \documentClass{xourse}
+ <br/>        \input{./preamble}
+ <br/>        \title{Example Assignment}% Title of the tile
+ <br/>        \begin{document}
+ <br/>            \begin{abstract}% Write the description
+ <br/>                This is an example assignment containing a few tiles of problems.
+ <br/>            \end{abstract}
+ <br/>            \maketitle% Make sure to display the title and description
+ <br/>
+ <br/>            \part{First Assignment Type}% Declare first assignment block via a large darker tile
+ <br/>                \activity{./folderOne/assignmentOne}% Load assignmentOne.tex in the subfolder folderOne
+ <br/>                \practice{./folderOne/practice/practiceOne}% Make a thin practice tile out of the file ‘‘practiceOne’’ contained in the subfolder ‘‘practice’’ in the subfolder ‘‘folderTwo’’.
+ <br/>
+ <br/>            \part{Second Assignment Type}% Declare second assignment block via a large darker tile
+ <br/>                \chapterstyle% Acitivities are going to be shaded darker until we reset to styletype
+ <br/>                    \activity{./folderTwo/assignmentOneLeadIn}% a lead-in for the assignments, so it gets special coloring
+ <br/>                \sectionstyle% Return to normal tile coloring.
+ <br/>                    \activity{./folderTwo/assignmentOne}% Load assignmentOne.tex from the subfolder: folderTwo
+ <br/>                    \practice{./folderTwo/practice/practiceOne}% Make a thin practice tile out of the file contained in the subfolder ‘‘practice’’ in the subfolder ‘‘folderTwo’’.
+ <br/>        \end{document}
+ <br/>    
+<!--l. 49--></pre>
+                                                                  
+
+                                                                  
+<!--l. 51--><p class="noindent">Note that you can go to the xourse file for this documentation by going
+back to the page with all the tiles, then append “.tex” to the end of the url
+and see the xourse file that generated this page to get a real-life example.
+ 
+ 
+
+                                                                  
+
+                                                                  
+                                                                  
+
+
+</p></body></html>

@@ -1,0 +1,10 @@
+\contentsline {part}{I\hspace {1em}Talks}{3}{part.1}%
+\contentsline {part}{II\hspace {1em}Assignment Setup}{3}{part.2}%
+\contentsline {part}{III\hspace {1em}Problem Environment}{3}{part.3}%
+\contentsline {part}{IV\hspace {1em}Answer Types}{3}{part.4}%
+\contentsline {part}{V\hspace {1em}Overleaf Template}{3}{part.5}%
+\contentsline {part}{VI\hspace {1em}Existing Custom Validators}{3}{part.6}%
+\contentsline {part}{VII\hspace {1em}Supplemental Features}{3}{part.7}%
+\contentsline {part}{VIII\hspace {1em}Question Design}{3}{part.8}%
+\contentsline {part}{IX\hspace {1em}Advanced Content}{3}{part.9}%
+\contentsfinish 
