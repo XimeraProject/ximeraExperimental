@@ -1,0 +1,56 @@
+\documentclass{ximera}
+
+\input{../preamble}
+
+\title{Titles}
+
+\author{Bart Snapp}
+
+\begin{document}
+\begin{abstract}
+  Description of titles.
+\end{abstract}
+\maketitle
+
+Titles and abstracts help users find your content. Typically,
+activites need titles and an abstract.  For example:
+
+\begin{verbatim}
+\documentclass{ximera}
+\title{Title of your activity}
+\author{Your name here}
+\begin{document}
+\begin{abstract}
+  A one-sentence description of the activity.
+\end{abstract}
+\maketitle
+\end{document}
+\end{verbatim}
+
+
+
+\section{Title styles}
+
+
+To help make a book, \ximera\ provides syle commands for the titles of the activities. These should be used in the \verb|xourse| file. 
+
+\begin{verbatim}
+\documentclass{xourse}
+\title{Title of your activity}
+\author{Your name here}
+\begin{document}
+\begin{abstract}
+  A one-sentence description of the xourse (optional).
+\end{abstract}
+\maketitle
+
+\chapterstyle
+\activity{path-to-someActivity.tex}
+\sectionstyle
+\activity{path-to-someOtherActivity.tex}
+
+\end{document}
+\end{verbatim}
+
+
+\end{document}

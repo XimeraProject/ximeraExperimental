@@ -1,0 +1,39 @@
+\documentclass{ximera}
+
+\input{../preamble.tex}
+
+\title{Answer}
+\author{Bart Snapp \and Rodney Austin}
+
+\begin{document}
+\begin{abstract}
+  An example of various uses of \texttt{answer}.
+\end{abstract}
+\maketitle
+
+
+The command \verb|\answer| must be in math mode. 
+
+
+\begin{problem}
+  Type $2$. $\answer{2}$, $\answer[given]{2}$, $\answer[tolerance=.2]{\frac{1}{2}}$,  $\int_a^b f(x) \ dx$,
+  \[
+  -\frac{1}{\frac{12}{1}}\sum_{n=1}^{\answer{\infty}} n
+  \]
+\end{problem}
+
+
+\begin{problem}
+  Is $\ln(x^2+4) = \ln(|x^2+4|)$? Well
+  \[
+  \ln(x^2+4) = \answer{ \ln(x^2+4) }
+  \]
+  and
+  \[
+  \ln(|x^2+4|) = \answer{ \ln(|x^2+4|) }
+  \]
+\end{problem}
+
+
+
+\end{document}

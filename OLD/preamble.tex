@@ -1,0 +1,55 @@
+%% You can put user macros here
+%% However, you cannot make new environments
+
+\graphicspath{
+{./}
+{graphicsAndVideos/}
+}
+
+
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+
+
+\newcommand{\dfn}{\textbf}
+
+\pgfplotsset{compat=1.7} % prevents compile error.
+
+\tikzstyle geometryDiagrams=[ultra thick,color=blue!50!black]
+
+\usepackage{lipsum}
+
+\newcommand{\ximera}{XiMeRa}
+%\def\d{\,d}
+\renewcommand{\d}{\,d}
+
+
+
+%% FOR XIMERA CLS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\link}[2][]{\href{#2}{#1}%% the optional argument, a name for the link as a clickable link
+\ifthenelse{\equal{#1}{}}%% if no optional argument, then 
+{\url{#2}}%% just print the name
+{\footnote{See #1 at \url{#2}}}}%% include the link address as a footnote
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%% \makeatletter%% note could be made fancy with if then tech above.
+%% %\setcounter{secnumdepth}{2}
+%% \def\@othersection\section
+%% \def\@othersubsection\subsection
+%% \newcommand{\sectionstyle}{\def\section{\@othersection}\def\maketitle{\newpage \noindent {\bf A pretitle:}\\[-3em]\section\@title}\def\section{\subsection}}
+%% \newcommand{\chapterstyle}{\def\maketitle{\newpage \noindent {\bf A pretitle:}\\[-3em]\chapter\@title}}
+%% \makeatother
+
+
+
+
+%% \ifxake
+%% \newcommand{\desmosThreeD}[3]{\HCode{<iframe src=https://www.desmos.com/3d/#1 width="100\%" height="#3px" style="border: 1px solid #ccc" frameborder=0>This browser does not support embedded elements.</iframe>}}
+%% \else
+%% \newcommand{\desmosThreeD}[3]{Desmos link: \url{https://www.desmos.com/3d/#1}}
+%% \fi
