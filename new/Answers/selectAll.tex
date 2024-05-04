@@ -8,10 +8,10 @@
 \end{abstract}
 \maketitle
 
-\section*{SelectAll}
+%\section*{SelectAll}
     \subsection*{How Select All works}
     
-        Note that, basically everything about the select all environment is identical to the multiple choice environment, except that multiple choices can be selected by the student to account for needing multiple correct answers being selected simultaneously.
+        Note that, basically everything about the select all environment is identical to the multiple choice environment, except that multiple answers can be selected by the student to account for needing multiple correct answers being selected simultaneously.
     
     \subsection*{How to generate Select All answers}
     
@@ -47,13 +47,34 @@
     
         Select All itself (currently) has no optional arguments. The choice command (currently) has only one key-value pair, which is the flag for whether the choice is correct or not. Technically the key is 'correct' and the value is 'true' or 'false', but the key defaults to 'false' and simply using the key flips it to true. In other words using \verb|\choice[correct]{Correct!}| is the same as using \verb|\choice[correct=true]{Correct!}|, and both of those will mark the given choice as the correct answer. Likewise \verb|\choice{False!}| and \verb|\choice[correct=false]{False!}| are equivalent, and both result in the answer being incorrect.
         
-    \subsection*{Examples}
+    \subsection*{(Additional) Examples}
     
-        TBD
+        \begin{problem}
+            Select all the prime numbers from the listed values below:
+            \begin{selectAll}
+                \choice{1}
+                \choice[correct]{2}
+                \choice[correct]{3}
+                \choice{4}
+                \choice[correct]{5}
+                \choice{6}
+                \choice[correct]{7}
+                \choice{8}
+            \end{selectAll}
+        \end{problem}
         
     \subsection*{Best Practices}
     
-        TBD
+        \subsubsection*{selectAll over multipleChoice}
+            It is generally a good idea to use selectAll over multipleChoice, as multipleChoice is easy for students to spam answer options until they find the correct one, but selectAll has exponentially more possible combinations and quickly becomes unwieldy to try and spam answer configurations for credit. This helps push students to actually consider and answer the question, rather than just trying every combination until they get the page credit and move on.
+        
+        \subsubsection*{selectAll is good for equivalence}
+            A classic multiple choice setup asks something like ``which of the following are ...'', eg ``which of the following answers is equal/equivalent/similar to''. For classic multiple choice questions, this allows students to do a quick assessment and try the most likely answer first, until they find the one answer that is indeed equal/equivalent/similar/etc, at which point they can select that answer and move on. In many cases, this means the student never even reads half of the provided answers, as they hit upon a correct answer early on.
+            
+            selectAll style problems allow for any, or indeed all, of the presented answers to qualify as correct choices. This forces the student to carefully go through each of the potential answers, since finding a correct one is no assurance that it is the \textit{only} correct one. As mentioned in the previous comment, this also makes it much more difficult to spam answer combinations for the correct configuration and move on without actually checking any of the potential answers.
+        
+        \subsubsection*{4 choices seem to be a good minimum to avoid configuration spamming.}
+            From personal testing, 4 choices seems to be a good minimum number of choices, with the ideal being 5 or 6 choices. At 4 choices, there are $2^4 = 16$ combinations, which is enough for most students to lose track and miss at least one combination when spamming configurations. 5 choices result in 32 configurations, which makes it very likely that the correct configuration is missed by students that are spamming configurations, and seems to be the ideal number of choices. More than 6 choices occasionally seems to overwhelm students and cause secondary issues around math/test-style anxiety. To be clear, this personal and anecdotal observation - although one with surprising consistency within my experience. This might be a good area for a research project or at least some data analysis.
         
     \subsection*{Potential Pitfalls and Problems}
         

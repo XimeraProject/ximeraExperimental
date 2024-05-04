@@ -56,13 +56,54 @@
             \item[attempt] The optional argument ``attempt'' will display the feedback after any attempt, regardless of whether that attempt is correct or incorrect. This is the default behavior of feedback if no optional argument is provided, and note that it is the only behavior that gives feedback when a student gives a wrong answer. However, it also doesn't go away once the student gets the correct answer.
         \end{description}
         
-    \subsection*{Examples}
-    
-        TBD
+    \subsection*{(Additional) Examples}
+        
+        For the first (two-part) example, we demonstrate how the feedback can be moved around relative to where the answer, and even the problem-statement, are displayed. This is something to keep in mind when writing feedback.
+        
+        \subsubsection*{Example 1.1}
+            \begin{problem}
+                The answer to this can be found in the feedback. But look where the feedback is generated, relative to the answer box.
+                \begin{feedback}
+                    The answer is 14.
+                \end{feedback}
+                $\answer{14}$
+            \end{problem}
+
+        \subsubsection*{Example 1.2}
+            \begin{problem}
+                \begin{feedback}
+                    The answer is 141.
+                \end{feedback}
+                The answer to this can be found in the feedback. But look where the feedback is generated, relative to the answer box.
+
+                $\answer{141}$
+            \end{problem}
+        
+        \subsubsection*{Example 2: Using feedback on correct answers}
+        
+            \begin{problem}
+                What is the smallest prime number? $\answer{2}$
+                \begin{feedback}
+                    The smallest prime is not 1. But you probably didn't even write 1 did you? That's because this is shown regardless of your answer, after your first attempt. 
+                \end{feedback}
+                \begin{feedback}[correct]
+                    Correct! The answer is indeed 2. You should only see this if/when you entered the correct answer.
+                \end{feedback}
+            \end{problem}
         
     \subsection*{Best Practices}
     
-        TBD
+        \subsubsection*{Feedback versus Hints}
+            There are (currently) two canonical ways to provide supporting information to the student while they work on a problem, either feedback or hints. As a purely anecdotal - but shockingly consistent and ubiquitous - observation, students view feedback as something that (at best) is a followup once the problem is correct, whereas ``hints'' are used to help get to understand how to complete a problem. 
+            
+            For a precalculus course, I included feedback to help students understand how to complete problems, on every single problem. At the end of the first semester after doing this, in a course of 500+ students, over half of them (just over 300) requested more support for the online problems/homework, despite every problem having feedback to help them figure out how to complete the problem. 
+            
+            For the next semester, I renamed the feedback environments into hint environments and moved them to show up above the problem statement instead of below. I didn't change the content of the environment, nor did I add any content to any of the environments. At the end of that semester, out of around 450 students, I had less than 10 percent (around 30) students request additional support. Just changing from feedback to hint had a \textit{massive} impact on the student feedback, even though the content was unchanged. 
+            
+            This could be a population quirk due to something about students attending my university (University of Florida) but I suspect it has more to do with how online educational resources have conformed and built expectations among students as my students are almost entirely first year university students.
+            
+        \subsubsection*{Default Feedback is always seen.}
+            Since default feedback is displayed on an attempt, it will be seen by students after their first attempt is made - whether they got it right or wrong. Moreover, it is never suppressed, meaning that, if they get the answer correct on their second or third attempt, the original ``on attempt'' feedback will still remain - it won't go away due to credit status change. For this reason it is best to word your feedback in a way that either makes it clear it is only intended to be useful while the student is trying to get a correct answer. Alternatively you can try to word your feedback to be useful/insightful for both correct and incorrect answers - such as advice on why this particular problem is tricky or what some of the most common (incorrect) answers might be, and why. This can potentially help students later if/when they return to review content to study.
         
         
     \subsection*{Potential Pitfalls and Problems}   

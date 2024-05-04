@@ -64,7 +64,39 @@
     
     \subsection*{Best Practices}
     
-        TBD
+        \subsubsection*{tolerance optional argument}
+            The answer box allows for a tolerance level as stated above. Most often one thinks to use this as a ``round to the nearest hundreth'' or similar style problem, but Ximera supports comparison with machine-level percision (meaning that you can use irrational numbers like $\sqrt{2}$, $\pi$ and $e$ and students would have to enter in far more decimal places than is plausible before they would get a correct answer without actually using the irrational value itself). 
+            
+            A more pedagogically useful place to use tolerance is in situations where there is an actual lack of precision. For example, if you are asking students for a coordinate on a graph, this can allow you to take in a range of values for each coordinate. 
+            
+        \subsubsection*{tolerance optional argument pt 2:} 
+            One of the issues with using tolerance is that a student can have an answer marked correct, even if it is slightly off from the expected value. This is normally not a big deal, but if there are followup calculations or problems, this small error can compound until - despite doing all the steps correctly, the student eventually gets a value whose error compounded big enough that it is now no longer within the provided tolerance.
+            
+            To fix this, a content author can try to use progressively larger tolerances, but that is really just making the problem worse and losing the fidelity of what it means to get the problem ``correct''. Alternatively, an author can use the ``id'' optional argument to then call the \textit{students value} via a validator optional argument in future answer boxes, to calculate the exact expected value after a sequence of algebraic steps from the student's answer, rather than the original ``expected'' value. This allows you to maintain a relatively tight tolerance value throughout a sequence of nested problems, without having students compound a small error until their answer is rejected and generating confusion. For more on how to do this, see the validator section. 
+        
+        \subsubsection*{string formats}
+            Although Ximera supports string format authentication, this is such a remarkably unforgiving authentication check. Literally any deviation from the exact sequence of provided characters will be rejected - including things like capitalization differences, extra whitespace, and different character codes. For example, if you have an answer box that looks like: \verb|\answer[format=string]{ab+c}\verb|, the following would all be rejected answers due to the string format:
+            \begin{itemize}
+                \item ``ab + c'' [rejected due to the space between the plus sign and the letters]
+                \item ``AB+C'' [rejected due to the capital letters rather than lower case]
+                \item ``abc+ `` [rejected due to the extra space at the end of the answer]
+                \item ``abc+'' [rejected because it is using a pasted-in plus sign that is technically a hex character code rather than a unicode character code - even though they look exactly the same \textit{and} compile to pdf exactly the same].
+            \end{itemize}
+            For this reason, it is generally a good idea to avoid using the format=string optional argument unless you really do need the student to enter in the \textit{exact} sequence of characters in order to make a point. Often if you are just trying to get a ``yes'' or a ``no'', you can accept this without a format=string as there isn't really a pedagogical impact to the letters being accepted out of order (it's not like the student really things that, if the answer ``yse'' is accepted, that ``yes'' was not actually the correct letter, they will just assume it accepted the typo).
+
+        \subsubsection*{Answer Box Size}
+            If you are in a situation where you want a student to solve for a portion of an expression or formula, and thus you need to put parentheses around the answer box, keep in mind that normal parentheses won't actually be big enough to go around the answer box and thus it will look kind of goofy. Instead use the \verb|\left(\answer{}$\right)$\verb| style to force the parentheses to grow to the appropriate height. For a visual of what we mean, consider the following - first just parentheses, the second with the recommended method:
+            \[
+                (\answer{4}) \qquad \left(\answer{4}\right)
+            \]
+        
+        \subsubsection*{Answer Box Size pt 2}
+            Also keep in mind that the answer box is a (fairly set) size, which means that it can be hard to tell when it is suppose to be in the place of something small - for example a subscript or superscript. For example:
+            \[
+                \answer{64}x^{\answer{2}} = 64x^2
+            \]
+            If you are looking closely, and if you have both levels of answer boxes to compare and see the difference in alignment, you can tell that the first box is clearly a coefficient and the second should be some kind of exponent. But very often students won't catch that - especially if there is only the one answer box - at first glance, so it is helpful to keep this in mind when you are designing problems. Some kind of contextual clue, prompt, or even a hint or feedback to inform the student that the answer box is expecting an exponent, or subscript, or whatever it is, can be extremely helpful and remove considerable frustration on the part of the student.
+
     
     \subsection*{Potential Pitfalls and Problems}    
     
@@ -83,6 +115,7 @@
                 $\answer{2x}$. 
             \end{explanation}
             Ximera accepts it as correct, even though we obviously know that's not true. But that's because $2^{-40}$ is a number that is too small for machine precision - so to the computer \textit{running} Ximera, it is effectively indistinguishable from zero. This is just an inherent restriction based on the machine running Ximera, rather than Ximera itself - but it can be important to be aware of, since it can crop up in other ways. For example, if you have something like $e^{-200|x|^{100}}$, then almost regardless of what number Ximera picks in the complex plane, chances are excellent that the result would be too small for machine precision to detect - meaning that the entire \textit{function} is indistinguishable from the constant zero. This can crop up as a result of integrating or differentiating weird functions that end up having extra terms that it is important for students to realize exist (e.g. you want to verify they used the chain rule and not just the base derivative rule) but the ``extra part'' doesn't seem to matter to Ximera - this is typically an issue of machine precision.
+            
         
         \subsubsection*{Answers are exposed via right-click}
             

@@ -31,7 +31,7 @@
             \choice{$]$}
             }
         
-        Notice that this is formatted almost identically to the multipleChoice environment - the main difference being that it is a command rather than an environment to ensure that you don't force a line break (since wordchoice is intended to be an in-line version of the multiple choice answer type). Also note that, as long as you don't use the line break latex command: \textbackslash\textbackslash or include a double line break yourself (enter twice) in the code, the wordChoice will command itself won't force a line break, allowing you to chain together a number of these to create a sequence of dropdown boxes that allow you to make more elaborate answers. See \href{https://xronos.clas.ufl.edu/examples/exampleCore/problemDesign/intervals}{the tile on letting students input intervals as answers} in this documentation for an example.
+        Notice that this is formatted almost identically to the multipleChoice environment - the main difference being that it is a command rather than an environment to ensure that you don't force a line break (since wordchoice is intended to be an in-line version of the multiple choice answer type). Also note that, as long as you don't use the line break latex command: ``\textbackslash\textbackslash{}'' or include a double line break yourself (enter twice) in the code, the wordChoice command itself won't force a line break, allowing you to chain together a number of these to create a sequence of dropdown boxes that allow you to make more elaborate answers. 
         
     \subsection*{How word choice validates an answer}
     
@@ -43,13 +43,16 @@
         
         Word Choice itself (currently) has no optional arguments. The choice command (currently) has only one key-value pair, which is the flag for whether the choice is correct or not. Technically the key is 'correct' and the value is 'correct' or 'incorrect', but the key defaults to 'incorrect' and simply using the key flips it to correct. In other words using \verb|\choice[correct]{Correct!}| is the same as using \verb|\choice[correct=true]{Correct!}|, and both of those will mark the given choice as the correct answer. Likewise \verb|\choice{False!}| and \verb|\choice[correct=false]{False!}| are equivalent, and both result in the answer being incorrect.
 
-    \subsection*{Examples}
+    \subsection*{(Additional) Examples}
     
-        TBD
+        \subsubsection*{Example 1: Entering in an Interval-Style answer}
+            See \href{https://xronos.clas.ufl.edu/examples/exampleCore/problemDesign/intervals}{the tile on letting students input intervals as answers} in this documentation for an example.
         
     \subsection*{Best Practices}
     
-        TBD
+        There are currently no real best-practices established for this type of response, beyond those established for the ``multipleChoice'' response environment, which is what this is based on.
+        
+        % Personal Note by Jason N: I don't use this response very much, so I haven't established much in the way of best practices or even anecdotal suggestions for those looking to use this environment, beyond the interval input listed above in the example section. I'm hoping Bart or another author might have some suggestions to enter here.
         
 
     \subsection*{Potential Pitfalls and Problems}

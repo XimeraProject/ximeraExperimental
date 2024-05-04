@@ -8,7 +8,7 @@
 \end{abstract}
 \maketitle
 
-\section*{Multiple Choice}
+%\section*{Multiple Choice}
     \subsection*{How multiple choice works}
     
     
@@ -48,13 +48,29 @@
     
         Multiple Choice itself (currently) has no optional arguments. The choice command (currently) has only one key-value pair, which is the flag for whether the choice is correct or not. Technically the key is 'correct' and the value is 'correct' or 'incorrect', but the key defaults to 'incorrect' and simply using the key flips it to correct. In other words using \verb|\choice[correct]{Correct!}| is the same as using \verb|\choice[correct=true]{Correct!}|, and both of those will mark the given choice as the correct answer. Likewise \verb|\choice{False!}| and \verb|\choice[correct=false]{False!}| are equivalent, and both result in the answer being incorrect.
         
-    \subsection*{Examples}
+    \subsection*{(Additional) Examples}
     
-        TBD
-        
+        \subsubsection*{Example 1}
+            
+            \begin{problem}
+                Select a prime number.
+                \begin{multipleChoice}
+                    \choice{1}
+                    \choice[correct]{2}
+                    \choice[correct]{3}
+                    \choice{4}
+                    \choice[correct]{5}
+                \end{multipleChoice}
+            \end{problem}
+            
+            Note that there are several potentially correct options in the above problem - but the student is only able to select one answer before submitting. As long as the student selects one of the prime numbers however, it will be marked as correct.
+            
     \subsection*{Best Practices}
     
-        TBD
+        \subsubsection*{Student Expectations}
+            Despite what is demonstrated in example 1 above, it is worth a note that students have an expectation that the number of selectable answers implies the number of correct answers. In other words, since the multipleChoice environment only allows the student to select one choice, they expect then that there must only be one correct answer. For this reason, if you provide more than one correct answer, you should also include a hint, feedback, or contextual clue to students to inform them that there were multiple correct answers and you intended them to only select one of them. See the potential pitfalls/problems below for more on this.
+            
+        
         
     \subsection*{Potential Pitfalls and Problems}
         

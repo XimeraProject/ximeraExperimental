@@ -20,48 +20,44 @@
             \item exploration
         \end{itemize}
         
-        There are ways to create new forms of these problem-style environments with different names, although it requires some minor alterations of the ximera.4ht file, so if you want to do this you would need to contact the Ximera admin on further steps to take.
+        There are ways to create new forms of these problem-style environments with different names, although it requires some minor alterations of the ximera.4ht file, so if you want to do this you would need to dive into the code and/or talk to one of the developers for specifics.
     
     \subsection*{Numbering}
     
-        Notice the numbering of the following problem-style environments:
-        \begin{problem}
-            This is a problem, and the answer is 1! $\answer{1}$
-        \end{problem}
-            
-        \begin{question}
-            This is a problem, and the answer is 2! $\answer{2}$
-        \end{question}
-            
-        \begin{exercise}
-            This is a problem, and the answer is 3! $\answer{6}$
-        \end{exercise}
-            
-        \begin{exploration}
-            This is a problem, and the answer is 4! $\answer{24}$
-        \end{exploration}
-        
-        
-        The problem-style environments share a counter by default in order to minimize student confusion when they ask about ``problem 7'', to avoid the situation where they really meant the seventh problem on the page, and not actually ``problem 7'', as this case there is only one problem-style environment with that number, making it easy to determine which problem the student is (theoretically at least) referring to.
-        
-    \subsection*{So why have different ones?}
-        
-        Typically authors use the different types of problem environments to represent different styles of problems. For example, one might make any problem with sub-questions an ``exploration'' problem to tip students off that there are subproblems involved even before they see them. Likewise, a ``problem'' might be a difficult problem, an ``exercise'' might be a mechanical-only skillset problem, and an ``exercise'' might be an easier level problem. Again this is up to the content author, the option is there if you are interested, but it need not be used.
+        The problem-style environments share a counter by default in order to minimize student confusion when they ask about ``problem 7'', to avoid the situation where they really meant the seventh problem on the page, versus specifically ``problem 7'', as this case there is only one problem-style environment with that number, making it easy to determine which problem the student is (theoretically at least) referring to.
     
     \subsection*{Optional Arguments}
     
         The problem environment does not, at the time of this writing, have any optional arguments.
     
     \subsection*{Examples}
+        \subsubsection*{Example 1: Numbering}
+            Notice the numbering of the following problem-style environments:
+            \begin{problem}
+                This is a problem, and the answer is 1! $\answer{1}$
+            \end{problem}
+                
+            \begin{question}
+                This is a problem, and the answer is 2! $\answer{2}$
+            \end{question}
+                
+            \begin{exercise}
+                This is a problem, and the answer is 3! $\answer{6}$
+            \end{exercise}
+                
+            \begin{exploration}
+                This is a problem, and the answer is 4! $\answer{24}$
+            \end{exploration}
     
-        TBD
         
     \subsection*{Best Practices}
     
-        TBD
+        \subsubsection*{Why have different problem environment names?}
+            
+            Typically authors use the different types of problem environments to represent different styles of problems. For example, one might make any problem with sub-questions an ``exploration'' problem to tip students off that there are subproblems involved even before they see them. Likewise, a ``problem'' might be a difficult problem, an ``exercise'' might be a mechanical-only skillset problem, and an ``exercise'' might be an easier level problem. Again this is up to the content author, the option is there if you are interested, but it need not be used.
         
     \subsection*{Potential Pitfalls and Problems}
     
-        TBD
+        As of the writing of this guide there are no (non-obvious) issues with the alternates to problem environments - as they are essentially just a renaming/wrapper for the regular problem environment. 
         
 \end{document}
