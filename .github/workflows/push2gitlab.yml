@@ -12,14 +12,26 @@ jobs:
     - uses: actions/checkout@v2
       with: 
         fetch-depth: 0
+    - name: Add SSH key
+      env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+                  mkdir -p /home/runner/.ssh
+                  # Replace example.com with the hostname of the machine
+                  # you're SSH-ing into
+                  ssh-keyscan gitlab.kuleuven.be >> /home/runner/.ssh/known_hosts
+                  # SSH_KEY is the name of the repository secret
+                  echo "${{ secrets.XIMERA_SSH_KEY }}" > /home/runner/.ssh/github_actions
+                  chmod 600 /home/runner/.ssh/github_actions
+                  ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
+                  ssh-add /home/runner/.ssh/github_actions        
     - name: Push To Gitlab
       run: |
         echo Starting to push repo to gitlab
         git config user.name "FromGithub"
         git config user.email "FromGithub@nowhere.com"
-        git remote set-url origin "https://FromGithub:${token}@gitlab.kuleuven.be/monitoraat-wet/ximera/examples.git"
+        git remote set-url origin "git@gitlab.kuleuven.be:monitoraat-wet/ximera/examples.git"
         echo Set remote
         git push origin master
-      env: 
-        token: ${{ secrets.GITLAB_ACCESS_TOKEN }}
+        rm -f /home/runner/.ssh/github_actions
         
