@@ -22,7 +22,7 @@ jobs:
                   ssh-keyscan gitlab.kuleuven.be >> /home/runner/.ssh/known_hosts
                   # SSH_KEY is the name of the repository secret
                   echo "${{ secrets.XIMERA_SSH_KEY }}" > /home/runner/.ssh/id_ed25519
-                  # chmod 600 /home/runner/.ssh/github_actions
+                  chmod 600 /home/runner/.ssh/id_ed25519
                   # ssh-agent -a $SSH_AUTH_SOCK > /dev/null	
                   # ssh-add /home/runner/.ssh/github_actions        
     - name: Push To Gitlab
