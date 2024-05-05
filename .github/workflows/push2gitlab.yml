@@ -30,6 +30,7 @@ jobs:
         echo Starting to push repo to gitlab
         git config user.name "FromGithub"
         git config user.email "FromGithub@nowhere.com"
+        git config core.sshCommand "ssh -v"
         git remote set-url origin "git@gitlab.kuleuven.be:monitoraat-wet/ximera/examples.git"
         echo Set remote
         git push origin master
