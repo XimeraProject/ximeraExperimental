@@ -32,6 +32,8 @@ jobs:
         git config user.email "FromGithub@nowhere.com"
         git config core.sshCommand "ssh -v"
         git remote set-url origin "git@gitlab.kuleuven.be:monitoraat-wet/ximera/examples.git"
+        echo Get updates
+        git pull
         echo Set remote
         git push origin master
         rm -f /home/runner/.ssh/id_ed25519
