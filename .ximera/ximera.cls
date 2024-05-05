@@ -1010,11 +1010,14 @@ Interactive
 }
 
 
-\IfFileExists{sagetex.sty}{\RequirePackage{sagetex}}{}
+%%%\IfFileExists{sagetex.sty}{\RequirePackage{sagetex}}{}
+\RequirePackage{sagetex}
 
 \DefineVerbatimEnvironment{sageCell}{Verbatim}{numbers=left,frame=lines,label=SAGE,labelposition=topline}
 
 \DefineVerbatimEnvironment{sageOutput}{Verbatim}{numbers=left,frame=lines,label=SAGE-Output,labelposition=topline}
+
+\DefineVerbatimEnvironment{sagesilent}{Verbatim}{numbers=left,frame=lines,label=SAGE-Silent,labelposition=topline}
 
 
 \ifdefined\HCode

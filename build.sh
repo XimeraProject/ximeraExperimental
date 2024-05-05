@@ -56,6 +56,10 @@ if [[ -f .ximera/xourse.4ht ]]; then
     echo "USING xourse.4ht from local repo"
     cp .ximera/xourse.4ht /root/texmf/tex/latex/ximeraLatex/
 fi
+if [[ -f .ximera/sagetex.sty ]]; then
+    echo "USING sagetex.sty from local repo"
+    cp .ximera/sagetex.sty /root/texmf/tex/latex/ximeraLatex/
+fi
 
 if [[ -d .texmf ]]; then
     echo "USING .texmf etc from local repo"
