@@ -110,7 +110,7 @@ build_bake_job:
 deploy_to_preview:
   stage: deploy-test
   variables:
-    REPO: 'alacarte*preview'
+    REPO: 'examples*preview'
   script: 
     - xake -v --jobs $NB_JOBS bake # Genereer de html files (should not be needed)
     - cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
@@ -135,7 +135,7 @@ deploy_to_preview:
 deploy_to_latest:
   stage: deploy-test
   variables:
-    REPO: 'alacarte'
+    REPO: 'examples'
   script: 
     - xake -v --jobs $NB_JOBS bake # Genereer de html files (should not be needed)
     - cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
@@ -160,7 +160,7 @@ deploy_to_latest:
 deploy_job_blik_op_wiskunde:
   stage: deploy-prod
   variables:
-    REPO: 'alacarte'
+    REPO: 'examples'
   script: 
     # - xake -v --jobs $NB_JOBS bake # Genereer de html files (should not be needed)
     - cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
