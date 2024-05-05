@@ -1,0 +1,175 @@
+%%
+%% This is file `xourse.4ht',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ximera.dtx  (with options: `htXourse')
+%% src/logo.dtx  (with options: `htXourse')
+%% src/metadata.dtx  (with options: `htXourse')
+%% src/activity.dtx  (with options: `htXourse')
+%% src/sectioning.dtx  (with options: `htXourse')
+%% src/graded.dtx  (with options: `htXourse')
+%% src/interactives/video.dtx  (with options: `htXourse')
+%% src/ending.dtx  (with options: `htXourse')
+%% ------------:| ------------------------------------------------------------
+%%       ximera:| Simultaneously writing print and online interactive materials
+%%       Author:| Jim Fowler and Jeramiah Hocutt and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
+%%       E-mail:| bart.snapp@gmail.com
+%%      License:| Released under the LaTeX Project Public License v1.3c or later
+%%          See:| http://www.latex-project.org/lppl.txt
+%% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\Configure{@HEAD}{%
+  \HCode{<meta name="og:image" content="}%
+  %%\xourse@logo%
+  \HCode{" />\Hnewline}}
+
+
+
+\Configure{@HEAD}{\HCode{<meta name="description" content="xourse" />\Hnewline}}
+
+%% Can be set/overwritten in printstyle %%
+
+\providecommand\subpart{}
+\newcounter{subpart}
+\setcounter{subpart}{0} 
+\titlecontents{subpart}[0pt]{\normalfont\bfseries}%
+{\thecontentslabel\enspace ---\enspace\large}%
+{\normalfont\large\bfseries}{\hspace{2em plus 1fill}\large\contentspage}
+
+\renewcommand{\thepart}{\arabic{part}}
+%\renewcommand{\thesubpart}{\thepart\Alph{subpart}}
+\renewcommand{\thesubpart}{%
+  \ifnum0=\value{part}%
+     \Alph{subpart}%
+   \else%
+     \thepart\Alph{subpart}%
+  \fi%
+}
+\renewcommand{\thetitlenumber}{
+    \ifnumberactivitiesbysubpart%
+        \thesubpart.\arabic{titlenumber}%    
+    \else%
+        % if continuous counting of activities, don't include subparts
+        \thepart.\arabic{titlenumber}%    
+    \fi%
+}
+\renewcommand{\thesectiontitlenumber}{\thetitlenumber\alph{sectiontitlenumber}}
+
+\providebool{addtitlenumber}        % default false ...!
+\providebool{addsectiontitlenumber} %
+
+\renewcommand\chapterstyle{%
+  \def\activitystyle{chapter}%
+  \setcounter{sectiontitlenumber}{0}%
+  \ifaddtitlenumber%
+    \addtocounter{titlenumber}{1}%
+    \def\activitytoclabel{\thetitlenumber}%
+  \else%
+    \def\activitytoclabel{}%
+  \fi%
+}
+\renewcommand\sectionstyle{%
+  \def\activitystyle{section}%
+  \ifaddsectiontitlenumber%
+    \addtocounter{sectiontitlenumber}{1}%
+    \def\activitytoclabel{\thesectiontitlenumber}%
+  \else%
+    \def\activitytoclabel{}%
+  \fi%
+}
+
+\renewcommand\activity[2][]{%
+  \ifvmode \IgnorePar\fi \EndP%
+  \HCode{  <a class="activity card \activitystyle" href="#2" data-toc-label="\activitytoclabel" data-options="#1">#2</a>\Hnewline}%
+  \IgnoreIndent%
+}
+
+\renewcommand\practice[2][]{%
+  \ifvmode\IgnorePar\fi\EndP%
+  \HCode{  <a class="activity card practice \activitystyle" href="#2" data-toc-label="\activitytoclabel" data-options="#1">#2</a>\Hnewline}%
+  \IgnoreIndent%
+}
+
+\renewcommand\activitylink[3][]{
+  % assume optional arg #1 are extra css classes! 
+  \ifvmode \IgnorePar\fi \EndP%
+  \HCode{  <a class="activity card xmlink chapter }#1\HCode{" href="#2" data-toc-label="" data-xmlink="#2" data-options="#1">}#3\HCode{</a>\Hnewline}%
+  \IgnoreIndent%
+  }
+  
+\providecommand{\subpart}[1]{}%
+\newcounter{ximera@subpart}%
+\setcounter{ximera@subpart}{0}%
+\renewcommand\subpart[1]{%
+  \stepcounter{ximera@subpart}%
+  \stepcounter{subpart}%
+  \ifnumberactivitiesbysubpart%
+    \setcounter{titlenumber}{0}%
+    \setcounter{sectiontitlenumber}{0}%
+  \fi%
+  \ifvmode \IgnorePar\fi \EndP%
+  \HCode{<h2 id="subpart\arabic{ximera@subpart}" class="card subpart" data-toc-label="\thesubpart">}#1\HCode{</h2>\Hnewline}%
+  \IgnoreIndent%
+}
+
+\newcounter{ximera@part}
+\setcounter{ximera@part}{0}%
+\renewcommand\part[1]{%
+  % \setcounter{ximera@subpart}{0}
+  \stepcounter{ximera@part}%
+  \stepcounter{part}%
+  \setcounter{titlenumber}{0}%
+  \setcounter{sectiontitlenumber}{0}%
+  \setcounter{subpart}{0}
+  \ifvmode \IgnorePar\fi \EndP%
+  \HCode{<h1 id="part\arabic{ximera@part}" class="card part" data-toc-label="\thepart">}#1\HCode{</h1>\Hnewline}%
+  \IgnoreIndent%
+}
+  
+\renewenvironment{graded}[1]{%
+\ifvmode \IgnorePar\fi \EndP\HCode{<div class="graded" data-weight="#1">}\IgnoreIndent%
+}{
+\ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent%
+}
+
+\renewcommand\youtube[1]{%
+\ifvmode \IgnorePar\fi \EndP\HCode{<a class="youtube" href="https://www.youtube.com/watch?v=#1">#1</a>}\IgnoreIndent%
+}
+
+\Hinput{xourse}
+
+%% 
+%% Copyright (C) 2018 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License (LPPL), either
+%% version 1.3c of this license or (at your option) any later
+%% version.  The latest version of this license is in the file:
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by
+%% Bart Snapp. The source code can be found at:
+%% 
+%% https://github.com/XimeraProject/ximeraLatex
+%% 
+%% This work consists of the file ximera.dtx, the associated files
+%% under src/, and a Makefile.
+%% 
+%% Running "make" generates the derived files README, ximera.pdf, ximera.cls, xourse.cls.
+%% 
+%% Running "make inst" installs the files in the user's TeX tree.
+%% 
+%% Running "make install" installs the files in the local TeX tree.
+%% 
+%%
+%% End of file `xourse.4ht'.
