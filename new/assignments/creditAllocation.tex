@@ -42,7 +42,7 @@
                 We have the theorem given to us, and it has two parts, the ``if'' statement that sets the necessary hypotheses to apply the theorem, and the ``then'' statement which tells us the result.
             \end{explanation}
             
-            \begin{problem}
+            \begin{question}
                 How last are you?
                 \begin{multipleChoice}
                     \choice[correct]{Very.}
@@ -51,10 +51,10 @@
                     \choice[correct]{Not much.}
                     \choice[correct]{Not at all.}
                 \end{multipleChoice}
-        
+            \end{question}
         \end{verbatim}
         
-        Each of the commands and environments above have their own sections in this guide, but for the sake of our current interest, we want to note that there are 4 top-level environments: a theorem, the first problem (which contains another problem) an explanation environment, and the last problem environment. That means each of these is worth one quarter of the completion of the page. Moreover, the first problem has a second followup problem - which itself has an \verb|\answer| box, and a multiple choice environment, which determines the percentage complete value of the containing problem environment. This is confusing to write out, but consider the following breakdown (which should hopefully be clearer)
+        Each of the commands and environments above have their own sections in this guide, but for the sake of our current interest, we want to note that there are 4 top-level environments: a theorem, a problem environment (which contains another problem) an explanation environment, and a question environment. That means each of these is worth one quarter of the completion of the page. Moreover, the problem environment has a selectAll environment to finish and also a followup problem - which itself has an \verb|\answer| box, so the answer box determines if the nested problem is flagged as complete, and then the completion of the nested problem \textit{and} the selectAll environment determines the completion of the outer problem. This is confusing to write out, but consider the following breakdown (which should hopefully be clearer)
         
         \begin{enumerate}
             \item[1:] Theorem Environment: Worth 25\% contingent on completion
@@ -63,14 +63,14 @@
                 \end{itemize}
             \item[2:] Problem Environment: ``In order to apply the theorem...'' Worth 25\% contingent on completion
                 \begin{enumerate}
-                    \item[1:] selectAll Environment Worth 50\% of Problem Environment Credit - contingent on completion
+                    \item[1:] selectAll Environment Worth 50\% of the Problem Environments Credit - contingent on completion
                         \begin{itemize}
                             \item Getting a ``correct'' flag gives completion.
                         \end{itemize}
                     
-                    \item[2:] Problem Environment Worth 50\% of Problem Environment Credit - contingent on completion
+                    \item[2:] Problem Environment Worth 50\% of the Problem Environments Credit - contingent on completion
                         \begin{itemize}
-                            \item Getting a ``correct'' flag on the \verb|\answer| box gives completion.
+                            \item Getting a ``correct'' flag on the \verb|\answer| box gives 100\% of the nested problems credit for completion.
                         \end{itemize}
                 \end{enumerate}
             
@@ -79,7 +79,7 @@
                     \item No interactives, so automatically and immediately flagged as complete.
                 \end{itemize}
             
-            \item[4:] Problem Environment: ``We have the theorem given to us...'' Worth 25\% contingent on completion
+            \item[4:] Question Environment: ``We have the theorem given to us...'' Worth 25\% contingent on completion
                 \begin{itemize}
                     \item Getting a ``correct'' flag gives completion.
                 \end{itemize}
@@ -93,22 +93,24 @@
                 Theorem 1                                   && 25\% \\
                 Problem 1                                   && 25\% \\
                     selectAll   &50\%                       & 12.5\% \\
-                    Problem 1.1 &50\%                        & 12.5\% \\
-                Explanation                                   && 25\% \\
-                Problem 2                                   && 25\% \\
-                    answerBox   &100\%                       & 25\%
+                    Problem 1.1 &50\%                       & 12.5\% \\
+                Explanation                                 && 25\% \\
+                Question 1                                  && 25\% \\
+                    answerBox   &100\%                      & 25\%
             \end{tabular}
         \end{center}
         
-        So, there's three things to notice here. 
+        So, there are three things to notice here. 
         
-        \begin{itemize}
-            \item First, environments that don't have interactives (i.e. some kind of way for students to answer and get validation) automatically give credit as soon as the page is loaded. This also means that a large portion of the tile's credit could (theoretically) be given just for loading the page, let alone doing anything.
-                \item This can actually be a good thing - it's a bit of a morale booster, and in practice students typically \textit{really} strive for perfect scores on these things since they have time to do it and want every fraction of a point they can get.
-            \item Secondly, the only things that can give credit \textit{are} environments. This means, if you put some kind of interactive (like an answer box) just floating around in the middle of the page without it being in an environment, it won't actually count toward credit for the tile.
-            \item Thirdly, since credit is split evenly at the top-level, that means that problems with lots of parallel nest problems or paths, can end up with nested problems that are worth significantly less compared to another problem that isn't a nested problem. This can be reasonable or not depending on the problem design, but it is worth bearing in mind as the one writing the problems.
+        \begin{enumerate}
+            \item Environments that don't have interactives (i.e. some kind of way for students to contribute or answer for grade validation) automatically give credit as soon as the page is loaded. This also means that a large portion of the tile's credit could (theoretically) be given just for loading the page, without doing anything.
+            \begin{itemize}
+                \item This can actually be a good thing - it's a bit of a morale booster, and in practice students typically \textit{really} strive for perfect scores on these things since they have time to do it and want every fraction of a point they can get. So getting some credit for loading the page doesn't seem to result in less effort spent on the page - and tends to make students feel better about their progress without actually changing the amount of progress or effort they expend.
+            \end{itemize}
+            \item The only things that can give credit \textit{are} environments. This means, if you put some kind of interactive (like an answer box) just floating around in the middle of the page without it being in an environment, it won't actually count toward credit for the tile - indeed, it may not even render or resolve correctly.
+            \item Arguably most importantly: since credit is split evenly \textbf{at the top-level environment count only}, problems with lots of nested problems, can end up with nested problems that are worth significantly less compared to a problem that has no nested problems. This can be reasonable or not depending on the problem design, but it is worth bearing in mind as you design the problems on your page.
                 
-        \end{itemize}
+        \end{enumerate}
 
         
 \end{document}

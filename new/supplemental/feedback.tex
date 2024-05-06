@@ -49,12 +49,15 @@
 
     \subsection*{Optional Arguments}
     
-        Currently feedback only has two optional arguments, which serve as triggers for when the feedback is displayed:
+        Currently feedback only has two explicit optional arguments, which serve as triggers for when the feedback is displayed:
         
         \begin{description}
             \item[correct] The optional argument ``correct'' will ensure that the feedback is only displayed once the question has been flagged as ``correct'' and locked. This can be used for followup explanation of the problem once it has been correctly answered - in case you want to include information that would be too much information for a student still trying to answer it.
             \item[attempt] The optional argument ``attempt'' will display the feedback after any attempt, regardless of whether that attempt is correct or incorrect. This is the default behavior of feedback if no optional argument is provided, and note that it is the only behavior that gives feedback when a student gives a wrong answer. However, it also doesn't go away once the student gets the correct answer.
         \end{description}
+        
+        In addition to the two above however, feedback has an open-ended optional argument as well - in particular you can trigger a basic validator check. This requires that you assign an id to the student answer, then call it in some kind of validation - e.g. if the id you assign to the student answer is $y$, you can include as an optional argument in the feedback command things like: $y = 4$ (display this feedback if the student's answer is $4$) or $y<-4$ (show this feedback if the student's answer is less than $-4$). Keep in mind that this doing a very basic javascript comparison - it is \textit{massively} more complicated to do something other than numbers here. In particular, you can't use something like $y=x^2$ as a check to see if the student's answer is $x^2$, as there is (currently) no default support for algebraic checks here - it only does decimal value numbers (no fractions or irrational numbers). See examples below for an example of this kind of validation-based-feedback.
+        
         
     \subsection*{(Additional) Examples}
         
@@ -90,6 +93,28 @@
                     Correct! The answer is indeed 2. You should only see this if/when you entered the correct answer.
                 \end{feedback}
             \end{problem}
+        
+        
+            \begin{problem}
+                No, really, my favorite number is $y = \answer[format=integer,id=y]{17}$.
+                (Type $x$. Type something larger than $17$. Type something smaller than $17$. Type $17$.
+                \begin{feedback}[attempt]
+                    You made a first attempt!
+                \end{feedback}
+                
+                \begin{feedback}[y>17]
+                    That number is TOO BIG.
+                \end{feedback}
+                
+                \begin{feedback}[y<17]
+                    That number is too small.
+                \end{feedback}
+                
+                \begin{feedback}[correct]
+                    I have always loved the number $17$.
+                \end{feedback}
+            \end{problem}
+        
         
     \subsection*{Best Practices}
     
