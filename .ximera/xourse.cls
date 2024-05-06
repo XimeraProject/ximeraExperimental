@@ -125,22 +125,6 @@
 
 
 \newenvironment{graded}[1]{}{}
-\providecommand\subpart{}
-
-\newcommand\activitylink[3][]{
-  \begingroup
-  \chapterstyle
-  \addtocounter{titlenumber}{-1}
-  \def\thetitlenumber{}
-  \xmtitle{#3}{}
-  LINK: \href{#2}{#3}
-  \endgroup
-  \ifnonewpage%
-    \par\vspace{\topsep}%
-  \else%
-    \clearpage%
-  \fi%  
-  }
 %% 
 %% Copyright (C) 2018 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>
 %% 

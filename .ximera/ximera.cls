@@ -43,10 +43,10 @@
 %% src/instructornotes.dtx  (with options: `classXimera')
 %% src/xkcd.dtx  (with options: `classXimera')
 %% src/foldable.dtx  (with options: `classXimera')
-%% src/accordion.dtx  (with options: `classXimera')
 %% src/leash.dtx  (with options: `classXimera')
 %% src/interactives/sagemath.dtx  (with options: `classXimera')
 %% src/jax.dtx  (with options: `classXimera')
+%% src/footnotes.dtx  (with options: `classXimera')
 %% src/ungraded.dtx  (with options: `classXimera')
 %% ------------:| ------------------------------------------------------------
 %%       ximera:| Simultaneously writing print and online interactive materials
@@ -190,6 +190,7 @@
         -halt-on-error -interaction=batchmode
         -jobname "\image" "\\PassOptionsToClass{tikzexport}{ximera}\texsource";
         mutool draw -F svg \image.pdf > \image.svg ;     % mutool adds "1" to filename ????
+        mutool draw -o \image.svg \image.pdf ;
         mutool draw -r 150 -c rgbalpha -o \image.png \image.pdf ;
         ebb -x \image.png
       }
@@ -276,8 +277,8 @@
 \everymath{\displaystyle}
 \let\prelim\lim
 \renewcommand{\lim}{\displaystyle\prelim}
+\theoremstyle{definition} % No italic (because this makes also text in TikZ italic !!!)
 
-\theoremstyle{definition} % No italic  (because this makes also text in TikZ italic !!!)
 
       \newtheorem{theorem}{Theorem}
 
@@ -300,8 +301,6 @@
       \newtheorem{definition}{Definition}
 
       \newtheorem{example}{Example}
-
-      \newtheorem*{exampleNT}{}
 
       \newtheorem*{explanation}{Explanation}
 
@@ -615,7 +614,7 @@
 Interactive
 }
 
-\newcommand{\geogebra}[3]{Geogebra link: \url{https://tube.geogebra.org/m/#1}}
+\newcommand{\geogebra}[3]{Geogebra link: \url{https://www.geogebra.org/m/#1}}
 \newcommand{\desmos}[3]{Desmos link: \url{https://www.desmos.com/calculator/#1}}
 \newcommand{\googleSheet}[5]{%
   Google Spreadsheet link: \url{https://docs.google.com/spreadsheets/d/#1}%
@@ -648,6 +647,7 @@ Interactive
 \define@key{answer}{onlinenoinput}[false]{}
 \define@key{answer}{onlineshowanswerbutton}[false]{}
 \setkeys{answer}{id=,given=false,onlinenoinput=false,onlineshowanswerbutton=false}
+\newcommand{\handoutAnswer}[1]{\ldots\ldots} %% Can be redefined by the user
 \newcommand{\answer}[2][]{%
 \ifmmode%
 \setkeys{answer}{#1}%
@@ -662,9 +662,9 @@ Interactive
 }% End then statement
 {% Start else statement
 \ifhandout
-        \ldots\ldots  
+\handoutAnswer{#2} %% in case the argument helps formatting
 \else% show answer in box outside handout mode
-{\color{blue}\ensuremath{#2}}
+    {\color{blue}\ensuremath{#2}}
 \fi
 }% End else statement
 \else%
@@ -985,39 +985,16 @@ Interactive
 \newcommand{\unfoldable}[1]{#1}
 
 
-\colorlet{textColor}{black} % since textColor is referenced below
-\colorlet{background}{white} % since background is referenced below
-
-%% accordion container
-\newenvironment{accordion}{%
-}{%
-}
-%% pretty-accordion
-\iftikzexport
-\newenvironment{accordion-item}[1][]{%
-}{%
-}
-\else
-\newenvironment{accordion-item}[1][]{%
-\paragraph{#1}
-}{%
-}
-\fi
-
-
 \newenvironment{leash}[1]{%
 }{%
 }
 
 
-%%%\IfFileExists{sagetex.sty}{\RequirePackage{sagetex}}{}
-\RequirePackage{sagetex}
+\IfFileExists{sagetex.sty}{\RequirePackage{sagetex}}{}
 
 \DefineVerbatimEnvironment{sageCell}{Verbatim}{numbers=left,frame=lines,label=SAGE,labelposition=topline}
 
 \DefineVerbatimEnvironment{sageOutput}{Verbatim}{numbers=left,frame=lines,label=SAGE-Output,labelposition=topline}
-
-\DefineVerbatimEnvironment{sagesilent}{Verbatim}{numbers=left,frame=lines,label=SAGE-Silent,labelposition=topline}
 
 
 \ifdefined\HCode
@@ -1041,6 +1018,7 @@ Interactive
 \renewcommand{\DeclareMathOperator}[2]{\@OldDeclareMathOperator{#1}{#2}\immediate\write\myfile{\unexpanded{\DeclareMathOperator}{\unexpanded{#1}}{\unexpanded{#2}}}}
 
 \fi
+
 \newenvironment{ungraded}{}{}
 %% 
 %% Copyright (C) 2018 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>

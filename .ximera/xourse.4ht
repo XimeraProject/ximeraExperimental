@@ -29,118 +29,42 @@
 
 \Configure{@HEAD}{%
   \HCode{<meta name="og:image" content="}%
-  %%\xourse@logo%
-  \HCode{" />\Hnewline}}
+\ifdefined\xourse@logo%
+  \xourse@logo%
+  \HCode{" />\Hnewline}%
+\fi}
 
 
 
 \Configure{@HEAD}{\HCode{<meta name="description" content="xourse" />\Hnewline}}
 
-%% Can be set/overwritten in printstyle %%
-
-\providecommand\subpart{}
-\newcounter{subpart}
-\setcounter{subpart}{0} 
-\titlecontents{subpart}[0pt]{\normalfont\bfseries}%
-{\thecontentslabel\enspace ---\enspace\large}%
-{\normalfont\large\bfseries}{\hspace{2em plus 1fill}\large\contentspage}
-
-\renewcommand{\thepart}{\arabic{part}}
-%\renewcommand{\thesubpart}{\thepart\Alph{subpart}}
-\renewcommand{\thesubpart}{%
-  \ifnum0=\value{part}%
-     \Alph{subpart}%
-   \else%
-     \thepart\Alph{subpart}%
-  \fi%
-}
-\renewcommand{\thetitlenumber}{
-    \ifnumberactivitiesbysubpart%
-        \thesubpart.\arabic{titlenumber}%    
-    \else%
-        % if continuous counting of activities, don't include subparts
-        \thepart.\arabic{titlenumber}%    
-    \fi%
-}
-\renewcommand{\thesectiontitlenumber}{\thetitlenumber\alph{sectiontitlenumber}}
-
-\providebool{addtitlenumber}        % default false ...!
-\providebool{addsectiontitlenumber} %
-
-\renewcommand\chapterstyle{%
-  \def\activitystyle{chapter}%
-  \setcounter{sectiontitlenumber}{0}%
-  \ifaddtitlenumber%
-    \addtocounter{titlenumber}{1}%
-    \def\activitytoclabel{\thetitlenumber}%
-  \else%
-    \def\activitytoclabel{}%
-  \fi%
-}
-\renewcommand\sectionstyle{%
-  \def\activitystyle{section}%
-  \ifaddsectiontitlenumber%
-    \addtocounter{sectiontitlenumber}{1}%
-    \def\activitytoclabel{\thesectiontitlenumber}%
-  \else%
-    \def\activitytoclabel{}%
-  \fi%
-}
 
 \renewcommand\activity[2][]{%
-  \ifvmode \IgnorePar\fi \EndP%
-  \HCode{  <a class="activity card \activitystyle" href="#2" data-toc-label="\activitytoclabel" data-options="#1">#2</a>\Hnewline}%
-  \IgnoreIndent%
+\ifvmode \IgnorePar\fi \EndP\HCode{<a class="activity card \activitystyle" href="#2" data-options="#1">#2</a>}\IgnoreIndent%
 }
+
+
+
 
 \renewcommand\practice[2][]{%
   \ifvmode\IgnorePar\fi\EndP%
-  \HCode{  <a class="activity card practice \activitystyle" href="#2" data-toc-label="\activitytoclabel" data-options="#1">#2</a>\Hnewline}%
-  \IgnoreIndent%
-}
-
-\renewcommand\activitylink[3][]{
-  % assume optional arg #1 are extra css classes! 
-  \ifvmode \IgnorePar\fi \EndP%
-  \HCode{  <a class="activity card xmlink chapter }#1\HCode{" href="#2" data-toc-label="" data-xmlink="#2" data-options="#1">}#3\HCode{</a>\Hnewline}%
-  \IgnoreIndent%
-  }
-  
-\providecommand{\subpart}[1]{}%
-\newcounter{ximera@subpart}%
-\setcounter{ximera@subpart}{0}%
-\renewcommand\subpart[1]{%
-  \stepcounter{ximera@subpart}%
-  \stepcounter{subpart}%
-  \ifnumberactivitiesbysubpart%
-    \setcounter{titlenumber}{0}%
-    \setcounter{sectiontitlenumber}{0}%
-  \fi%
-  \ifvmode \IgnorePar\fi \EndP%
-  \HCode{<h2 id="subpart\arabic{ximera@subpart}" class="card subpart" data-toc-label="\thesubpart">}#1\HCode{</h2>\Hnewline}%
+  \HCode{<a class="activity card practice" href="#2" data-options="#1">#2</a>}%
   \IgnoreIndent%
 }
 
 \newcounter{ximera@part}
-\setcounter{ximera@part}{0}%
+\setcounter{ximera@part}{0}
 \renewcommand\part[1]{%
-  % \setcounter{ximera@subpart}{0}
-  \stepcounter{ximera@part}%
-  \stepcounter{part}%
-  \setcounter{titlenumber}{0}%
-  \setcounter{sectiontitlenumber}{0}%
-  \setcounter{subpart}{0}
-  \ifvmode \IgnorePar\fi \EndP%
-  \HCode{<h1 id="part\arabic{ximera@part}" class="card part" data-toc-label="\thepart">}#1\HCode{</h1>\Hnewline}%
-  \IgnoreIndent%
+\stepcounter{ximera@part}%
+\ifvmode \IgnorePar\fi \EndP%
+\HCode{<h1 id="part\arabic{ximera@part}" class="card part">}#1\HCode{</h1>}%
+\IgnoreIndent%
 }
-  
 \renewenvironment{graded}[1]{%
 \ifvmode \IgnorePar\fi \EndP\HCode{<div class="graded" data-weight="#1">}\IgnoreIndent%
 }{
-\ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent%
+\ifvmode \IgnorePar\fi \EndP\HCode{</div>}}\IgnoreIndent%
 }
-
 \renewcommand\youtube[1]{%
 \ifvmode \IgnorePar\fi \EndP\HCode{<a class="youtube" href="https://www.youtube.com/watch?v=#1">#1</a>}\IgnoreIndent%
 }

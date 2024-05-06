@@ -13,7 +13,6 @@
 %% src/image.dtx  (with options: `htXimera')
 %% src/dialogue.dtx  (with options: `htXimera')
 %% src/foldable.dtx  (with options: `htXimera')
-%% src/accordion.dtx  (with options: `htXimera')
 %% src/interactives/video.dtx  (with options: `htXimera')
 %% src/xkcd.dtx  (with options: `htXimera')
 %% src/link.dtx  (with options: `htXimera')
@@ -32,6 +31,7 @@
 %% src/interactives/sagemath.dtx  (with options: `htXimera')
 %% src/ungraded.dtx  (with options: `htXimera')
 %% src/ending.dtx  (with options: `htXimera')
+%% src/footnotes.dtx  (with options: `htXimera')
 %% ------------:| ------------------------------------------------------------
 %%       ximera:| Simultaneously writing print and online interactive materials
 %%       Author:| Jim Fowler and Jeramiah Hocutt and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
@@ -48,6 +48,7 @@
 
 \usepackage{microtype}
 \DisableLigatures[f]{encoding=*}
+\NewEnviron{html}{\HCode{\BODY}}
 \Configure{@HEAD}{\HCode{<meta name="author" content="}\@author\HCode{" />\Hnewline}}
 \def\and{and }
 
@@ -58,36 +59,23 @@
 \setcounter{identification}{0}
 
 \newcommand{\ConfigureQuestionEnv}[2]{%
-\renewenvironment{#1}{%
-\refstepcounter{problem}%
-\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div role="article" class="problem-environment #2" id="problem\arabic{identification}">}%
-}{%
-  \HCode{</div>}\IgnoreIndent%
+\renewenvironment{#1}{\refstepcounter{problem}}{}%
+\ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div role="article" class="problem-environment #2" id="problem\arabic{identification}">}}{\ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent}{}{}%
 }
-}
-
-%\ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div role="article" class="problem-environment #2" id="problem\arabic{identification}">}}{\ifvmode \IgnorePar\fi \EndP\HCode{</div class="end-config-#1">}\IgnoreIndent}{}{}%
-
 
 \ConfigureQuestionEnv{problem}{problem}
 \ConfigureQuestionEnv{exercise}{exercise}
 \ConfigureQuestionEnv{question}{question}
 \ConfigureQuestionEnv{exploration}{exploration}
-%\ConfigureQuestionEnv{hint}{xmhint}
-
+\ConfigureQuestionEnv{hint}{hint}
+\ConfigureQuestionEnv{shuffle}{shuffle}
 \newcommand{\ConfigureTheoremEnv}[1]{%
-\renewenvironment{#1}[1][]{%
-\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div class="theorem-like problem-environment #1" id="problem\arabic{identification}">}%
-\refstepcounter{problem}%
+\renewenvironment{#1}[1][]{\refstepcounter{problem}%
 \ifthenelse{\equal{##1}{}}{}{%
   \HCode{<span class="theorem-like-title">}##1\HCode{</span>}%
-}}{%
-  \HCode{</div>}\IgnoreIndent%
-}%
+}}{}
+\ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div class="theorem-like problem-environment #1" id="problem\arabic{identification}">}}{\HCode{</div>}\IgnoreIndent}{}{}%
 }
-
-%\ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div class="theorem-like problem-environment #1" id="problem\arabic{identification}">}}{\Hnewline\HCode{<span>XX #1 YY</span></div>}\Hnewline\IgnoreIndent}{}{}%
-
 
 
       \ConfigureTheoremEnv{theorem}
@@ -111,8 +99,6 @@
       \ConfigureTheoremEnv{definition}
 
       \ConfigureTheoremEnv{example}
-
-      \ConfigureTheoremEnv{exampleNT}
 
       \ConfigureTheoremEnv{explanation}
 
@@ -165,47 +151,11 @@
    {\egroup\EndP\HCode{</dt><dd\Hnewline class="speech">}}
 \renewenvironment{foldable}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div id="foldable\arabic{identification}" class="foldable">}}{\HCode{</div>}\IgnoreIndent}
 
-
 \renewenvironment{expandable}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div data-original="expandable" id="foldable\arabic{identification}" class="foldable">}
 
 }{\HCode{</div>}\IgnoreIndent}
 
 \renewcommand{\unfoldable}[1]{\HCode{<span class="unfoldable">}#1\HCode{</span>}}
-\renewenvironment{accordion}{\ifvmode \IgnorePar\fi \EndP\HCode{<div class="accordion">}
-}{\HCode{</div>}\IgnoreIndent}
-
-\renewenvironment{accordion-item}[1][]{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<h3>}#1\HCode{</h3><div id="accordion-item\arabic{identification}" class="accordion-item">}
-}{\HCode{</div>}\IgnoreIndent}
-
-%\let\hint\relax
-%\let\endhint\relax
-\RenewEnviron{hint}{%
- \begin{expandable}{xmhint}{}%
-   \BODY%
- \end{expandable}%
-}
-
-%% re-implement 04/2023
-\let\expandable\relax
-\let\endexpandable\relax
-%\RenewEnviron{expandable}[2]{%
-\newenvironment{expandable}[2]{%
-  \stepcounter{identification}%
-  \ifvmode \IgnorePar\fi \EndP%
-  \HCode{<div class="accordion">\Hnewline}%
-  \HCode{<h3 class="#1">}#2\HCode{</h3>\Hnewline}%
-  \HCode{<div id="accordion-item\arabic{identification}" class="accordion-item #1-content">\Hnewline}
-}%
-%  \BODY
-{%
-  \HCode{</div>\Hnewline</div>\Hnewline}\IgnoreIndent
-}
-%
-
-\renewenvironment{accordion}{\ifvmode \IgnorePar\fi \EndP\HCode{<div class="accordion">}
-}{\HCode{</div>}\IgnoreIndent}
-
-
 \renewcommand{\youtube}[1]{\ifvmode \IgnorePar\fi \EndP\HCode{<div class="video youtube-player" data-youtube="#1">_</div>}}
 \renewcommand{\xkcd}[1]{\ifvmode \IgnorePar\fi \EndP\HCode{<img src="https://imgs.xkcd.com/comics/#1.png">}}
 
@@ -213,6 +163,8 @@
 \ifthenelse{\equal{#1}{}}%
 {\url{#2}}
 {\href{#2}{#1}}}
+
+\AtBeginDocument{\renewcommand{\ref}[1]{\HCode{<a class="reference" href="\##1">#1</a>}}}
 
 
 \renewcommand{\graph}[2][]{\HCode{<div class="graph" data-options="#1">}#2\HCode{</div>}}
@@ -296,13 +248,13 @@
 \ifvmode \IgnorePar\fi \EndP%
 \ifthenelse{\equal{#1}{attempt}}{\HCode{<div class="feedback" data-feedback="attempt" id="feedback\arabic{identification}">}}%
 {\ifthenelse{\equal{#1}{correct}}{\HCode{<div class="feedback" data-feedback="correct" id="feedback\arabic{identification}">}}%
-{\ifthenelse{\equal{#1}{solution}}{\HCode{<div class="feedback" data-feedback="solution" id="feedback\arabic{identification}">}}%
-{\HCode{<div class="feedback" data-feedback="script" id="feedback\arabic{identification}"><script type="text/javascript">function feedback\arabic{identification}() }\{\HCode{ return \detokenize{#1}; }\}\HCode{</script>}}}}}
+{\HCode{<div class="feedback" data-feedback="script" id="feedback\arabic{identification}"><script type="text/javascript">function feedback\arabic{identification}() }\{\HCode{ return \detokenize{#1}; }\}\HCode{</script>}}}}
 \def\endfeedback{\HCode{</div>}\IgnoreIndent}
 
 \renewenvironment{leash}[1]{\ifvmode \IgnorePar\fi \EndP\HCode{<div style="overflow: auto; height: #1px">}}{\HCode{</div>}\IgnoreIndent}
 \let\oldlabel\label
 \renewcommand{\label}[1]{\oldlabel{#1}\HCode{<a class="ximera-label" id="#1"></a>}}
+\renewcommand{\ref}[1]{\HCode{<a class="reference" href="\##1">#1</a>}}
 
 \renewenvironment{sageCell}{\NoFonts}{\EndNoFonts}
 \ScriptEnv{sageCell}{\ifvmode \IgnorePar\fi \EndP\HCode{<div class="sage"><script type="text/x-sage">}\HtmlParOff}{\HtmlParOn\HCode{\Hnewline</script></div>}}
@@ -310,7 +262,6 @@
 
 \renewenvironment{sageOutput}{\NoFonts}{\EndNoFonts}
 \ScriptEnv{sageOutput}{\ifvmode \IgnorePar\fi \EndP\HCode{<div class="sageOutput"><script type="text/x-sage">}}{\HCode{\Hnewline</script></div>}}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewenvironment{sagesilent}{\NoFonts}{\EndNoFonts}
@@ -322,6 +273,62 @@
 }
 \Hinput{ximera}
 
+
+\newcounter{footnoteNum}% This will track footnote numbering for the superscript and for the ID.
+\colorlet{fncolor}{red!30!blue}% This is the footnote text coloring. This will allow users to renew this coloring to their own preference if they want to. The default here is a blue coloring. NOTE: Currently; trying to use `footnotecolor' (as a more descriptive color name) breaks everything on my system pretty spectacularly for some reason. This may be just mine or a clash somewhere in the ximera package, so for now I'm leaving it as `fncolor'.
+\renewcommand{\footnote}[1]{\ifvmode\ShowPar\fi
+    \stepcounter{footnoteNum}% Step the counter to make a new footnote
+    %% The following HCode should setup the javascript function that shows or hides the footnote. If you want to change the footnote location, you may want to change the 'inline' part of x.style.display = 'inline'; to another CSS display type, like 'block' or 'inherit'. Current the `x.display.color' seems to not be working.
+    \HCode{
+    <script type="text/javascript">
+            function footnotefunction(ID) {
+              var x = document.getElementById(ID);
+              if (x.style.display === "none") {
+                x.style.color = "#002db3";
+                x.style.display = "inline";
+              } else {
+                x.style.display = "none";
+              }
+            }
+    </script>
+    }
+    %% The next command needs \expandafter in order to expand the counter footnoteNum into a roman character for the footnote ID. These seem to work better than arabic numerals in some cases, although why is not clear.
+    %% The next HCode controls the formatting for the actual footnote reference number (ie the superscript), but not the footnote itself.
+    \expandafter\HCode{
+    <span style=
+            "position=relative;
+            vertical-align=baseline;"
+            >
+            <button onclick="footnotefunction('footnote\roman{footnoteNum}')"
+                style=
+                "background:none!important;
+                 color:inherit;
+                 border:none;
+                 padding:0!important;
+                 font: inherit;
+                 cursor: pointer;"
+                >
+             <sup>}[\arabic{footnoteNum}]\HCode{</sup></button>
+        }
+    %% The next command needs \expandafter in order to expand the counter footnoteNum into a roman character for the footnote ID. These seem to work better than arabic numerals in some cases, although why is not clear. Note that the ID counter style choice (roman vs arabic etc) needs to match the previous HCode choice.
+    %% Currently most of the formatting doesn't seem to work as intended, so that still needs to be figured out and fixed. Ideally we would have the footnote appear as a bubble above the footnote superscript when the footnote superscript is clicked.
+    \expandafter\HCode{
+            <span id="footnote\roman{footnoteNum}"
+                style=
+                "display:none;
+                min-width:20em;
+                position:relative;
+                left:2px;
+                padding:5px;
+                color:#002db3;
+                word-wrap:break-word;
+                z-index=9999;
+                overflow=auto;"
+                >
+            }
+            \textcolor{fncolor}{(#1)}% Display the actual footnote here with color `fncolor' and within ()'s.
+        \HCode{</span></span>}
+    }% End of footnote definition.
 
 %% 
 %% Copyright (C) 2018 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>
