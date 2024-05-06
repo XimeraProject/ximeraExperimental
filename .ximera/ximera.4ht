@@ -31,7 +31,6 @@
 %% src/interactives/sagemath.dtx  (with options: `htXimera')
 %% src/ungraded.dtx  (with options: `htXimera')
 %% src/ending.dtx  (with options: `htXimera')
-%% src/footnotes.dtx  (with options: `htXimera')
 %% ------------:| ------------------------------------------------------------
 %%       ximera:| Simultaneously writing print and online interactive materials
 %%       Author:| Jim Fowler and Jeramiah Hocutt and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
@@ -58,8 +57,6 @@
 \newcounter{identification}
 \setcounter{identification}{0}
 
-\newenvironment{shuffle}{}{}
-
 \newcommand{\ConfigureQuestionEnv}[2]{%
 \renewenvironment{#1}{\refstepcounter{problem}}{}%
 \ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div role="article" class="problem-environment #2" id="problem\arabic{identification}">}}{\ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent}{}{}%
@@ -69,6 +66,7 @@
 \ConfigureQuestionEnv{exercise}{exercise}
 \ConfigureQuestionEnv{question}{question}
 \ConfigureQuestionEnv{exploration}{exploration}
+\ConfigureQuestionEnv{xarmaBoost}{xarma-boost}
 \ConfigureQuestionEnv{hint}{hint}
 \ConfigureQuestionEnv{shuffle}{shuffle}
 \newcommand{\ConfigureTheoremEnv}[1]{%
@@ -232,8 +230,8 @@
 \setkeys{geogebra}{rc=false,sdz=false,smb=false,stb=false,stbh=false,ld=false,sri=false}
 \renewcommand{\geogebra}[4][]{%
   \setkeys{geogebra}{#1}% Set new keys
-  \HCode{<iframe scrolling="no" src="https://www.geogebra.org/material/iframe/id/#2/width/#3/height/#4/border/888888/rc/\geo@rc/ai/false/sdz/\geo@sdz/smb/\geo@smb/stb/\geo@stb/stbh/\geo@stbh/ld/\geo@ld/sri/\geo@sri/at/auto" width="#3px" height="#4px" style="border:0px;"> </iframe>}}
-\renewcommand{\desmos}[3]{\HCode{<iframe src="https://www.desmos.com/calculator/#1" width="100\%" height="#3px" style="border: 1px solid \#ccc" frameborder=0>This browser does not support embedded elements.</iframe>}}
+  \HCode{<iframe scrolling="no" src="https://tube.geogebra.org/material/iframe/id/#2/width/#3/height/#4/border/888888/rc/\geo@rc/ai/false/sdz/\geo@sdz/smb/\geo@smb/stb/\geo@stb/stbh/\geo@stbh/ld/\geo@ld/sri/\geo@sri/at/auto" width="#3px" height="#4px" style="border:0px;"> </iframe>}}
+\renewcommand{\desmos}[3]{\HCode{<iframe src="https://www.desmos.com/calculator/#1" width="100\%" height="#3px" style="border: 1px solid #ccc" frameborder=0>This browser does not support embedded elements.</iframe>}}
 
 \renewcommand{\googleSheet}[5]{%
   \ifthenelse{\equal{#4}{}}%
@@ -254,8 +252,7 @@
 \def\endfeedback{\HCode{</div>}\IgnoreIndent}
 
 \renewenvironment{leash}[1]{\ifvmode \IgnorePar\fi \EndP\HCode{<div style="overflow: auto; height: #1px">}}{\HCode{</div>}\IgnoreIndent}
-\let\oldlabel\label
-\renewcommand{\label}[1]{\oldlabel{#1}\HCode{<a class="ximera-label" id="#1"></a>}}
+\renewcommand{\label}[1]{\HCode{<a class="ximera-label" id="#1"></a>}}
 \renewcommand{\ref}[1]{\HCode{<a class="reference" href="\##1">#1</a>}}
 
 \renewenvironment{sageCell}{\NoFonts}{\EndNoFonts}
@@ -271,65 +268,10 @@
 \renewenvironment{ungraded}{%
 \ifvmode \IgnorePar\fi \EndP\HCode{<div class="ungraded">}\IgnoreIndent%
 }{
-\ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent%
+\ifvmode \IgnorePar\fi \EndP\HCode{</div>}}\IgnoreIndent%
 }
 \Hinput{ximera}
 
-
-\newcounter{footnoteNum}% This will track footnote numbering for the superscript and for the ID.
-\colorlet{fncolor}{red!30!blue}% This is the footnote text coloring. This will allow users to renew this coloring to their own preference if they want to. The default here is a blue coloring. NOTE: Currently; trying to use `footnotecolor' (as a more descriptive color name) breaks everything on my system pretty spectacularly for some reason. This may be just mine or a clash somewhere in the ximera package, so for now I'm leaving it as `fncolor'.
-\renewcommand{\footnote}[1]{\ifvmode\ShowPar\fi
-    \stepcounter{footnoteNum}% Step the counter to make a new footnote
-    %% The following HCode should setup the javascript function that shows or hides the footnote. If you want to change the footnote location, you may want to change the 'inline' part of x.style.display = 'inline'; to another CSS display type, like 'block' or 'inherit'. Current the `x.display.color' seems to not be working.
-    \HCode{
-    <script type="text/javascript">
-            function footnotefunction(ID) {
-              var x = document.getElementById(ID);
-              if (x.style.display === "none") {
-                x.style.color = red;
-                x.style.display = "inline";
-              } else {
-                x.style.display = "none";
-              }
-            }
-    </script>
-    }
-    %% The next command needs \expandafter in order to expand the counter footnoteNum into a roman character for the footnote ID. These seem to work better than arabic numerals in some cases, although why is not clear.
-    %% The next HCode controls the formatting for the actual footnote reference number (ie the superscript), but not the footnote itself.
-    \expandafter\HCode{
-    <span style=
-            "position=relative;
-            vertical-align=baseline;"
-            >
-            <button onclick="footnotefunction('footnote\roman{footnoteNum}')"
-                style=
-                "background:none!important;
-                 color:inherit;
-                 border:none;
-                 padding:0!important;
-                 font: inherit;
-                 cursor: pointer;"
-                >
-             <sup>}[\arabic{footnoteNum}]\HCode{</sup></button>
-        }
-    %% The next command needs \expandafter in order to expand the counter footnoteNum into a roman character for the footnote ID. These seem to work better than arabic numerals in some cases, although why is not clear. Note that the ID counter style choice (roman vs arabic etc) needs to match the previous HCode choice.
-    %% Currently most of the formatting doesn't seem to work as intended, so that still needs to be figured out and fixed. Ideally we would have the footnote appear as a bubble above the footnote superscript when the footnote superscript is clicked.
-    \expandafter\HCode{
-            <span id="footnote\roman{footnoteNum}"
-                style=
-                "display:none;
-                min-width:20em;
-                position:relative;
-                left:2px;
-                padding:5px;
-                word-wrap:break-word;
-                z-index=9999;
-                overflow=auto;"
-                >
-            }
-            \textcolor{fncolor}{(#1)}% Display the actual footnote here with color `fncolor' and within ()'s.
-        \HCode{</span></span>}
-    }% End of footnote definition.
 
 %% 
 %% Copyright (C) 2018 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>
