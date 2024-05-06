@@ -16,36 +16,71 @@
         
         
     \subsection*{Quirks of Rendering}
+        Traditionally, the tabular environment expands to whatever (minimum) size is needed to contain your content - unless you tell it to do otherwise. With the tabularx package, you can set the width of the table to a set value and manipulate the columns as needed. Unfortunately, with how Ximera renders tables (using html), tables are always stretched to be the width of the browser. This can cause pretty significant variance between the pdf and the online versions of how tables render. Moreover, since Ximera interprets the tabular type environment and converts it to html, it also drops almost all formatting options provided in the original LaTeX code.
         
+        Consider the following table:
         
+        \begin{tabular}{lll}
+            Testing & Out & Rendering\\
+            So      & You & See\\
+            How     & It's& Weird\\
+        \end{tabular}
+        
+        This was generated using the code:
+        \begin{verbatim}
+            \begin{tabular}{lll}
+                Testing & Out & Rendering\\
+                So      & You & See\\
+                How     & It's& Weird\\
+            \end{tabular}
+        \end{verbatim}
         
     \subsection*{Any Ximera-Specific Optional Arguments}
-        
+        There are no Ximera-specific optional arguments associated with tabular or tabularx environments.
         
         
     \subsection*{Potential Problems and Pitfalls}
+        Because of the quirks around the interpretation of LaTeX code into html code without much support from rendering engines, it is difficult to tell what your tabular(x) environments will look like when it is rendered. For this reason, you should always double check the online version of any such environments to see that it has an acceptable render. 
         
+        Alternatively, as discussed below, arrays have a much more reliable rendering process, so it often the case that using an array environment rather than a tabular-style environment produces a cleaner and more predictable render.
         
         
 \section*{How Ximera renders Arrays}
     \subsection*{Any Necessary Content}
-        
+        There are no additional steps or configurations needed to get a table (using the tabular environment) to render online with Ximera.
         
         
     \subsection*{Quirks of Rendering}
+        Because arrays must be in mathmode, it is rendered via MathJax. This usually results in a cleaner and more reliable rendering than html, as well as getting accessibility feature support.
         
+        Consider the following array:
         
+        $\begin{array}{lll}
+            \text{Testing} & \text{Out} & \text{Rendering}\\
+            \text{So}      & \text{You} & \text{See}\\
+            \text{How}     & \text{It's}& \text{Weird}\\
+        \end{array}$
+        
+        This was generated using the code:
+        
+        \begin{verbatim}
+            $\begin{array}{lll}
+                \text{Testing} & \text{Out} & \text{Rendering}\\
+                \text{So}      & \text{You} & \text{See}\\
+                \text{How}     & \text{It's}& \text{Weird}\\
+            \end{array}$
+        \end{verbatim}
         
     \subsection*{Any Ximera-Specific Optional Arguments}
-        
+        There are no Ximera-specific optional arguments associated with tabular or tabularx environments.
         
         
     \subsection*{Potential Problems and Pitfalls}
-        
+        Keep in mind that arrays are in mathmode, which means you need to use \verb|\text{ }\verb| around text to make sure it renders as text, rather than interpreting it as some weird formula - obliterating whitespace.
         
         
     \subsection*{Any Best Practices or Advice}
-        
+        As mentioned - and demonstrated - array environments tend to render cleaner, even though they may be slightly more annoying to write as they require the text command wrapper around any text you include. 
         
         
 \end{document}
