@@ -157,7 +157,7 @@ deploy_to_latest:
   # only:
   #   - idl   
 
-deploy_job_blik_op_wiskunde:
+deploy_production:
   stage: deploy-prod
   variables:
     REPO: 'examples'
@@ -174,7 +174,7 @@ deploy_job_blik_op_wiskunde:
     - xake -v frost # Zorg voor juiste links etc = maak metadata.json en tag etc
     - xake -v serve # Upload files = push tag
   tags: *tags 
-  when: manual
+  # when: manual
   #cache: # Cache de untracked = gegenereerde files
   #  untracked: true
   #  key: "$CI_COMMIT_REF_SLUG"
