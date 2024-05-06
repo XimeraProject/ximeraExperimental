@@ -989,6 +989,7 @@ Interactive
 
 \DefineVerbatimEnvironment{sageOutput}{Verbatim}{numbers=left,frame=lines,label=SAGE-Output,labelposition=topline}
 
+\DefineVerbatimEnvironment{sagesilent}{Verbatim}{numbers=left,frame=lines,label=SAGE-Silent,labelposition=topline}
 
 \ifdefined\HCode
   \else

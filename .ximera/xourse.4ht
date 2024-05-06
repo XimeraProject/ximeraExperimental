@@ -28,9 +28,11 @@
 
 
 \Configure{@HEAD}{%
+\ifdefined\xourse@logo%
   \HCode{<meta name="og:image" content="}%
   \xourse@logo%
-  \HCode{" />\Hnewline}}
+  \HCode{" />\Hnewline}%
+\fi}
 
 
 
@@ -55,7 +57,7 @@
 \renewcommand\part[1]{%
 \stepcounter{ximera@part}%
 \ifvmode \IgnorePar\fi \EndP%
-\HCode{<h1 id="part\arabic{ximera@part}" class="card part">#1</h1>}%
+\HCode{<h1 id="part\arabic{ximera@part}" class="card part">}#1\HCode{</h1>}%
 \IgnoreIndent%
 }
 \renewenvironment{graded}[1]{%
