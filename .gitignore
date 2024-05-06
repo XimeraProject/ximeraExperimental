@@ -43,3 +43,4 @@ auto/
 *.fls
 *.bbl
 *.blg
+*.synctex(busy)

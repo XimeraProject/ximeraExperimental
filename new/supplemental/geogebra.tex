@@ -17,7 +17,6 @@
         is the widget ID and width and height are the dimensions (in pixels)
         you want the embedded widget to have.
         
-        
     \subsection*{GeoGebra and Grades}
         
         
@@ -41,10 +40,54 @@
         \end{verbatim}      
     
     \subsection*{Best Practices / Advice}
-    
+
+        GeoGebra applets created from the (current) GeoGebra website do not always resize well for smaller screens. These issues do not appear to be a problem for applets uploaded from GeoGebra Classic.
+
+        %%%%The applets do resize correctly on the GeoGebra website, so their embedding instructions including hard coding the image size are outdated. However, large applets should still be avoided, as they become very hard to read when scaled to fit small screens
+
+        Due to the way GeoGebra creates the default applet size, you should not copy the code directly from the calculator page. To ensure the applet will work on a smaller screen, we want to check the size of the applet inside GeoGebra. 
+        
+        The first part of this process depends on the source of the applet.    
+        \begin{itemize}
+            \item If creating your own applet either:
+            
+            \begin{itemize}
+                \item From one of the GeoGebra calculator suites
+                \begin{enumerate}
+                    \item Create the desired applet
+                    \item Save the applet (either using the menu or by sharing)
+                    \item Go to your profile page, and find the activity that contains the new applet
+                    \item Select Edit Activity
+                \end{enumerate}
+                \item Creating a new activity
+                \begin{enumerate}
+                    \item Go to your profile page, and select Create then Activity
+                    \item Insert GeoGebra, then select Create Applet
+                    \item Create the desired applet
+                \end{enumerate}
+            \end{itemize}
+            \item If using an existing applet/activity made by someone else:
+            \begin{enumerate}
+                \item On the GeoGebra page, the easiest way to check if the applet is too wide is to see if it is wider than the box with the author information. It is a good idea to check inside the applet as well
+                \item To edit the size, click on the three dots in the box with the author, then copy activity
+            \end{enumerate}
+        \end{itemize}
+
+        Next, we want to check and edit the applet size.
+        
+        \begin{enumerate}
+            \item Hover over the (initially invisible) box containing the GeoGebra applet. When it appear, click on it to edit the applet.
+            \item Under the embedded applet, you should see the dimensions, listed as width times height. You may also see the warning:
+            ``You chose very large applet dimensions which makes your applet difficult to use for users with small screens. Please consider optimizing your applet for smaller screen dimensions."
+            \item If the applet is too big, the easiest way to resize is in the Advanced Settings. The warning goes away once the width is less than or equal to 800 and height is less than or equal to 600
+        \end{enumerate}
         
     
-    \subsection*{Potential Pitfalls and Problems}    
+    \subsection*{Potential Pitfalls and Problems}
+        If the GeoGrebra applet is larger than the specified height and width of the embedded applet (in the example above, 800px wide by 600px tall), it may appear differently on the Ximera website than on the GeoGebra site. 
+
+        \textbf{If the GeoGebra applet is larger than 800 by 600} it will not scale well to smaller screens, regardless of the dimensions in Ximera. See the Best Practices / Advice section for how to address check the dimensions. Be sure to look for the warning:
+        ``You chose very large applet dimensions which makes your applet difficult to use for users with small screens. Please consider optimizing your applet for smaller screen dimensions."
     
         
         
