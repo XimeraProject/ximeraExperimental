@@ -93,7 +93,13 @@ special configuration to be an activity versus practice).
 
 
 
-You can also use the \verb|\part| command to make a darker tile that is not clickable, which can be useful to divide up your content. Moreover, there is also a \verb|\chapterstyle| and \verb|\sectionstyle| command, which make all activities after those commands have slightly different coloring - e.g. chapterstyle makes the tile slightly darker than section style, which is the default. Thus you could have a xourse file that looks something like:
+You can also use the \verb|\part| command to make a darker tile that
+is not clickable, which can be useful to divide up your
+content. Moreover, there is also a \verb|\chapterstyle| and
+\verb|\sectionstyle| command, which make all activities after those
+commands have slightly different coloring - e.g. chapterstyle makes
+the tile slightly darker than section style, which is the
+default. Thus you could have a xourse file that looks something like:
     
 \begin{verbatim}
 \documentClass{xourse}
@@ -128,20 +134,36 @@ the xourse file that generated this page to get a real-life example.
 \subsection{Content in the preamble}
 
 
+Ximera documents are meant to be compilable either indvidually or as
+part of a Xourse. This `magic' is achieved by `turning off'
+\verb|\begin{document}| and \verb|\end{document}| and doing some other
+things. This can cause code between \verb|\end{document}| and
+\verb|\begin{document}| can be exposed when used in a Xourse
+file. This is not a big issue, but it means that the preamble of a
+Ximera document can only contain objects like
 
-    The preamble is handled rather... oddly for a variety of highly
-    technical reasons beyond the scope of even this documentation. The
-    takeaway however is that best-practice is to create a preamble
-    file and input that file wherever you need a preamble - including
-    the xourse file and any Ximera files.   It's important to know
-    that any preamble you include in any Ximera documentClass document
-    will be obliterated as part of the publishing process - instead it
-    will pull the preamble from the xourse documentClass, so it's
-    important to make sure you put everything for every preamble you
-    need into the one file that is loaded in the xourse documentClass
-    file - although in order to compile via pdflatex locally, you will
-    also want to input that same preamble file into most of your
-    Ximera documentClass files as well.
+
+\begin{verbatim}
+\documentclass...
+\title...
+\author...
+\input... ????
+\end{verbatim}
+
+
+
+The preamble is handled rather... oddly for a variety of highly
+technical reasons beyond the scope of even this documentation. The
+takeaway however is that best-practice is to create a preamble file
+and input that file wherever you need a preamble - including the
+xourse file and any Ximera files.  It's important to know that any
+preamble you include in any Ximera documentClass document will be
+obliterated as part of the publishing process - instead it will pull
+the preamble from the xourse documentClass, so it's important to make
+sure you put everything for every preamble you need into the one file
+that is loaded in the xourse documentClass file - although in order to
+compile via pdflatex locally, you will also want to input that same
+preamble file into most of your Ximera documentClass files as well.
     
     The only exception to the previous preamble being obliterated is the title command and its content.
     
