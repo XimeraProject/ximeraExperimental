@@ -1,0 +1,153 @@
+\newcommand{\dfn}{\textbf}
+\renewcommand{\vec}[1]{{\overset{\boldsymbol{\rightharpoonup}}{\mathbf{#1}}}\hspace{0in}}
+%% Simple horiz vectors
+\renewcommand{\vector}[1]{\left\langle #1\right\rangle}
+\newcommand{\arrowvec}[1]{{\overset{\rightharpoonup}{#1}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\transpose}{\intercal}
+
+
+
+
+
+
+\usepackage{mdframed} % For framing content
+%\usepackage{ifthen}   % For conditional statements
+
+% Define the 'concept' environment with an optional header
+\newenvironment{concept}[1][]{%
+  \begin{mdframed}[linecolor=black, linewidth=2pt, innertopmargin=5pt, innerbottommargin=5pt, skipabove=12pt, skipbelow=12pt]%
+    \noindent\large\textbf{#1}\normalsize%
+}{%
+  \end{mdframed}%
+}
+
+
+
+
+
+
+
+
+
+
+
+\colorlet{textColor}{black}
+\colorlet{background}{white}
+\colorlet{penColor}{blue!50!black} % Color of a curve in a plot
+\colorlet{penColor2}{red!50!black}% Color of a curve in a plot
+\colorlet{penColor3}{red!50!blue} % Color of a curve in a plot
+\colorlet{penColor4}{green!50!black} % Color of a curve in a plot
+\colorlet{penColor5}{orange!80!black} % Color of a curve in a plot
+\colorlet{penColor6}{yellow!70!black} % Color of a curve in a plot
+\colorlet{fill1}{penColor!20} % Color of fill in a plot
+\colorlet{fill2}{penColor2!20} % Color of fill in a plot
+\colorlet{fillp}{fill1} % Color of positive area
+\colorlet{filln}{penColor2!20} % Color of negative area
+\colorlet{fill3}{penColor3!20} % Fill
+\colorlet{fill4}{penColor4!20} % Fill
+\colorlet{fill5}{penColor5!20} % Fill
+\colorlet{gridColor}{gray!50} % Color of grid in a plot
+
+
+
+\usepackage[utf8]{inputenc}
+
+% 201908/202301: PAS OP: babel en doclicense lijken problemen te veroorzaken in .jax bestand
+% (wegens syntax error met toegevoegde \newcommands ...)
+\pdfOnly{
+    \usepackage[type={CC},modifier={by-nc-sa},version={4.0}]{doclicense}
+    \usepackage[dutch]{babel}
+}
+
+%
+% define softer blue/red/green, use KU Leuven base colors for blue (and dark orange for red ?)
+%
+% todo: rather redefine blue/red/green ...?
+%\definecolor{xmblue}{rgb}{0.01, 0.31, 0.59}
+%\definecolor{xmred}{rgb}{0.89, 0.02, 0.17}
+\definecolor{xmdarkblue}{rgb}{0.122, 0.671, 0.835}   % KU Leuven Blauw
+\definecolor{xmblue}{rgb}{0.114, 0.553, 0.69}        % KU Leuven Blauw
+\definecolor{xmgreen}{rgb}{0.13, 0.55, 0.13}         % No KULeuven variant for green found ...
+
+\definecolor{xmaccent}{rgb}{0.867, 0.541, 0.18}      % KU Leuven Accent (orange ...)
+\definecolor{kuaccent}{rgb}{0.867, 0.541, 0.18}      % KU Leuven Accent (orange ...)
+
+\colorlet{xmred}{xmaccent!50!black}                  % Darker version of KU Leuven Accent
+
+\providecommand{\blue}[1]{{\color{blue}#1}}    
+\providecommand{\red}[1]{{\color{red}#1}}
+
+
+\providecommand{\isEn}{true}   % set to English
+
+%
+\ifdefined\isEn
+ \newcommand{\nlen}[2]{#2}
+ \newcommand{\nlentext}[2]{\text{#2}}
+ \newcommand{\nlentextbf}[2]{\textbf{#2}}
+\else
+ \newcommand{\nlen}[2]{#1}
+ \newcommand{\nlentext}[2]{\text{#1}}
+ \newcommand{\nlentextbf}[2]{\textbf{#1}}
+\fi
+
+\newcommand\xmsection\subsection
+\newcommand\xmsubsection\subsubsection
+
+% Aanpassen printversie
+%  (hier gedefinieerd, zodat ze in xourse kunnen worden gezet/overschreven)
+
+\providebool{printbasicversion}
+\providebool{printextendedversion}   % not properly implemented
+\providebool{printfullversion}       % presumably print everything (debug/auteur)
+
+
+\providebool{parttoc}
+\providebool{printpartfrontpage}
+\providebool{printactivitytitle}
+\providebool{printactivityqrcode}
+\providebool{printactivityurl}
+\providebool{printcontinuouspagenumbers}
+\providebool{numberactivitiesbysubpart}
+\providebool{addtitlenumber}
+\providebool{addsectiontitlenumber}
+\addtitlenumbertrue
+\addsectiontitlenumbertrue
+
+
+% Commando om de printstyle toe te voegen in ximera's. Zorgt ervoor dat er geen problemen zijn als je de xourses compileert
+% hack om onhandige relative paden in TeX te omzeilen
+% should work both in xourse and ximera (pre-112022 only in ximera; thus obsoletes adhoc setup in xourses)
+% loads global.sty if present (cfr global.css for online settings!)
+% use global.sty to overwrite settings in printstyle.sty ...
+\newcommand{\addPrintStyle}[1]{
+\iftikzexport\else   % only in PDF
+  \makeatletter
+  \ifx\@onlypreamble\@notprerr\else   % ONLY if in tex-preamble   (and e.g. not when included from xourse)
+    \typeout{Loading printstyle}   % logging
+    \usepackage{#1/printstyle} % mag enkel geinclude worden als je die apart compileert
+    \IfFileExists{#1/global.sty}{
+        \typeout{Loading printstyle-folder #1/global.sty}   % logging
+        \usepackage{#1/global}
+        }{
+        \typeout{Info: No extra #1/global.sty}   % logging
+    }   % load global.sty if present
+    \IfFileExists{global.sty}{
+        \typeout{Loading local-folder global.sty (or TEXINPUTPATH..)}   % logging
+        \usepackage{global}
+    }{
+        \typeout{Info: No folder/global.sty}   % logging
+    }   % load global.sty if present
+    \IfFileExists{\currfilebase.sty}
+    {
+        \typeout{Loading \currfilebase.sty}
+        \input{\currfilebase.sty}
+    }{
+        \typeout{Info: No local \currfilebase.sty}
+    }
+    \fi
+  \makeatother
+\fi
+}
+
