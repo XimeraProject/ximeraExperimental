@@ -1,6 +1,10 @@
 \documentclass{ximera}
 
-\title{A chapter with a section with a subsection}
+% Just to make it compile without special preamble/printstyle
+\providecommand{\xmsection}{\section}
+\providecommand{\xmsubsection}{\subsection}
+
+\title{Another chapter with a section with a subsection and a section}
 
 \begin{document}
 \begin{abstract}
@@ -20,6 +24,11 @@ Hello, this is a chapter with a
 with a
 
 \xmsubsection{Some subsection}
+\begin{theorem}
+  Should I start at one or many?
+\end{theorem}
+
+\xmsection{Another section}
 \begin{theorem}
   Should I start at one or many?
 \end{theorem}
