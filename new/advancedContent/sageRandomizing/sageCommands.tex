@@ -67,7 +67,7 @@ When doing composition in sage, it (now) requires you to use ``x = ()'' style no
 ## Function for first problem:
 p3c1 = 4
 p3c2 = 5
-p3f1 = const1*x+const2
+p3f1 = p3c1*x+p3c2
 # Answer is just f(3)
 p3ans = p3f1(3)
 \end{sagesilent}
@@ -78,7 +78,7 @@ Sage will error and you will get a ``spinning wheel of death'' that kills everyt
 ## Function for first problem:
 p3c1 = 4
 p3c2 = 5
-p3f1 = const1*x+const2
+p3f1 = p3c1*x+p3c2
 # Answer is just f(3)
 p3ans = p3f1(x=3)# Could also use p3f1(x=(3))
 \end{sagesilent}
