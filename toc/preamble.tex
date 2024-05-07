@@ -1,0 +1,25 @@
+\titleformat{\title}{\LARGE\bfseries}{}{0pt}{}
+
+% Chapter style
+\renewcommand{\chapterstyle}{
+    \titleformat{\title}{\LARGE\bfseries}{}{0pt}{}
+    \renewcommand{\maketitle}{
+        \begingroup
+        \centering
+        \LARGE\bfseries\thetitle\par
+        \endgroup
+    }
+    \setcounter{tocdepth}{1}
+}
+
+% Section style
+\renewcommand{\sectionstyle}{
+    \titleformat{\title}{\Large\bfseries}{}{0pt}{}
+    \renewcommand{\maketitle}{
+        \begingroup
+        \centering
+        \Large\bfseries\thetitle\par
+        \endgroup
+    }
+    \setcounter{tocdepth}{2}
+}
