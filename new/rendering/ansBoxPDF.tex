@@ -13,7 +13,50 @@
 
         In the PDF, the default behavior is showing all answers and solutions. Then \verb|$\answer{x^2 + 3x + 1}$| will display the answer as \fbox{$x^2 + 3x + 1$} in the PDF.
                 
-        Using \verb|\documentclass[handout]{ximera}| suppresses the answers. The default behavior is to render the answer as $\ldots\ldots$. However, you may want to redefine this behavior. This is accomplished by redefining the \verb|\handoutAnswerFormat| command. 
+        Using \verb|\documentclass[handout]{ximera}| suppresses the answers. 
+        
+        In PDF \verb|$\answer{x^2 + 3x + 1}$| is by default rendered as {\handoutfalse $\answer{x^2 + 3x + 1}$}, and in handout mode normally as {\handouttrue $\answer{x^2 + 3x + 1}$},
+        but with \verb|$\answer[given]{x^2 + 3x + 1}$| as {\handouttrue $\answer[given]{x^2 + 3x + 1}$}. 
+        \begin{onlineOnly}
+            Note: in order to make sense of this, you'll have to consult the PDF version of this manual!
+        \end{onlineOnly}
+
+        This behavior can be redefining by setting the \verb|\defaultAnswerFormat|, \verb|\handoutAnswerFormat| and \verb|\givenAnswerFormat| commands. 
+
+        \begin{exercise}
+            \newcommand{\mytmptable}{
+                \begin{tabular}{ll}
+                long: & $\answer{1234567890}$,  and with [given]: $\answer[given]{1234567890}$. 
+                \\
+                short:& $\answer{15}$, and with [given]: $\answer[given]{12}$.   
+                \end{tabular}
+              }
+            
+              The format of \verb|\answer| can be adapted. Following code
+              %
+              \begin{verbatim}
+                \begin{tabular}{ll}
+                  long: & $\answer{1234567890}$, and with [given]: $\answer[given]{1234567890}$. 
+                  \\
+                  short:& $\answer{15}$,         and with [given]: $\answer[given]{12}$.   
+                \end{tabular}
+              \end{verbatim}
+              gives by default :
+              
+              \handouttrue Handoutmode: \mytmptable
+            
+              \handoutfalse Default mode: \mytmptable
+            
+              But could e.g. be changed to (handout: line, default: boxed, and given: plain)
+            
+              \let\handoutAnswerFormat\answerFormatFlexibleBox
+              \let\defaultAnswerFormat\answerFormatBoxed
+              \let\givenAnswerFormat\answerFormatPlain
+            
+              \handouttrue Handoutmode: \mytmptable
+            
+              \handoutfalse Default mode: \mytmptable
+        \end{exercise}
         
     \subsection*{Examples}
         \begin{description}
