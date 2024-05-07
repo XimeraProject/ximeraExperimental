@@ -1342,7 +1342,7 @@
 
 \theoremstyle{indented}
 
-\ifhints{
+\ifhints
     \makeatletter
     \let\hint\relax
     \let\c@hintrelax
@@ -1367,7 +1367,7 @@
         %        \BODY
         %    \end{trivlist}
     %    \addtocounter{hintLevel}{-1}
-}\else
+\else
 \newcounter{hint}   % counter needed because it is reset .... !
 \iftikzexport   % anders worden de tikz tekeningen in hints niet gegenereerd ?
 \setbox0\vbox\bgroup
