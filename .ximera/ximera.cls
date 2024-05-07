@@ -46,6 +46,7 @@
 %% src/leash.dtx  (with options: `classXimera')
 %% src/interactives/sagemath.dtx  (with options: `classXimera')
 %% src/jax.dtx  (with options: `classXimera')
+%% src/footnotes.dtx  (with options: `classXimera')
 %% src/ungraded.dtx  (with options: `classXimera')
 %% ------------:| ------------------------------------------------------------
 %%       ximera:| Simultaneously writing print and online interactive materials
@@ -188,8 +189,10 @@
         pdflatex \tikzexternalcheckshellescape
         -halt-on-error -interaction=batchmode
         -jobname "\image" "\\PassOptionsToClass{tikzexport}{ximera}\texsource";
+        mutool draw -F svg \image.pdf > \image.svg ;     % mutool adds "1" to filename ????
         mutool draw -o \image.svg \image.pdf ;
         mutool draw -r 150 -c rgbalpha -o \image.png \image.pdf ;
+        ebb -x \image.png
       }
     }
     \tikzexternalize[optimize=false,prefix=./]
@@ -274,6 +277,7 @@
 \everymath{\displaystyle}
 \let\prelim\lim
 \renewcommand{\lim}{\displaystyle\prelim}
+\theoremstyle{definition} % No italic (because this makes also text in TikZ italic !!!)
 
 
       \newtheorem{theorem}{Theorem}
@@ -610,7 +614,7 @@
 Interactive
 }
 
-\newcommand{\geogebra}[3]{Geogebra link: \url{https://tube.geogebra.org/m/#1}}
+\newcommand{\geogebra}[3]{Geogebra link: \url{https://www.geogebra.org/m/#1}}
 \newcommand{\desmos}[3]{Desmos link: \url{https://www.desmos.com/calculator/#1}}
 \newcommand{\googleSheet}[5]{%
   Google Spreadsheet link: \url{https://docs.google.com/spreadsheets/d/#1}%
@@ -640,7 +644,10 @@ Interactive
 \define@key{answer}{validator}{}
 \define@key{answer}{id}{\def\ans@id{#1}}
 \define@key{answer}{format}{}
-\setkeys{answer}{id=,given=false}
+\define@key{answer}{onlinenoinput}[false]{}
+\define@key{answer}{onlineshowanswerbutton}[false]{}
+\setkeys{answer}{id=,given=false,onlinenoinput=false,onlineshowanswerbutton=false}
+\newcommand{\handoutAnswerFormat}[1]{\ldots\ldots} %% Can be redefined by the user
 \newcommand{\answer}[2][]{%
 \ifmmode%
 \setkeys{answer}{#1}%
@@ -655,9 +662,9 @@ Interactive
 }% End then statement
 {% Start else statement
 \ifhandout
-\fbox{\rm{?}}
+\handoutAnswerFormat{#2} %% in case the argument helps formatting
 \else% show answer in box outside handout mode
-\fbox{\ensuremath{#2}}
+    {\color{blue}\ensuremath{#2}}
 \fi
 }% End else statement
 \else%
@@ -989,7 +996,6 @@ Interactive
 
 \DefineVerbatimEnvironment{sageOutput}{Verbatim}{numbers=left,frame=lines,label=SAGE-Output,labelposition=topline}
 
-\DefineVerbatimEnvironment{sagesilent}{Verbatim}{numbers=left,frame=lines,label=SAGE-Silent,labelposition=topline}
 
 \ifdefined\HCode
   \else
@@ -1012,6 +1018,7 @@ Interactive
 \renewcommand{\DeclareMathOperator}[2]{\@OldDeclareMathOperator{#1}{#2}\immediate\write\myfile{\unexpanded{\DeclareMathOperator}{\unexpanded{#1}}{\unexpanded{#2}}}}
 
 \fi
+
 \newenvironment{ungraded}{}{}
 %% 
 %% Copyright (C) 2018 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>
