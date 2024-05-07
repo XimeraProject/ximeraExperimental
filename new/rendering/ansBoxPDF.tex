@@ -11,17 +11,18 @@
 
     \subsection*{Answer behavior in the PDF}
 
-        In the PDF, the default behavior is showing all answers and solutions. Then \verb|$\answer{x^2 + 3x + 1}$| will display the answer as \fbox{$x^2 + 3x + 1$} in the PDF.
+        In the PDF, the default behavior is showing all answers and solutions. 
+        %Then \verb|$\answer{x^2 + 3x + 1}$| will display the answer as \fbox{$x^2 + 3x + 1$} in the PDF.
                 
         Using \verb|\documentclass[handout]{ximera}| suppresses the answers. 
         
-        In PDF \verb|$\answer{x^2 + 3x + 1}$| is by default rendered as {\handoutfalse $\answer{x^2 + 3x + 1}$}, and in handout mode normally as {\handouttrue $\answer{x^2 + 3x + 1}$},
-        but with \verb|$\answer[given]{x^2 + 3x + 1}$| as {\handouttrue $\answer[given]{x^2 + 3x + 1}$}. 
+        In the PDF version, \verb|$\answer{x^2 + 3x + 1}$| is by default rendered as {\handoutfalse $\answer{x^2 + 3x + 1}$}, and in handout mode normally as {\handouttrue $\answer{x^2 + 3x + 1}$}.
+        With \verb|$\answer[given]{x^2 + 3x + 1}$| you get normally {\handoutfalse $\answer[given]{x^2 + 3x + 1}$}, but in handout mode {\handoutfalse $\answer[given]{x^2 + 3x + 1}$}. 
         \begin{onlineOnly}
             Note: in order to make sense of this, you'll have to consult the PDF version of this manual!
         \end{onlineOnly}
 
-        This behavior can be redefining by setting the \verb|\defaultAnswerFormat|, \verb|\handoutAnswerFormat| and \verb|\givenAnswerFormat| commands. 
+        This behavior can be redefined by setting the \verb|\defaultAnswerFormat|, \verb|\handoutAnswerFormat| and \verb|\givenAnswerFormat| commands. 
 
         \begin{exercise} Only in the PDF interesting things can be seen. Online these settings should not have any effect.
             \newcommand{\mytmptable}{
@@ -79,12 +80,20 @@
             Now \verb|$\answer{x^2 + 3x + 1}$| will display as
             \rule{\widthof{$x^2 + 3x + 1$}*2}{0.4pt} and \verb|$\answer{2x}$| will display as \rule{\widthof{$2x$}*2}{0.4pt}.
 
-            \item[Adjustable Length Horizontal Line:] A horizontal line whose length can be changed for each problem. To default to line of length 2 centimeters, include 
-            \begin{verbatim}
-\renewcommand{\handoutAnswerFormat}[2][2cm]{\protect
-    \rule{#1}{0.4pt}}
-            \end{verbatim}
-            in the preamble. Then \verb|$\answer{x^2 + 3x + 1}$| is   will display as \rule{2 cm}{0.4pt} while \verb|$\answer[4cm]{x^2 + 3x + 1}$| will display as \rule{4cm}{0.4pt}.
+%             \item[Adjustable Length Horizontal Line:] A horizontal line whose length can be changed for each problem. To default to line of length 2 centimeters, include 
+%             \begin{verbatim}
+% \renewcommand{\handoutAnswerFormat}[2][2cm]{\protect
+%     \rule{#1}{0.4pt}}
+%             \end{verbatim}
+%             in the preamble. Then \verb|$\answer{x^2 + 3x + 1}$| is   will display as \rule{2 cm}{0.4pt} while \verb|$\answer[4cm]{x^2 + 3x + 1}$| will display as \rule{4cm}{0.4pt}.
+
+%             % mmm, this does NOT work:
+%             % ./ansBoxPDF.tex:93: Package xkeyval Error: `4cm' undefined in families `answer'.
+%             % See the xkeyval package documentation for explanation.
+%             \renewcommand{\handoutAnswerFormat}[2][2cm]{\protect\rule{#1}{0.4pt}}
+%             \color{red}Test: \verb|$\answer[4cm]{x^2 + 3x + 1}$| gives {\handouttrue $\answer[4cm]{x^2 + 3x + 1}$}
+%             %}
+
         \end{description}
     
                 
