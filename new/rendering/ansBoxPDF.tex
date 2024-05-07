@@ -1,0 +1,50 @@
+\documentclass{ximera}
+\title{Answer and PDFs}
+
+\begin{document}
+\begin{abstract}
+    A description of how the answer box behaves in the compiled pdf
+\end{abstract}
+\maketitle
+
+%\section*{The answer box}
+
+    \subsection*{Answer behavior in the PDF}
+
+        In the PDF, the default behavior is showing all answers and solutions. Then \verb|$\answer{x^2 + 3x + 1}$| will display the answer as \fbox{$x^2 + 3x + 1$} in the PDF.
+                
+        Using \verb|\documentclass[handout]{ximera}| suppresses the answers. The default behavior is to render the answer as $\ldots\ldots$. However, you may want to redefine this behavior. This is accomplished by redefining the \verb|\handoutAnswerFormat| command. 
+        
+    \subsection*{Examples}
+        \begin{description}
+            \item[(Auto)Scale Box to (Correct) Answer Size:] The answer box scales with the size of the (correct) answer. To do this, include the command 
+            \begin{verbatim}
+\renewcommand{\handoutAnswerFormat}[1]{
+    \fbox{\scalebox{2}{\phantom{$#1$}}}}
+            \end{verbatim}
+            in the preamble. 
+            
+            Now \verb|$\answer{x^2 + 3x + 1}$| will display as \fbox{\scalebox{2}{\phantom{$x^2 + 3x + 1$}}} and \verb|$\answer{2x}$| will display as \fbox{\scalebox{2}{\phantom{$2x$}}}.
+                
+            \item[(Auto)Scaling Horizontal Line:] A horizontal line that scales with the size of the answer. To do this, include the command 
+            \begin{verbatim}
+\renewcommand{\handoutAnswerFormat}[1]{\protect
+    \rule{\widthof{$#1$}*2}{0.4pt}}
+            \end{verbatim}
+            in the preamble. The \verb|*2| stretched the length by two to accomodate handwriting.
+
+            Now \verb|$\answer{x^2 + 3x + 1}$| will display as
+            \rule{\widthof{$x^2 + 3x + 1$}*2}{0.4pt} and \verb|$\answer{2x}$| will display as \rule{\widthof{$2x$}*2}{0.4pt}.
+
+            \item[Adjustable Length Horizontal Line:] A horizontal line whose length can be changed for each problem. To default to line of length 2 centimeters, include 
+            \begin{verbatim}
+\renewcommand{\handoutAnswerFormat}[2][2cm]{\protect
+    \rule{#1}{0.4pt}}
+            \end{verbatim}
+            in the preamble. Then \verb|$\answer{x^2 + 3x + 1}$| is   will display as \rule{2 cm}{0.4pt} while \verb|$\answer[4cm]{x^2 + 3x + 1}$| will display as \rule{4cm}{0.4pt}.
+        \end{description}
+    
+                
+
+    
+\end{document}

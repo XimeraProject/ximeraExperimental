@@ -132,13 +132,13 @@ the xourse file that generated this page to get a real-life example.
 
 
 Ximera documents are meant to be compilable either indvidually or as
-part of a Xourse. In order to have consistent behavior between Ximera class files and Xourse files, and to avoid option classes, the best-practice is to create a separate preamble file. 
+part of a Xourse. In order to have consistent behavior between Ximera class files and Xourse files, and to avoid option clashes, the best-practice is to create a separate preamble file. 
 % This `magic' is achieved by `turning off'
 % \verb|\begin{document}| and \verb|\end{document}| and doing some other
 % things. This can cause code between \verb|\end{document}| and
 % \verb|\begin{document}| can be exposed when used in a Xourse
 % file. This is not a big issue, but it means that the preamble of a
-When compiling the Xourse document, the Ximera document can only contain objects like
+When compiling the Xourse document, the Ximera document's preamble can only contain objects like
 
 \begin{verbatim}
 \documentclass...
