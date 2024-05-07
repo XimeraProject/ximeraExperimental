@@ -142,6 +142,115 @@ if [[ "$COMMAND" == "bash" ]]
 then
     # interactive shell (option -i needed when starting the container !)
     ${XAKE%xake} /bin/bash
+elif [[ "$COMMAND" == "bake" ]]
+then
+    # files with beamer are IGNORED by bake and bakePdf   (should only be complied to pdf, not html)
+    #  do it 'by hand' here
+    reset_file_times
+    mkdir -p ximera-downloads
+    echo "Copying gif files ..."
+    cp pictures/*.gif ximera-downloads
+    echo "Compiling beamer and _pdf.tex files ..."
+        find \( -name "*beamer*.tex" -o -name "*_pdf.tex" \) -printf '%P\n' | while read file; do
+	ls -al ${file%tex}{tex,pdf,svg,log}
+        if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
+        then
+             echo "Compiling $file   (beamer)"
+             $XAKE -v compilePdf $file
+             echo "Copying $file to ximera-downloads"
+             cp ${file/%.tex/.pdf} ximera-downloads
+             echo "Converting $file to svg"
+             pdf2svg ${file/%.tex/.pdf} ${file/%.tex/.svg}
+        else
+             echo "File $file uptodate"
+        fi
+    done
+    echo "Baking other files ..."
+    $XAKE  --skip-mathjax -v --jobs $NB_JOBS bake # Genereer de html files
+elif [[ "$COMMAND" == "cleanstandaard" ]]
+then
+    NAME=standaard
+    rm -rf ximera-downloads/"$NAME"_pdf
+    find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} sh -c 'echo "Removing $1"; rm "$1"' -- {} "$NAME" # remove .pdf's
+elif [[ "$COMMAND" == "cleanhandout" ]]
+then
+    NAME=handout
+    rm -rf ximera-downloads/"$NAME"_pdf
+    find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} sh -c 'echo "Removing $1"; rm "$1"' -- {} "$NAME" # remove .pdf's
+elif [[ "$COMMAND" == "bakestandaard" ]]
+then
+    NAME=standaard
+    reset_file_times
+    $XAKE --jobs $NB_JOBS -v bakePdf "$NAME" 
+    find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} dirname ximera-downloads/"$NAME"_pdf/{} | xargs mkdir -p # create necessairy folders
+    find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} sh -c 'echo "Move $1 to ximera-downloads"; cp "$1" ximera-downloads/"$2"_pdf/"${1%-*}.pdf" || (echo "Failed moving" && exit 1)' -- {} "$NAME" # Copy to ximera-downloads
+elif [[ "$COMMAND" == "bakehandout" ]]
+then
+    NAME=handout
+    # files with _pdf are IGNORED by bake and bakePdf   (should only be complied to pdf, not html)
+    #  do it 'by hand' here Needed to create the handouts including formularia
+    reset_file_times
+    mkdir -p ximera-downloads
+    echo "Compiling _pdf.tex files ..."
+        find \( -name "*_pdf.tex" \) -printf '%P\n' | while read file; do
+	ls -al ${file%tex}{tex,pdf,log}
+        if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
+        then
+             echo "Compiling $file   (beamer)"
+             $XAKE -v compilePdf $file
+             cp ${file/%.tex/.pdf} ximera-downloads
+             cp ${file/%.tex/.pdf} ${file/%_pdf.tex/-handout_pdf.pdf}
+        else
+             echo "File $file   uptodate (beamer)"
+        fi
+    done
+    timeout 50m $XAKE -v --jobs $NB_JOBS bakePdf "$NAME" "\\PassOptionsToClass{handout}{ximera}\\PassOptionsToClass{handout}{xourse}"
+    echo "Moving pdfs to ximera-downloads"
+    find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} dirname ximera-downloads/"$NAME"_pdf/{} | xargs mkdir -p # create necessairy folders
+   #find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} sh -c 'echo "Move $1 to ximera-downloads"; cp "$1" ximera-downloads/"$2"_pdf/"${1%-*}.pdf" || (echo "Failed moving" && exit 1)' -- {} "$NAME" # Copy to ximera-downloads
+    find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} sh -c 'cp "$1" ximera-downloads/"$2"_pdf/"${1%-*}.pdf" || (echo "Failed moving" && exit 1)' -- {} "$NAME" # Copy to ximera-downloads
+
+elif [[ "$COMMAND" == "bakebeamer" ]]
+then
+    # files with beamer are IGNORED by bake ansd bakePdf   (should only be complied to pdf, not html)
+    #  do it 'by hand' here
+    NAME=handout
+    reset_file_times
+    echo "Compiling beamer files ..."
+    find -name "*beamer*.tex" -printf '%P\n' |grep -v preamble | grep -v handout | while read file; do
+	ls -al ${file%tex}{tex,pdf,log}
+        if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
+        then
+            echo "Compiling $file   (beamer)"
+            $XAKE -v compilePdf $file
+            $XAKE -v compilePdf $file  $NAME "\\PassOptionsToClass{handout}{beamer}"
+        else
+            echo "File $file   uptodate (beamer)"
+        fi
+        mkdir -p public
+        basename=$(basename $file)
+        cp ${file/%.tex/.pdf} public/${basename/%.tex/.pdf}
+        cp ${file/%.tex/-handout.pdf} public/${basename/%.tex/-handout.pdf}
+        mkdir -p $(dirname ximera-downloads/"$NAME"_pdf/$file})
+        cp ${file/%.tex/.pdf} ximera-downloads/${NAME}_pdf/${file/%.tex/.pdf}
+        cp ${file/%.tex/-handout.pdf} ximera-downloads/${NAME}_pdf/${file/%.tex/-handout.pdf}
+    done
+    echo "Compiling _pdf files ..."
+    find -name "*_pdf.tex" -printf '%P\n' | while read file; do
+	ls -al ${file%tex}{tex,pdf,log}
+        #if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
+        #then
+            echo "Compiling $file   (_pdf)"
+            $XAKE -v compilePdf $file
+        #else
+        #    echo "File $file   uptodate (_pdf)"
+        #fi
+        mkdir -p public
+        basename=$(basename $file)
+        cp ${file/%.tex/.pdf} public/${basename/%.tex/.pdf}
+        mkdir -p $(dirname ximera-downloads/"$NAME"_pdf/$file})
+        cp ${file/%.tex/.pdf} ximera-downloads/${NAME}_pdf/${file/%.tex/.pdf}
+    done
 elif [[ "$COMMAND" == "serve" ]]
 then
     echo "xake serve"
