@@ -2,7 +2,7 @@ name: PushGitlab
 
 on:
   push:
-    branches: [ test_printstyle ]
+    branches: [ master ]
 
 jobs:
   build:
