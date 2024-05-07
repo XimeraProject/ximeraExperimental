@@ -68,7 +68,7 @@
 \ConfigureQuestionEnv{question}{question}
 \ConfigureQuestionEnv{exploration}{exploration}
 \ConfigureQuestionEnv{hint}{hint}
-\ConfigureQuestionEnv{shuffle}{shuffle}
+%%\ConfigureQuestionEnv{shuffle}{shuffle}
 \newcommand{\ConfigureTheoremEnv}[1]{%
 \renewenvironment{#1}[1][]{\refstepcounter{problem}%
 \ifthenelse{\equal{##1}{}}{}{%
@@ -284,7 +284,7 @@
             function footnotefunction(ID) {
               var x = document.getElementById(ID);
               if (x.style.display === "none") {
-                x.style.color = "#002db3";
+                x.style.color = "red";
                 x.style.display = "inline";
               } else {
                 x.style.display = "none";
@@ -320,7 +320,7 @@
                 position:relative;
                 left:2px;
                 padding:5px;
-                color:#002db3;
+                color:red;
                 word-wrap:break-word;
                 z-index=9999;
                 overflow=auto;"
