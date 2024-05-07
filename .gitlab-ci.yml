@@ -1,0 +1,182 @@
+# use custom xake image
+image: registry-ext.repo.icts.kuleuven.be/set/dsb/xake:1.2.1
+
+variables:
+  NB_JOBS: 3 # Hoeveelheid parallellisme
+  FF_USE_FASTZIP: 1
+
+stages:
+  - build
+  - deploy-test
+  - deploy-prod
+
+pages:
+  stage: build
+  script:
+      - chmod +x ./build.sh
+      - ./build.sh bakebeamer  # errors are not fatal ...
+      - cd public
+      - echo "<html><body><h1>Beamer files:</h1>" > ./index.html
+      - find . -regex ".*.pdf" -exec echo "<a href='{}'>{}</a><br/>" \; >> ./index.html
+      - echo "</body></html>" >> ./index.html
+  cache: # Cache de untracked = gegenereerde files
+    untracked: true
+    key: "pages-$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    when: 'always'    # TO BE CHECKED
+  only:
+    - main
+  when: manual
+  artifacts:
+    paths:
+      - public
+
+build_handout_pdf_job:
+  stage: build
+  script:
+      - chmod +x ./build.sh
+      - ls -al formularium/*.pdf || echo NOK
+      - ls -al *.pdf || echo NOK
+      # - ls -al ximera-downloads/*
+      - echo "REBUILD_PDF = $REBUILD_PDF ."
+      - if [ "$REBUILD_PDF" == "5" ]; then rm -f *.pdf; fi
+      - if [ "$REBUILD_PDF" == "2" ]; then ./build.sh cleanhandout; fi
+      - if [ "$REBUILD_PDF" == "2" ]; then ./build.sh cleanstandaard; fi
+      - if [ "$REBUILD_PDF" == "1" ]; then  rm -f formularium/*.pdf; fi   # force regenerate
+      #- rm -f zomercursusB-handout*    # force regenerate
+      - timeout 55m ./build.sh bakehandout || echo NOK   # errors are not fatal ...
+  cache: # Cache de untracked = gegenereerde files
+    untracked: true
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    when: 'always'    # TO BE CHECKED
+  tags: &tags
+  artifacts:
+    paths:
+    - "ximera-downloads"
+    - "**/*.log"
+
+build_standard_pdf_job:
+  stage: build
+  script:
+      - chmod +x ./build.sh
+      - ls -al formularium/*.pdf || echo NOK
+      - ls -al *.pdf || echo NOK
+      # - ls -al ximera-downloads/*
+      - echo "REBUILD_PDF = $REBUILD_PDF ."
+      - if [ "$REBUILD_PDF" == "5" ]; then rm -f *.pdf; fi
+      - if [ "$REBUILD_PDF" == "2" ]; then ./build.sh cleanhandout; fi
+      - if [ "$REBUILD_PDF" == "2" ]; then ./build.sh cleanstandaard; fi
+      - if [ "$REBUILD_PDF" == "1" ]; then  rm -f formularium/*.pdf; fi   # force regenerate
+      #- rm -f zomercursusB-handout*    # force regenerate
+      - timeout 55m ./build.sh bakestandaard || echo NOK   # errors are not fatal ...
+  cache: # Cache de untracked = gegenereerde files
+    untracked: true
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    when: 'always'    # TO BE CHECKED
+  tags: &tags
+  artifacts:
+    paths:
+    - "ximera-downloads"
+    - "**/*.log"
+
+
+build_bake_job:
+  stage: build
+  script:
+      - chmod +x ./build.sh
+      - ls -al
+      - rm -rf ximera-downloads/*   # old version from cache ...?
+      #- rm -rf formularium/*.pdf   # force rebuild
+      - if [ "$REBUILD_PDF" == "1" ]; then rm -rf formularium/*.html; fi # force rebuild
+      - if [ "$REBUILD_PDF" == "1" ]; then rm -rf formularium/*.pdf; fi # force rebuild
+      - find . -name '*.png' -size 0 -print -delete
+      - find . -name '*.svg' -size 0 -print -delete      
+      - ./build.sh bake
+      - sed -i 's/tube.geogebra.org/www.geogebra.org/g' */*.html */*/*.html # hack, in afwachting van aanpassing xake ....
+  cache: # Cache de untracked = gegenereerde files
+    untracked: true
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    when: 'always'    # TO BE CHECKED
+  tags: &tags
+ #   - ximera # Voer deze stage enkel uit op runners die de ximera tag hebben
+  artifacts:
+    paths:
+#    - "**/*.log" 
+    - "**/*.pdf"
+    - "**/*.svg"
+    - "**/*.png"
+    - "**/*.html"        
+#    untracked: true
+
+deploy_to_preview:
+  stage: deploy-test
+  variables:
+    REPO: 'examples*preview'
+  script: 
+    - xake -v --jobs $NB_JOBS bake # Genereer de html files (should not be needed)
+    - cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
+    - gpg --import .gpg 
+    - rm .gpg # remove the gpg key so he is certainly not cached
+    - xake -U https://set.kuleuven.be/voorkennis/ -k $GPG_KEY_ID name $REPO
+    - git fetch --unshallow # Zorg ervoor dat we de hele geschiedenis hebben ipv enkel een deel, anders werkt het serven niet
+    - git config core.fileMode false
+    - git branch -D master || true    #ignore error
+    - git checkout -B master # doe alsof we op master zitten
+    - xake -v frost # Zorg voor juiste links etc = maak metadata.json en tag etc
+    - xake -v serve # Upload files = push tag
+    - echo "Done"
+  tags: *tags 
+  #cache: # Cache de untracked = gegenereerde files
+  #  untracked: true
+  #  key: "$CI_COMMIT_REF_SLUG"
+  # only:
+  #   - branches
+
+
+deploy_to_latest:
+  stage: deploy-test
+  variables:
+    REPO: 'examples'
+  script: 
+    - xake -v --jobs $NB_JOBS bake # Genereer de html files (should not be needed)
+    - cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
+    - gpg --import .gpg 
+    - rm .gpg # remove the gpg key so he is certainly not cached
+    - xake -U https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/ -k $GPG_KEY_ID name $REPO 
+    - xake -U https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/ -k $GPG_KEY_ID lti zomercursus-latest 
+    - git fetch --unshallow # Zorg ervoor dat we de hele geschiedenis hebben ipv enkel een deel, anders werkt het serven niet
+    - git config core.fileMode false
+    - git branch -D master || true    #ignore error
+    - git checkout -B master # doe alsof we op master zitten
+    - xake -v frost # Zorg voor juiste links etc = maak metadata.json en tag etc
+    - xake -v serve # Upload files = push tag
+  tags: *tags 
+  when: manual
+  #cache: # Cache de untracked = gegenereerde files
+  #  untracked: true
+  #  key: "$CI_COMMIT_REF_SLUG"
+  # only:
+  #   - idl   
+
+deploy_production:
+  stage: deploy-prod
+  variables:
+    REPO: 'examples'
+  script: 
+    # - xake -v --jobs $NB_JOBS bake # Genereer de html files (should not be needed)
+    - cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
+    - gpg --import .gpg 
+    - rm .gpg # remove the gpg key so he is certainly not cached
+    - xake -U https://set.kuleuven.be/voorkennis/ -k $GPG_KEY_ID name $REPO
+    - git fetch --unshallow # Zorg ervoor dat we de hele geschiedenis hebben ipv enkel een deel, anders werkt het serven niet
+    - git config core.fileMode false
+    - git branch -D master || true    #ignore error
+    - git checkout -B master # doe alsof we op master zitten
+    - xake -v frost # Zorg voor juiste links etc = maak metadata.json en tag etc
+    - xake -v serve # Upload files = push tag
+  tags: *tags 
+  # when: manual
+  #cache: # Cache de untracked = gegenereerde files
+  #  untracked: true
+  #  key: "$CI_COMMIT_REF_SLUG"
+  # only:
+  #   - idl    
