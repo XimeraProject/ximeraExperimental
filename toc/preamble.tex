@@ -1,15 +1,44 @@
-\titleformat{\title}{\LARGE\bfseries}{}{0pt}{}
+
+\titleclass{\chapter}{top}[\part]
+\newcounter{chapter}
+\setcounter{chapter}{0}
+\titlelabel{\thechapter\quad }
+% \renewcommand{\thechapter}{\roman{chapter}}
+\renewcommand*{\chaptertitlename}{Chapter}
+
+\titleformat{\chapter}{\centering\LARGE\bfseries}{\thechaptername}{2pt}{}
+\titlecontents{chapter}
+    [1.5em]   % left-indent; change as you see fit
+    {\bfseries}
+    {\contentslabel{2.3em}}
+    {\contentslabel{2.3em}}
+    {\titlerule*[1pc]{.}\contentspage}
+
+\titlespacing*{\chapter}{2pt}{*4}{*1.5}
+
+\makeatletter
+    \def\toclevel@chapter{1}
+\makeatother
+
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}~}
+
+\titlecontents{section}
+    [1.5em]   % left-indent; change as you see fit
+    {\bfseries}
+    {\contentslabel{2.3em}}
+    {\contentslabel{2.3em}}
+    {\titlerule*[1pc]{.}\contentspage}
+
+
+\makeatletter
+
 
 % Chapter style
-\renewcommand{\chapterstyle}{
-    \titleformat{\title}{\LARGE\bfseries}{}{0pt}{}
-    \renewcommand{\maketitle}{
-        \begingroup
-        \centering
-        \LARGE\bfseries\thetitle\par
-        \endgroup
-    }
-    \setcounter{tocdepth}{1}
+\renewcommand{\chapterstyle}{%
+\addtocontents{chapter}{1}
+    \let\section\section
+    \let\subsection\subsection
+    \chapter{\thechapter~\@title}
 }
 
 % Section style
@@ -18,8 +47,13 @@
     \renewcommand{\maketitle}{
         \begingroup
         \centering
-        \Large\bfseries\thetitle\par
+        \Large\bfseries\@title\par
         \endgroup
     }
-    \setcounter{tocdepth}{2}
+    \setcounter{tocdepth}{1}
+    \phantomsection\addcontentsline{toc}{section}{\thesection~\@title}%
+    \let\section\subsection
+    \let\subsection\subsubsection
 }
+
+
