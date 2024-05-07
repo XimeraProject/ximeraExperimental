@@ -1,5 +1,20 @@
 \documentclass[numbers]{xourse}
-%\input{preamble.tex}
+\newcounter{chapter}
+% Format the \title as a \section
+\pretitle{\section*{}} % Make the title look like a section
+\posttitle{\addcontentsline{toc}{section}{\thetitle}\par}
+
+% Format \section as \subsection
+\titleformat{\section}[hang]{\normalfont\Large\bfseries}{\thesubsection}{1em}{}
+\renewcommand\thesection{\arabic{chapter}.\arabic{section}}
+
+% Format \subsection as \subsubsection
+\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\thesubsubsection}{1em}{}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+% Format \subsubsection normally
+\titleformat{\subsubsection}[hang]{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
 
 \author{Hello}
 \title{A document for TOC test}

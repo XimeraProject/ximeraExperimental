@@ -1,25 +1,62 @@
-\titleformat{\title}{\LARGE\bfseries}{}{0pt}{}
+\makeatletter
 
 % Chapter style
 \renewcommand{\chapterstyle}{
-    \titleformat{\title}{\LARGE\bfseries}{}{0pt}{}
-    \renewcommand{\maketitle}{
-        \begingroup
-        \centering
-        \LARGE\bfseries\thetitle\par
-        \endgroup
-    }
-    \setcounter{tocdepth}{1}
-}
+% Set title style to look like a section
+\titleformat{\title}[block]
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+
+% Set section style to look like a subsection
+\titleformat{\section}[block]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% Set subsection style to look like a subsubsection
+\titleformat{\subsection}[runin]
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Adjust TOC for title
+\titlecontents{title}
+  [0pt]{}{\contentslabel{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+% Adjust TOC for section
+\titlecontents{section}
+  [1em]{}{\contentslabel{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+% Adjust TOC for subsection
+\titlecontents{subsection}
+  [2em]{}{\contentslabel{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+\renewcommand{\maketitle}{
+  \title{\thetitle}
+}}
 
 % Section style
 \renewcommand{\sectionstyle}{
-    \titleformat{\title}{\Large\bfseries}{}{0pt}{}
-    \renewcommand{\maketitle}{
-        \begingroup
-        \centering
-        \Large\bfseries\thetitle\par
-        \endgroup
-    }
-    \setcounter{tocdepth}{2}
-}
+% Set title style to look like a section
+\titleformat{\title}[block]
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+
+% Set section style to look like a subsection
+\titleformat{\section}[block]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% Set subsection style to look like a subsubsection
+\titleformat{\subsection}[runin]
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Adjust TOC for title
+\titlecontents{title}
+  [0pt]{}{\contentslabel{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+% Adjust TOC for section
+\titlecontents{section}
+  [1em]{}{\contentslabel{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+% Adjust TOC for subsection
+\titlecontents{subsection}
+  [2em]{}{\contentslabel{1em}}{}{\titlerule*[1pc]{.}\contentspage}
+
+\renewcommand{\maketitle}{
+  \title{\thetitle}
+}}
+\makeatother
