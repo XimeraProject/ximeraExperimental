@@ -18,51 +18,77 @@
         
         In the PDF version, \verb|$\answer{x^2 + 3x + 1}$| is by default rendered as {\handoutfalse $\answer{x^2 + 3x + 1}$}, and in handout mode normally as {\handouttrue $\answer{x^2 + 3x + 1}$}.
         With \verb|$\answer[given]{x^2 + 3x + 1}$| 
-        you get normally {\handoutfalse $\answer[given]{x^2 + 3x + 1}$}, 
+        you get by default {\handoutfalse $\answer[given]{x^2 + 3x + 1}$}, 
         but in handout mode {\handouttrue $\answer[given]{x^2 + 3x + 1}$}. 
 
         \begin{onlineOnly}
             Note: in order to make sense of this, you'll have to consult the PDF version of this manual!
         \end{onlineOnly}
 
-        This behavior can be redefined by setting the \verb|\defaultAnswerFormat|, \verb|\handoutAnswerFormat| and \verb|\givenAnswerFormat| commands. 
+        This behavior can be changed by setting \verb|\defaultAnswerFormat|, \verb|\handoutAnswerFormat| and \verb|\givenAnswerFormat|. 
 
-        \begin{exercise} Only in the PDF interesting things can be seen. Online these settings should not have any effect.
+        \begin{example} Note: only in the PDF interesting things can be seen. Online these settings should not have any effect.
+
             \newcommand{\mytmptable}{
                 \begin{tabular}{ll}
-                long: & $\answer{1234567890}$,  and with [given]: $\answer[given]{1234567890}$. 
-                \\
-                short:& $\answer{15}$, and with [given]: $\answer[given]{12}$.   
+                long: & $\answer{1234567890}$ and [given]: $\answer[given]{1234567890}$. \\
+                short:& $\answer{15}$  and [given]: $\answer[given]{12}$.   
                 \end{tabular}
               }
             
-              The format of \verb|\answer| can be adapted. Following code
+              The format of the output of \verb|\answer| can be adapted. Following code
               %
               \begin{verbatim}
-                \begin{tabular}{ll}
-                  long: & $\answer{1234567890}$, and with [given]: $\answer[given]{1234567890}$. 
-                  \\
-                  short:& $\answer{15}$,         and with [given]: $\answer[given]{12}$.   
-                \end{tabular}
+\begin{tabular}{ll}
+  long: & $\answer{1234567890}$, and [given]: $\answer[given]{1234567890}$. \\
+  short:& $\answer{15}$,         and [given]: $\answer[given]{12}$.   
+\end{tabular}
               \end{verbatim}
               gives by default :
               
-              \handouttrue Handoutmode: \mytmptable
+              \handouttrue Handout: \mytmptable
             
-              \handoutfalse Default mode: \mytmptable
+              \handoutfalse Default: \mytmptable
             
-              But could e.g. be changed to (handout: line, default: boxed, and given: plain)
-            
+              But could e.g. be changed to (handout: flexible box, default: boxed, and given: plain)  with 
+
               \let\handoutAnswerFormat\answerFormatFlexibleBox
               \let\defaultAnswerFormat\answerFormatBoxed
               \let\givenAnswerFormat\answerFormatPlain
+
+              \begin{verbatim}
+\let\handoutAnswerFormat\answerFormatFlexibleBox
+\let\defaultAnswerFormat\answerFormatBoxed
+\let\givenAnswerFormat\answerFormatPlain
+              \end{verbatim}
             
-              \handouttrue Handoutmode: \mytmptable
+              \handouttrue Handout: \mytmptable
             
-              \handoutfalse Default mode: \mytmptable
-        \end{exercise}
+              \handoutfalse Default: \mytmptable
+
+              or also to (handout: fixed length line, default: blue, and given: blue)  with 
+
+              \renewcommand{\answerFormatLength}{3cm}
+              \let\handoutAnswerFormat\answerFormatLine
+              \let\defaultAnswerFormat\answerFormatBlue
+              \let\givenAnswerFormat\answerFormatBlue
+
+              \begin{verbatim}
+\renewcommand{\answerFormatLength}{3cm}
+\let\handoutAnswerFormat\answerFormatLine
+\let\defaultAnswerFormat\answerFormatBlue
+\let\givenAnswerFormat\answerFormatBlue
+              \end{verbatim}
+            
+              \handouttrue Handout: \mytmptable
+            
+              \handoutfalse Default: \mytmptable
+        \end{example}
         
-    \subsection*{Examples}
+    \subsection*{Provide your own formats}
+
+        Further formats can be implemented as follows:
+
         \begin{description}
             \item[(Auto)Scale Box to (Correct) Answer Size:] The answer box scales with the size of the (correct) answer. To do this, include the command 
             \begin{verbatim}
