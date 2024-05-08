@@ -3,9 +3,6 @@
 
 \renewcommand{\familydefault}{\sfdefault}
 
-\ifxake
-\let\points\relax
-\fi
 
 \usetikzlibrary{arrows.meta}
 \usepackage{tikz-cd}
@@ -22,6 +19,10 @@
 \usepackage{stmaryrd,pifont}
 
 
+\newcommand{\points}[1]{}
+
+
+\newcommand{\sep}{\hrule height .5mm}
 
 %% \newcommand{\tightoverset}[2]{% for arrow vec
 %%   \mathop{#2}\limits^{\vbox to -.5ex{\kern-0.75ex\hbox{$#1$}\vss}}}

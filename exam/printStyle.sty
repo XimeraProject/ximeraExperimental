@@ -15,7 +15,6 @@
 \renewcommand{\phi}{\varphi}
 \renewcommand{\o}{\mathbf{o}}
 
-\newcommand{\sep}{\hrule height .5mm}
 \def\hrulefill{\leavevmode\leaders\hrule height .5mm\hfill\kern\z@}
 \usepackage{fancyhdr}
 \usepackage{marginnote}
@@ -27,7 +26,11 @@
 \NewEnviron{jokequote}{\global\let\jokequote\BODY}
 
 \renewcommand*{\marginfont}{\ttfamily}
-\newcommand{\points}[1]{\makeatletter\setcounter{mn@abspage}{1}\makeatother\marginnote{[#1~pts]}}
+
+
+\renewcommand{\points}[1]{\makeatletter\setcounter{mn@abspage}{1}\makeatother\marginnote{[#1~pts]}}
+
+
 
 
 \newcommand{\@course}{Mathematics}
