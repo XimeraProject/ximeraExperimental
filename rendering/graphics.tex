@@ -10,21 +10,17 @@
    
 \section*{How Ximera renders Image and Graph Content}
 
-There are several ways to embed graphics into Ximera document. 
+There are several ways to embed graphics into Ximera document. One method is to use \verb|\includegraphics|. Here we see an included a JPEG and a PNG:
 
 \begin{center}
   %https://commons.wikimedia.org/wiki/File:Lama_LLama_Alpaca_06.jpg
-  \includegraphics{llama.jpg}
+  \includegraphics[width=.3\textwidth]{llama.jpg}\qquad
+  %https://commons.wikimedia.org/wiki/File:Llama_in_watercolour.png
+  \includegraphics[width=.3\textwidth]{llama.png}
 \end{center}
 
+Here we have a pdf
 \begin{center}
-  %https://commons.wikimedia.org/wiki/File:Llama_in_watercolour.png
-  \includegraphics{llama.png}
-\end{center}
-
-
-\begin{center}
-  %https://commons.wikimedia.org/wiki/File:Llama_in_watercolour.png
   \includegraphics{llama.pdf}
 \end{center}
 
