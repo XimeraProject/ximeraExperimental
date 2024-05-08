@@ -76,6 +76,121 @@ preferred, as then the source produces the images.
 \end{verbatim}
 
 
+
+
+
+
+\subsection{The graph command}
+
+The easiest way to include an interactive graph is to use the
+\verb|\graph| command. Unfortunately, the \verb|\graph| command
+doesn't draw a graph in the PDF, rather, it states (in words) that a
+graph is produced.
+\[
+\graph{x^2}
+\]
+There are a number of options for the \verb|\graph| command:
+
+
+\paragraph{Change viewing window}
+
+  
+\begin{verbatim}
+\[
+\graph[xmin=-5,xmax=5,ymin=-5,ymax=5]{y=x^2}
+\]
+\end{verbatim}
+\paragraph{Restricting domain}
+
+
+\begin{verbatim}
+\[
+\graph{x^2 \left\{ 1 \leq x \leq 10 \right\} }
+\]
+\end{verbatim}
+\paragraph{Default panel displayed}
+
+  
+\begin{verbatim}
+\[
+\graph[panel]{x^2}
+\]
+\end{verbatim}
+\paragraph{Restricting window}
+
+  
+\begin{verbatim}
+\[
+\graph[xmin=0, xmax=10, ymin=0, ymax=10]{x^2}
+\]
+\end{verbatim}
+\paragraph{Axis labels}
+
+  
+\begin{verbatim}
+\[
+\graph[xAxisLabel="time", yAxisLabel="distance"]{y=x}
+\]
+\end{verbatim}
+\paragraph{Hide axes}
+
+  
+\begin{verbatim}
+\[
+\graph[hideXAxis=true, hideYAxis=true]{x^2}
+\]
+\end{verbatim}
+\paragraph{Hide tick marks}
+
+  
+\begin{verbatim}
+\[
+\graph[hideXAxisNumbers=true, hideYAxisNumbers=true]{x=y^2}
+\]
+\end{verbatim}
+\paragraph{Polar graphing}
+
+  
+\begin{verbatim}
+\[
+\graph{r=\theta}
+\]
+\end{verbatim}
+\paragraph{Polar gridlines}
+
+
+\begin{verbatim}
+\[
+\graph[polar]{y=x^2}
+\]
+\end{verbatim}
+\paragraph{Graphing a piecewise function}
+
+
+\begin{verbatim}
+\[
+\graph{ \sin(x)\left\{x<0\right\}, 2x\left\{ x>=0 \right\} }
+\]
+\end{verbatim}
+
+
+\subsection{Desmos}
+
+If you require further features from
+\link[Desmos]{https://www.desmos.com/}, you can sign up for an account
+and include your worksheets like this:
+
+\begin{verbatim}
+\begin{center}
+\desmos{zwywds7med}{800}{600}
+\end{center}
+\end{verbatim}
+\begin{center}
+\desmos{zwywds7med}{800}{600}
+\end{center}
+
+
+
     \subsection*{Any Necessary Content}
     
     
