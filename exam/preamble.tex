@@ -1,0 +1,56 @@
+
+
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\ifxake
+\let\points\relax
+\fi
+
+\usetikzlibrary{arrows.meta}
+\usepackage{tikz-cd}
+\usepackage{tkz-euclide} %% compass
+%\usetkzobj{all}  %% tkzCompass %% Not needed removed if found after 11-1-2020
+\tikzset{>=stealth}
+\tikzcdset{arrow style=tikz}
+\usetikzlibrary{math} %% for assigning variables used in making n-gons
+%\usetikzlibrary{fadings}
+
+
+\usepackage[sans]{dsfont}
+
+\usepackage{stmaryrd,pifont}
+
+
+
+%% \newcommand{\tightoverset}[2]{% for arrow vec
+%%   \mathop{#2}\limits^{\vbox to -.5ex{\kern-0.75ex\hbox{$#1$}\vss}}}
+\newcommand{\arrowvec}[1]{{\overset{\rightharpoonup}{#1}}}
+%\renewcommand{\vec}[1]{\arrowvec{\mathbf{#1}}}
+\renewcommand{\vec}[1]{{\overset{\boldsymbol{\rightharpoonup}}{\mathbf{#1}}}\hspace{0in}}
+
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\eval}[1]{\bigg[ #1 \bigg]}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\l}{\ell}
+\renewcommand{\d}{\,d}
+\newcommand{\dotp}{\bullet}
+\newcommand{\cross}{\boldsymbol\times}
+
+
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\renewcommand{\tilde}{\widetilde}
+\newcommand{\dd}[2][]{\frac{d #1}{d #2}}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\hat}{\widehat}
+\newcommand{\jac}{\mathbf{Jac}}
+\newcommand{\grad}{\boldsymbol\nabla}
+\newcommand{\divergence}{\grad\dotp}
+\newcommand{\curl}{\grad\cross}
+
+
+
