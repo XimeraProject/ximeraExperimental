@@ -31,5 +31,5 @@ jobs:
         echo Get updates
         git pull --no-rebase
         echo Set remote
-        git push origin master
+        git push origin new
         rm -f /home/runner/.ssh/id_ed25519
