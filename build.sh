@@ -80,6 +80,14 @@ if [[ -d .texmf ]]; then
     cp -r .texmf/* /usr/local/texlive/2019/texmf-dist/tex/generic/
 fi
 
+# If there is a .ximera_local folder, OVERWRITE the complete ximeraLatex install inside this container
+#  ( This could/should replace the above one-by-one copies from .ximera ...)
+if [[ -d .ximera_local ]]; then
+    echo "USING .ximera_local from local repo"
+    mv /root/texmf/tex/latex/ximeraLatex /root/ximeraLatex.ORI
+    mkdir /root/texmf/tex/latex/ximeraLatex
+    cp -r .ximera_local/* /root/texmf/tex/latex/ximeraLatex
+fi
 
 # Longer lines in pdflatex output
 export max_print_line=1000
