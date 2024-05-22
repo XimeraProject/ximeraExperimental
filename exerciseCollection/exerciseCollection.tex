@@ -8,11 +8,12 @@
 \newcommand{\exerciseCollection}[2]{
   \def\input@path{{#1}}
   %\def\exerciseListTitle#1{\gdef\@title{#1}}
-  \let\exerciseListTitle\title
+  %\let\exerciseListTitle\title
+  \def\exerciseListTitle{\protected@xdef\@title}
   \let\makeExerciseListTitle\maketitle
 \activity{#1#2}}
 \makeatother
-
+%%
 
 \title{An exercise collection}
 
