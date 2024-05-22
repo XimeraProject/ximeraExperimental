@@ -1,0 +1,28 @@
+\documentclass{xourse}
+
+
+
+
+%% Define exercise collection.
+\makeatletter
+\newcommand{\exerciseCollection}[2]{
+  \def\input@path{{#1}}
+  \let\exerciseListTitle\title
+  \let\makeExerciseListTitle\maketitle
+\activity{#1#2}}
+\makeatother
+
+
+\title{An exercise collection}
+
+\begin{document}
+\begin{abstract}
+  An experimental exercise collection.
+\end{abstract}
+\maketitle
+
+\exerciseCollection{exercisesOne/}{exerciseList}
+\exerciseCollection{exercisesTwo/}{exerciseList}
+
+
+\end{document}
