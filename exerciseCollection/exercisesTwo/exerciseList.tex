@@ -30,6 +30,11 @@
 
 \ifxake
 \providecommand\practice[2][]{}
+\renewcommand\practice[2][]{%
+  \ifvmode\IgnorePar\fi\EndP%
+  \HCode{<a class="activity card practice" href="#2" data-options="#1">#2</a>}%
+  \IgnoreIndent%
+}
 \fi
 \makeatother
 
