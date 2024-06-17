@@ -1,8 +1,39 @@
 \documentclass{ximera}
 
-%\ifxake
+\makeatletter
+
+\providecommand{\skip@preamble}{%
+    \let\document\relax\let\enddocument\relax%
+    \newenvironment{document}{\let\input\otherinput}{}%
+    \renewcommand{\documentclass}[2][subfiles]{}}
+\let\otherinput\input
+
+\ifxake
 \providecommand\practice[2][]{}
-%\fi
+\fi
+
+\ifhandout
+\providecommand{\practice}[2][]{
+\setkeys{practice}{#1}%!!!!!
+  \renewcommand{\input}[1]{}
+  \begingroup\skip@preamble\otherinput{#2}\endgroup
+  \let\input\otherinput}
+\else
+\providecommand{\practice}[2][]{\texttt{\detokenize{#2}}%% gives file name for practice
+\setkeys{practice}{#1}%!!!!!
+  \renewcommand{\input}[1]{}
+  \begingroup\skip@preamble\otherinput{#2}\endgroup
+  \let\input\otherinput}
+\fi
+\relax
+
+
+\ifxake
+\providecommand\practice[2][]{}
+\fi
+\makeatother
+
+
 
 \title{Chapter 2 Exercises}
 
