@@ -347,7 +347,7 @@
 
 
 
-\Configure{@HEAD}{\HCode{<meta name="description" content="xourse" />\Hnewline}}
+\Configure{@HEAD}{\HCode{<meta name="description" content="" />\Hnewline}}
 
 
 \renewcommand\activity[2][]{%
