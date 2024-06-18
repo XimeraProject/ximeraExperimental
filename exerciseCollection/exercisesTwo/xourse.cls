@@ -29,11 +29,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+%%% hidden
 \newif\ifhidden
 \hiddenfalse
 \DeclareOption{hidden}{\hiddentrue}
-
+%%%%
  
 \newif\ifnotoc
 \notocfalse
@@ -136,13 +136,13 @@
 
 
 
-
+%% hides it maybe not necessary
 \ifhidden
 \renewcommand{\@title}[2][]{%
 }
 \let\maketitle\relax
 \fi
-
+%%
 
 
 
