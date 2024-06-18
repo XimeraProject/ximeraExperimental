@@ -1,50 +1,48 @@
-\documentclass{ximera}
+\documentclass{xourse}
 
 
 
+\title{Some hidden exercise list}
 
 
+%% \makeatletter
+%% \providecommand{\skip@preamble}{%
+%%     \let\document\relax\let\enddocument\relax%
+%%     \newenvironment{document}{\let\input\otherinput}{}%
+%%     \renewcommand{\documentclass}[2][subfiles]{}}
+%% \let\otherinput\input
 
-\makeatletter
-\providecommand{\skip@preamble}{%
-    \let\document\relax\let\enddocument\relax%
-    \newenvironment{document}{\let\input\otherinput}{}%
-    \renewcommand{\documentclass}[2][subfiles]{}}
-\let\otherinput\input
-
-\ifxake
-\providecommand\practice[2][]{}
-\fi
-
-\ifhandout
-\providecommand{\practice}[2][]{
-\setkeys{practice}{#1}%!!!!!
-  \renewcommand{\input}[1]{}
-  \begingroup\skip@preamble\otherinput{#2}\endgroup
-  \let\input\otherinput}
-\else
-\providecommand{\practice}[2][]{\texttt{\detokenize{#2}}%% gives file name for practice
-\setkeys{practice}{#1}%!!!!!
-  \renewcommand{\input}[1]{}
-  \begingroup\skip@preamble\otherinput{#2}\endgroup
-  \let\input\otherinput}
-\fi
-\relax
-
-
-\ifxake
-\providecommand\practice[2][]{}
-%% \renewcommand\practice[2][]{%
-%%   \ifvmode\IgnorePar\fi\EndP%
-%%   \HCode{<a class="activity card practice" href="#2" data-options="#1">#2</a>}%
-%%   \IgnoreIndent%
-%% }
+%% \ifxake
+%% \providecommand\practice[2][]{}
 %% \fi
-\makeatother
+
+%% \ifhandout
+%% \providecommand{\practice}[2][]{
+%% \setkeys{practice}{#1}%!!!!!
+%%   \renewcommand{\input}[1]{}
+%%   \begingroup\skip@preamble\otherinput{#2}\endgroup
+%%   \let\input\otherinput}
+%% \else
+%% \providecommand{\practice}[2][]{\texttt{\detokenize{#2}}%% gives file name for practice
+%% \setkeys{practice}{#1}%!!!!!
+%%   \renewcommand{\input}[1]{}
+%%   \begingroup\skip@preamble\otherinput{#2}\endgroup
+%%   \let\input\otherinput}
+%% \fi
+%% \relax
 
 
+%% \ifxake
+%% \providecommand\practice[2][]{}
+%% %% \renewcommand\practice[2][]{%
+%% %%   \ifvmode\IgnorePar\fi\EndP%
+%% %%   \HCode{<a class="activity card practice" href="#2" data-options="#1">#2</a>}%
+%% %%   \IgnoreIndent%
+%% %% }
+%% %% \fi
+%% \makeatother
 
-\title{Chapter 2 Exercises}
+
 
 
 \begin{document}
