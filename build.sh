@@ -8,7 +8,8 @@
 
 
 #: "${XAKE_IMAGE:=xake}"
-: "${XAKE_IMAGE:=registry-ext.repo.icts.kuleuven.be/set/dsb/xake:1.2.1a}"
+: "${XAKE_IMAGE:=registry.gitlab.kuleuven.be/monitoraat-wet/xake:2024}"
+# : "${XAKE_IMAGE:=registry-ext.repo.icts.kuleuven.be/set/dsb/xake:1.2.1a}"
 : "${MOUNTDIR:=$(pwd)}"
 
 if [[ -f /.dockerenv ]]  
