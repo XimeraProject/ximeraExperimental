@@ -76,10 +76,10 @@ fi
 
 # Add anything that might not be installed in the container 
 # HACK: hardcoded path ...
-if [[ -d .texmf ]]; then
-    echo "USING .texmf etc from local repo"
-    cp -r .texmf/* /usr/local/texlive/2019/texmf-dist/tex/generic/
-fi
+#if [[ -d .texmf ]]; then
+#    echo "USING .texmf etc from local repo"
+#    cp -r .texmf/* /usr/local/texlive/2019/texmf-dist/tex/generic/
+#fi
 
 # If there is a .ximera_local folder, OVERWRITE the complete ximeraLatex install inside this container
 #  ( This could/should replace the above one-by-one copies from .ximera ...)
@@ -89,6 +89,10 @@ if [[ -d .ximera_local ]]; then
     mkdir /root/texmf/tex/latex/ximeraLatex
     cp -r .ximera_local/* /root/texmf/tex/latex/ximeraLatex
 fi
+
+# Hack: some versions of xake start 'mypdflatex' (instaed of hardcoded commands inside the xake-executable)
+PATH=$(pwd):$PATH
+chmod +x mypdflatex
 
 # Longer lines in pdflatex output
 export max_print_line=1000
@@ -109,6 +113,16 @@ while getopts ":hitd" opt; do
         Build and publish a ximera-repository to a ximera-server (via bake/frost/serve)
 
         Publishes to $URL_XIMERA$REPO_XIMERA 
+
+	This script is a (docker-)wrapper to 'xake', and contains some extraconvenience-functions for building pdf's .
+	
+	Usage:
+         ./build.sh compile path/to/file.tex
+         ./build.sh compilePdf path/to/file.tex
+         ./build.sh bake
+	 ./build.sh serve     (does ALSO do frost and setup gpg-keys ...!)
+	 ./build.sh -i bash   (start a shell inside the container)
+	   
 EOF
        exit 0
       ;;

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# xake:2024 (KULeuven) starts this script to actually compile the LaTeX files
+# this allows for more easily varying/testing the compile-options by edirting/replacing this mypdflatesx script 
+
+echo "Starting mypdflatex.sh $*"
+
+FILE=$1
+
+echo pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
+pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$FILE}"
+
+echo "Starting htlatex.sh $*"
+
+
+echo make4ht -c ximera -f xhtml -u  -a debug $FILE "svg,mathjax,-css" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
+make4ht -s -c ximera -f xhtml -u  -a debug $FILE "svg,htex4ht,mathjax,-css,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
+# make4ht -s -c ximera -f xhtml+tidy -u  -a debug $FILE "svg,htex4ht, mathjax,-css,Gin-percent,info" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" | tee $FILE.log
+# make4ht  $FILE "ximera,charset=utf-8,-css" "-cunihtf -utf8" "" "--interaction=nonstopmode -shell-escape -file-line-error"
+# htlatex $FILE "ximera,charset=utf-8,-css" "-cunihtf -utf8" "" "--interaction=nonstopmode -shell-escape -file-line-error"
+
+# rm mypdflatex.log 
+
+# rm -f ${FILE%.tex}*-.svg
+
+# echo "Starting mypdflatex.sh $* with " ${FILE%.tex}*.svg >>mypdflatex.log
+# for file in ${FILE%.tex}*.svg
+# do 
+# 	echo FOUND $file >>mypdflatex.log
+# 	ln -s $file ${file%.svg}-.svg
+# done 
+
+sed -i.bak 's/-figure\([0-9]*\)-\.svg/-figure\1.svg/' ${FILE%.tex}.html
+
+
+exit 0
