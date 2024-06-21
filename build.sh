@@ -309,6 +309,10 @@ then
 	echo "git remote -v:"
 	git remote -v
     $XAKE -v serve 2>&1 # Upload files = push tag
+elif [[ "$COMMAND" == "compile" ]]
+then
+    echo "xake $* (with --skip-mathjax ...)"
+    xake --skip-mathjax $*
 else
     echo "Passing arguments: starting xake $*"
     xake $*
