@@ -1,47 +1,100 @@
 #!/bin/bash
 #
 # This script
-#  - starts a xake docker onainer (unless were already IN a container)
+#  - starts a xake docker container (unless we're already IN a container)
 #  - starts xake, with the arguments passed to the script
 #  - optionally gets you a shell inside the container
 #  - optionally automates lots of other things
 
+# Set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
 
-#: "${XAKE_IMAGE:=xake}"
+# default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
 : "${XAKE_IMAGE:=registry.gitlab.kuleuven.be/monitoraat-wet/xake:2024}"
-# : "${XAKE_IMAGE:=registry-ext.repo.icts.kuleuven.be/set/dsb/xake:1.2.1a}"
+# Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"
 
 if [[ -f /.dockerenv ]]  
 then
-    echo "Running in docker container ($HOSTNAME)"
+    echo "Running in docker container (with local hostname $HOSTNAME)"
 elif [[ -n "$KUBERNETES_SERVICE_HOST" ]] 
 then
     echo "Running in kubernetes container ($KUBERNETES_SERVICE_HOST)"
 else 
-    echo "Running $0 on host ($HOSTNAME)"
+    [[ -n "$DEBUG" ]] && echo "Running $0 on host ($HOSTNAME)"
 
     if [[ "$1" == "-i" ]]
     then
         INTERACTIVE="-it"
     fi 
 
-    # LOCAL_IP is only needed if you want to serve to your localhost
+    # LOCAL_IP is only needed if you want to serve to a ximeraServer on your localhost; do NOT use URL_XIMERA when using LOCAL_IP
     if [[ "$LOCAL_IP" == "" ]]
     then
         LOCAL_IP=$(set -- $(hostname -I); echo "$1")
-        echo "SETTING LOCAL_IP=$LOCAL_IP"
+        [[ -n "$DEBUG" ]] && echo "Setting LOCAL_IP=$LOCAL_IP"
     fi
 
-    echo "Restarting myself in docker container"	
-    echo  docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE ./build.sh $*
-    exec  docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE ./build.sh $*
-    # END-OF-SCRIPT: this exec will never return !
+    echo "Restarting myself in docker (from image $XAKE_IMAGE)"	
+    [[ -n "$DEBUG" ]] && echo  docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE ./build.sh $*
+    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE ./build.sh $*
+    exit 
 fi
 
 # We're for sure running in a container now
 
-echo "Starting $*"
+echo "Starting $0 $*"
+
+# utility functions for errorhandling/debugging (and logging to be added ...?)
+error() {
+        echo "ERROR: $*" >&2
+        exit 1
+}
+
+debug() {
+        [[ -n "$DEBUG" ]] && echo "DEBUG: $*"
+}
+
+# Set reasonable defaults for variables
+: "${LOCAL_IP:=localhost}"
+: "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
+: "${REPO_XIMERA:=test}"
+: "${NB_JOBS:=2}"
+: "${XAKE:=xake}"
+
+while getopts ":hitd" opt; do
+  case ${opt} in
+    h ) 
+       cat <<EOF
+        Build and publish a ximera-repository to a ximera-server (via bake/frost/serve)
+
+        Publishes to $URL_XIMERA$REPO_XIMERA 
+
+	This script is a (docker-)wrapper to 'xake', and contains some extra convenience-functions for building pdf's .
+	
+	Usage:
+         ./build.sh compile path/to/file.tex
+         ./build.sh compilePdf path/to/file.tex
+         ./build.sh bake
+    	 ./build.sh serve     (does ALSO do frost and setup gpg-keys ...!)
+	     ./build.sh -i bash   (start a shell inside the container)
+	   
+EOF
+       exit 0
+      ;;
+    i )
+        echo "Interactive session"
+        ;;
+    d ) DEBUG=1 
+        XAKE="$XAKE -v"
+      ;;
+    \? ) echo "Usage: build [-h] [-i] <commands>"
+	 exit 1
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+COMMAND=$1
+
 
 # If there are local versions of ximeraLatex, copy them to the right place  inside the container
 if [[ -f .ximera/ximera.4ht ]]; then
@@ -90,7 +143,7 @@ if [[ -d .ximera_local ]]; then
     cp -r .ximera_local/* /root/texmf/tex/latex/ximeraLatex
 fi
 
-# Hack: some versions of xake start 'mypdflatex' (instaed of hardcoded commands inside the xake-executable)
+# Hack: some versions of xake start 'mypdflatex' (instead of hardcoded commands inside the xake-executable)
 PATH=$(pwd):$PATH
 chmod +x mypdflatex
 
@@ -99,51 +152,9 @@ export max_print_line=1000
 export error_line=254
 export half_error_line=238
 
-: "${LOCAL_IP:=localhost}"
-: "${URL_XIMERA:=http://$LOCAL_IP:2000/}"     # default: publish to ximera-docker-instance, but 'localhost' does refer to THIS container
-: "${REPO_XIMERA:=test}"
-: "${NB_JOBS:=2}"
-: "${XAKE:=xake}"
-: "${DOCKER_MOUNT:=$(pwd)}"
 
-while getopts ":hitd" opt; do
-  case ${opt} in
-    h ) 
-       cat <<EOF
-        Build and publish a ximera-repository to a ximera-server (via bake/frost/serve)
-
-        Publishes to $URL_XIMERA$REPO_XIMERA 
-
-	This script is a (docker-)wrapper to 'xake', and contains some extraconvenience-functions for building pdf's .
-	
-	Usage:
-         ./build.sh compile path/to/file.tex
-         ./build.sh compilePdf path/to/file.tex
-         ./build.sh bake
-	 ./build.sh serve     (does ALSO do frost and setup gpg-keys ...!)
-	 ./build.sh -i bash   (start a shell inside the container)
-	   
-EOF
-       exit 0
-      ;;
-    i )
-        echo "Interactive session"
-        ;;
-    d )
-       XAKE="docker run --env GPG_KEY --env GPG_KEY_ID --network host --rm -it --mount type=bind,source=$(pwd),target=/code xake xake" 
-       URL_XIMERA="http://$LOCAL_IP:2000/"
-       echo "Using docker to run $XAKE  (from $DOCKER_MOUNT)"	
-
-      ;;
-    \? ) echo "Usage: build [-h] [-t]"
-	 exit 1
-      ;;
-  esac
-done
-shift $((OPTIND -1))
-
-COMMAND=$1
-
+# After git clone, ALL files seem recent; try to reset them (to prevent baking all files all the time)
+#  (needed in gillab CI/CD ...)
 reset_file_times() {
  if find . -maxdepth 1 -name "*.tex" -mtime +1 | grep .
  then
@@ -179,7 +190,7 @@ then
         if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
         then
              echo "Compiling $file   (beamer)"
-             $XAKE -v compilePdf $file
+             $XAKE compilePdf $file
              echo "Copying $file to ximera-downloads"
              cp ${file/%.tex/.pdf} ximera-downloads
              echo "Converting $file to svg"
@@ -189,7 +200,7 @@ then
         fi
     done
     echo "Baking other files ..."
-    $XAKE  --skip-mathjax -v --jobs $NB_JOBS bake # Genereer de html files
+    $XAKE  --skip-mathjax --jobs $NB_JOBS bake # Genereer de html files
 elif [[ "$COMMAND" == "cleanstandaard" ]]
 then
     NAME=standaard
@@ -204,7 +215,7 @@ elif [[ "$COMMAND" == "bakestandaard" ]]
 then
     NAME=standaard
     reset_file_times
-    $XAKE --jobs $NB_JOBS -v bakePdf "$NAME" 
+    $XAKE --jobs $NB_JOBS bakePdf "$NAME" 
     find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} dirname ximera-downloads/"$NAME"_pdf/{} | xargs mkdir -p # create necessairy folders
     find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} sh -c 'echo "Move $1 to ximera-downloads"; cp "$1" ximera-downloads/"$2"_pdf/"${1%-*}.pdf" || (echo "Failed moving" && exit 1)' -- {} "$NAME" # Copy to ximera-downloads
 elif [[ "$COMMAND" == "bakehandout" ]]
@@ -220,14 +231,14 @@ then
         if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
         then
              echo "Compiling $file   (beamer)"
-             $XAKE -v compilePdf $file
+             $XAKE compilePdf $file
              cp ${file/%.tex/.pdf} ximera-downloads
              cp ${file/%.tex/.pdf} ${file/%_pdf.tex/-handout_pdf.pdf}
         else
              echo "File $file   uptodate (beamer)"
         fi
     done
-    timeout 50m $XAKE -v --jobs $NB_JOBS bakePdf "$NAME" "\\PassOptionsToClass{handout}{ximera}\\PassOptionsToClass{handout}{xourse}"
+    timeout 50m $XAKE --jobs $NB_JOBS bakePdf "$NAME" "\\PassOptionsToClass{handout}{ximera}\\PassOptionsToClass{handout}{xourse}"
     echo "Moving pdfs to ximera-downloads"
     find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} dirname ximera-downloads/"$NAME"_pdf/{} | xargs mkdir -p # create necessairy folders
    #find -name "*-$NAME.pdf" -printf '%P\n' | xargs -I{} sh -c 'echo "Move $1 to ximera-downloads"; cp "$1" ximera-downloads/"$2"_pdf/"${1%-*}.pdf" || (echo "Failed moving" && exit 1)' -- {} "$NAME" # Copy to ximera-downloads
@@ -245,8 +256,8 @@ then
         if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
         then
             echo "Compiling $file   (beamer)"
-            $XAKE -v compilePdf $file
-            $XAKE -v compilePdf $file  $NAME "\\PassOptionsToClass{handout}{beamer}"
+            $XAKE compilePdf $file
+            $XAKE compilePdf $file  $NAME "\\PassOptionsToClass{handout}{beamer}"
         else
             echo "File $file   uptodate (beamer)"
         fi
@@ -264,7 +275,7 @@ then
         #if [[ "$file" -nt "${file/%.tex/.pdf}" ]]
         #then
             echo "Compiling $file   (_pdf)"
-            $XAKE -v compilePdf $file
+            $XAKE compilePdf $file
         #else
         #    echo "File $file   uptodate (_pdf)"
         #fi
@@ -277,45 +288,61 @@ then
 elif [[ "$COMMAND" == "serve" ]]
 then
     echo "xake serve"
+    debug "Loading GPG Key"
     if [[ -f "$GPG_KEY" ]]
     then
-        cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
+        echo "Importing private key from $GPG_KEY"
+        # First try import as 'binary' file, if this fails, try base64 decoded version...
+        if ! gpg -q $VERBOSE --import $GPG_KEY 
+        then
+            debug "Importing base64-encode private key from $GPG_KEY"
+            cat $GPG_KEY | base64 --decode > .gpg # decode the base64 gpg key
+            gpg -q $VERBOSE --import .gpg ||  error "gpg --import failed (encoded key)"
+            rm .gpg # remove the gpg key so he is certainly not cached
+        fi
     else 
+        echo  "Importing private key in variable GPG_KEY"
         echo "$GPG_KEY" >.gpg # | base64 --decode > .gpg # decode the base64 gpg key
+        gpg -q -VERBOSE --import .gpg  || error "gpg --import failed (key itself in variable)"
+        rm .gpg # remove the gpg key so he is certainly not cached
     fi
-    echo "Importing key"
-    gpg --import .gpg 
-    rm .gpg # remove the gpg key so he is certainly not cached
-    ### BRANCHPART=`echo "*$CI_BUILD_REF_NAME" | tr '[:upper:]' '[:lower:]'` # Add star and lowercase
-    ### if [ "$MASTER_WITH_STAR" = 'false' ]; then REPO=$REPO_BASE""${BRANCHPART/*master/}; else REPO=$REPO_BASE""$BRANCHPART; fi
-    echo "KEYSERVER gpg -v --keyserver $URL_XIMERA --send-key $GPG_KEY_ID"
-    gpg -v --keyserver $URL_XIMERA --send-key "$GPG_KEY_ID"
-    echo "xake NAME: $XAKE -U $URL_XIMERA -k $GPG_KEY_ID name $REPO_XIMERA"
-    $XAKE -v -U $URL_XIMERA -k "$GPG_KEY_ID" name "$REPO_XIMERA" # Stel de repository in, op master is dit REPO_BASE, anders REPO_BASE*<branch>
+    [[ -n "$DEBUG" ]] && gpg --list-keys
+    debug "KEYSERVER gpg $VERBOSE --keyserver $URL_XIMERA --send-key $GPG_KEY_ID"
+    gpg -q $VERBOSE --keyserver $URL_XIMERA --send-key "$GPG_KEY_ID" || error "gpg sendkey failed (to url $URL_XIMERA)"
+    
+    echo "xake NAME: on $URL_XIMERA set name to $REPO_XIMERA"
+    debug "xake NAME: $XAKE -U $URL_XIMERA -k $GPG_KEY_ID name $REPO_XIMERA"
+    $XAKE -U $URL_XIMERA -k "$GPG_KEY_ID" name "$REPO_XIMERA" || error "xake name failed" 
+
 #    echo "Prepare git repo"
 #    git fetch --unshallow # Zorg ervoor dat we de hele geschiedenis hebben ipv enkel een deel, anders werkt het serven niet
 #   .git config core.fileMode false
 #    git branch -D master || true    #ignore error
 #    git checkout -B master # doe alsof we op master zitten
+
     echo "xake FROST"
-    $XAKE -v frost # Zorg voor juiste links etc = maak metadata.json en tag etc
+    $XAKE frost || error "xake frost failed"  # Zorg voor juiste links etc = maak metadata.json en tag etc
+
     echo "xake SERVE"
-	echo "git status:"
-    git status
-	echo "git tag -n"
-    git tag -n
-	echo "git rev-parse --abbrev-ref --all:"
-    git rev-parse --abbrev-ref --all
-	echo "git remote -v:"
-	git remote -v
-    $XAKE -v serve 2>&1 # Upload files = push tag
+    if [[ -n "$DEBUG" ]]
+    then
+        echo "git status:"
+        git status
+        echo "git tag -n:"
+        git tag -n
+        echo "git rev-parse --abbrev-ref --all:"
+        git rev-parse --abbrev-ref --all
+        echo "git remote -v:"
+	    git remote -v
+    fi
+    $XAKE serve 2>&1 || error "xake serve failed"  # Upload files = push tag
 elif [[ "$COMMAND" == "compile" ]]
 then
     echo "xake $* (with --skip-mathjax ...)"
-    xake --skip-mathjax $*
+    $XAKE --skip-mathjax $*
 else
     echo "Passing arguments: starting xake $*"
     xake $*
 fi
 
-#exit 0; % ignore errors
+#exit 0; % would ignore (some) errors; might be relevant in CI/CD context
