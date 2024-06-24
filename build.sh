@@ -303,7 +303,7 @@ then
     else 
         echo  "Importing private key in variable GPG_KEY"
         echo "$GPG_KEY" >.gpg # | base64 --decode > .gpg # decode the base64 gpg key
-        gpg -q -VERBOSE --import .gpg  || error "gpg --import failed (key itself in variable)"
+        gpg -q $VERBOSE --import .gpg  || error "gpg --import failed (key itself in variable)"
         rm .gpg # remove the gpg key so he is certainly not cached
     fi
     [[ -n "$DEBUG" ]] && gpg --list-keys
