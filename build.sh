@@ -202,7 +202,7 @@ then
         fi
     done
     echo "Baking other files ..."
-    $XAKE  --skip-mathjax --jobs $NB_JOBS bake # Genereer de html files
+    $XAKE  --jobs $NB_JOBS bake # Genereer de html files
 elif [[ "$COMMAND" == "cleanstandaard" ]]
 then
     NAME=standaard
@@ -341,7 +341,7 @@ then
 elif [[ "$COMMAND" == "compile" ]]
 then
     echo "xake $* (with --skip-mathjax ...)"
-    $XAKE --skip-mathjax $*
+    $XAKE $*
 else
     echo "Passing arguments: starting xake $*"
     xake $*
