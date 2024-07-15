@@ -1,17 +1,33 @@
 #!/bin/bash
 #
+# Usage: 
+#   xmlatex bake
+#   xmlatex compile test/myximerafile.tex
+#   xmlatex serve
+#   xmlatex -i bash   # gets a bash-shell INSIDE the container
+#
 # This script
 #  - starts a xake docker container (unless we're already IN a container)
-#  - starts xake, with the arguments passed to the script
+#  - starts (presumably) a container-specific version of this very script
+#  - that (presumably) starts xake with the arguments passed to this script
 #  - optionally gets you a shell inside the container
 #  - optionally automates lots of other things
 
-# Set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
+# Note: set environment variable 'export DEBUG=1' and/or use -d option for debugging/tracing
 
+#
+# Set some defaults
+#
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
-: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}"
+: "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2019:latest}"
+#  : "${XAKE_IMAGE:=ghcr.io/ximeraproject/xake2023:v2.1.1}"    # alternative ...
+
 # Which folder to mount INSIDE the container, under /code  (use with care: it should contain a build.sh !)
 : "${MOUNTDIR:=$(pwd)}"
+
+# Which script to start inside the container; only usefull for OLD xake-images, which used a now obsolete build.sh script
+: "${XMLATEX:=xmlatex}"
+# : "${XMLATEX:=./build.sh}"
 
 if [[ -f /.dockerenv ]]  
 then
@@ -35,8 +51,9 @@ else
     fi
 
     echo "Restarting myself in docker (from image $XAKE_IMAGE)"	
-    [[ -n "$DEBUG" ]] && echo  docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE xmlatex $*
-    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE xmlatex $*
+    [[ -n "$DEBUG" ]] && echo  docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE $XMLATEX $*
+    docker run --env LOCAL_IP --env URL_XIMERA --env REPO_XIMERA --env GPG_KEY --env GPG_KEY_ID --network host --rm $INTERACTIVE --mount type=bind,source=$MOUNTDIR,target=/code $XAKE_IMAGE $XMLATEX $*
     exit 
 fi
-
+echo "Mmm, this didn't work out: a BASE version of xmlatex is running INSIDE a container. Inside the container a FULL version should run." >&2
+exit 1
