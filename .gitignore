@@ -45,3 +45,6 @@ auto/
 *.blg
 *.html.bak
 *.xbb
+# Private configuration for 'xake serve'
+.ximeraserve
+.gpgkey

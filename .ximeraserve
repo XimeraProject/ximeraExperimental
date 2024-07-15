@@ -1,0 +1,12 @@
+GPG_KEY_ID=your-key-id
+GPG_KEY="your-base64-encoded-private-key"
+GPG_KEY_DUMMY="
+LS0tLS1CRUdJTiBQR1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQoKbFFWWUJHYVJOck1CREFEdGU5
+...
+...
+YUUzSVZqVTUzRlUzRnlpMFIvcmlGc01HQTZrCmljd1YyL1Fkc2c9PQo9QlJXcAotLS0tLUVORCBQ
+R1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQo=
+"
+REPO_XIMERA=wimdemo
+URL_XIMERA=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
+# URL_XIMERA=https://ximera.osu.edu
