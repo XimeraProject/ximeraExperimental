@@ -48,3 +48,4 @@ auto/
 # Private configuration for 'xake serve'
 .ximeraserve
 .gpgkey
+gpgkey
