@@ -1,5 +1,6 @@
 \documentclass{ximera}
-\title{answerBox}
+\title{The answer box}
+\author{Jason Nowell and Claire Merriman}
 
 \begin{document}
 \begin{abstract}
@@ -7,14 +8,12 @@
 \end{abstract}
 \maketitle
 
-\section*{The answer box}
 
-    \subsection*{How to generate/use the answer box.}
-
-        The answer box is the result of the \verb|\answer| command, and is the bread and butter of the math aspect of Ximera. It has a number of optional arguments (covered below) and one required arguemnt - the content author's answer. Thus if you want to provide an open-answer input for students and the correct answer for that spot is $x^2 + 3x + 1$ you would type \verb|\answer{x^2 + 3x + 1}|. Note that the answer box must be put in mathmode. The previous problem would then look like:
+    The answer box is the result of the \verb|\answer| command, and is the bread and butter of the math aspect of Ximera. Thus if you want to provide an open-answer input for students and the correct answer for that spot is $x^2 + 3x + 1$ you would type \verb|\answer{x^2 + 3x + 1}|. Note that the answer box must be put in mathmode. The previous problem would then look like:
         \begin{explanation}
             The correct answer is $x^2 + 3x + 1$: $\answer{x^2 + 3x + 1}$.
         \end{explanation}
+    
 
         
     \subsection*{How the answer box validates an answer}
