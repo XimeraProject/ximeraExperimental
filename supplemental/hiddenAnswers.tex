@@ -61,7 +61,7 @@
         Also, ideally you want to avoid defining commands that depend on other custom commands. For example you want to avoid something like: \verb|\newcommand{\ansTwo}{3 + \ansOne}|, writing instead \verb|\newcommand{\ansTwo}{3 + 3!}|. Technically one can use custom commands within an answer command, but it almost certainly needs to use an immediate expansion macro definition instead, which would require the use of something like \verb|\edef| or \verb|\let| commands. If you don't recognize the difference between something like \verb|\edef| and \verb|\def| for \LaTeX{} it is \textit{highly} recommended you just avoid using custom commands inside answer commands in general.
         
     
-    \subsection*{Second Solution using Sage}
+    % \subsection*{Second Solution using Sage}
     
         Another option, which arguably has a number of other benefits, is to use sage to generate the problem and the answer. For example, consider the following problem:
         
