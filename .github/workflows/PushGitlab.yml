@@ -31,5 +31,5 @@ jobs:
         echo Get updates
         git pull --no-rebase
         echo Set remote
-        git push origin tests_basic
+        git push -f origin tests_basic
         rm -f /home/runner/.ssh/id_ed25519
