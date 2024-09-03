@@ -29,7 +29,7 @@ jobs:
         #  git config core.sshCommand "ssh -v"
         git remote set-url origin "git@gitlab.kuleuven.be:monitoraat-wet/ximera/examples.git"
         echo Get updates
-        git pull --no-rebase
+        git pull --no-rebase --allow-unrelated-histories
         echo Set remote
         git push -f origin tests_basic
         rm -f /home/runner/.ssh/id_ed25519
