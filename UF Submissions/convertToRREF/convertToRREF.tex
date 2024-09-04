@@ -1,0 +1,265 @@
+\documentclass{ximera}
+%\input{../preamble}
+\title{Convert to RREF}
+\def\HCode{}
+
+\begin{document}
+
+\begin{abstract}
+    This ``validator'' is actually a set of subfunctions to be used in validators. This reduces a numeric matrix into reduced row echelon form.
+\end{abstract}
+\maketitle
+
+This ``validator'' is actually a collection of subfunctions that compute the reduced row echelon form for a numeric matrix. 
+
+
+Specifically, a matrix should be entered into the answer box in the following format:
+
+$[ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]$.
+
+So, if a student wishes to enter the matrix:
+
+$\left[\begin{matrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}\right]$
+
+They would enter into the answer prompt: $[ [1,2,3], [4,5,6], [7,8,9] ]$.\\
+
+
+
+\begin{javascript}
+var debugInfo=false;
+function debugText(text) {
+    if (debugInfo==1) {
+    console.log('DEBUG INFO::' + text)
+    }
+}
+
+function debugArray(array) {
+    if (debugInfo==1) {
+    console.log(array)
+    }
+}
+
+// We want to define a validator that allows us to check a matrix.
+function equalMatrix(f,g) {
+    // We expect that f is a matrix provided by the student in the format:
+    //      [ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]
+    // We expect that g is a matrix provided by the instructor in the format:
+    //      [ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]
+    //
+    
+    //   Debug Code - commented out now that it is working.
+    debugText('Here is the student ans.');
+    debugArray(f);
+    
+    debugText('Here is the instructor ans.');
+    debugArray(g);
+    
+    // Start out by making sure that the format was entered correctly
+    //  in particular, that each sub-list is the same length.
+    //instructorAnsbkup = JSON.parse(JSON.stringify(g.tree));
+    
+    // Santize the instructor's entry.
+    for (var i = 1; i < g.tree.length; ++i) {
+        if (g.tree[1].length==g.tree[i].length) {
+        } else {
+            debugText('Looks like the format for the instructors answer is off, [at least] one of the rows has the wrong number of columns!');
+            return false
+        }
+    }
+
+    // Santize the student entry.
+    for (var i = 1; i < f.tree.length; ++i) {
+        if (f.tree[1].length==f.tree[i].length) {
+        } else {
+            debugText('Looks like the format for the students answer is off, [at least] one of the rows has the wrong number of columns!');
+            return false
+        }
+    }
+    
+    // Now that we have santized the column/rows so that we know we have an actual rectangle, we'll check that the dimensions match.
+    
+    for (var i = 1; i < f.tree.length; ++i) {
+        if (f.tree[i].length==g.tree[i].length) {
+        } else {
+            debugText('Looks like the matrix submitted by the student does not have the same dimension as the matrix we expect.');
+            return false
+        }
+    }
+    
+    // Finally, we check the actual entries. 
+    // We assume that the matrix is a two dimensional array, i.e. no matrix entries inside our matrix. Tensors can bite me.
+    
+    for (var i = 1; i < f.tree.length; ++i) {
+        for (var j = 1; j <= f.tree[i].length; ++j) {
+            if (Math.abs(f.tree[i][j]-g.tree[i][j]) < 10^(-12)) {
+            } else {
+                debugText('Looks like [at least one] of the entries are wrong!');
+                debugArray(f.tree[i][j]);
+                debugArray(g.tree[i][j]);
+                return false
+            }
+        }
+    }
+return true
+}
+
+
+// A subfunction to build a matrix out of a given input.
+
+function matrixForm(preForm) {
+    /*
+        Expects an input to be a tree. So it should have the form:
+            [''array'', [''array'', 1,2,3], [''array'', 4,5,6], [''array'', 7,8,9] ]  
+        Outputs a matrix form; [ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]
+        Update: Apparently negatives show up as sub arrays, so we need to deal with that.
+    */
+    var len = preForm.tree.length;// Get the length of the initial array.
+    var matrixForm=[];// Dummy matrix.
+    
+    // Ok, now to walk the array and build the thing so we have a sane format.
+    for (var i = 1; i < len; ++i) {
+        matrixForm[i-1]=[]; // initialize the subarray.
+        for (var j = 1; j < preForm.tree[i].length; ++j) {
+            if (Array.isArray(preForm.tree[i][j])) {
+                if (preForm.tree[i][j][0]=='-'){
+                    // If this is the case, the 'array' is just a negative number.
+                    matrixForm[i-1][j-1] = -JSON.parse(JSON.stringify(preForm.tree[i][j][1]));
+                } else {
+                    // Otherwise we have an array and no idea why we have an array so ... lets bail.
+                    return false;
+                }
+            } else {
+            matrixForm[i-1][j-1]= JSON.parse(JSON.stringify(preForm.tree[i][j]));
+            }
+        }
+    }
+    debugText('Here is the matrix form:');
+    debugArray(matrixForm);
+    return matrixForm;
+}
+
+
+
+// A subfunction to find the row that contains the next non-zero entry in a given column, 
+//  starting from a given row.
+
+function findPivot(matrix,startRow,targetCol,avoid) {
+    /*
+        We expect a matrix in the form: [ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ].
+            A starting row number, and a column number (starting rows/cols numbers at 0, not 1).
+        We want to output a number >= the given row number, which has a non-zero entry.
+    */
+    for (var i = startRow; i < matrix.length; ++i) {
+        if ( (matrix[i][targetCol] !== 0) && (!(avoid.includes(i))) ) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// Function to make all row entries in the same col zero once you find a pivot.
+
+function anhilCol(matrix,targetRow,targetCol) {
+    /*
+        We expect a matrix using the form: [ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ], 
+            a targetRow and a targetCol (numbers starting from 0).
+        We also expect that matrix[targetRow][targetCol] is non-zero (but not necessarily one).
+        We aim to return a matrix where matrix[targetRow][col]=0 for col != targetCol and 1 for targetCol.
+    */
+    
+    // Make a dummy version of the matrix to manipulate.
+    let originalMatrix = JSON.parse(JSON.stringify(matrix));
+    
+    // Now we make the pivot point a 1 by dividing the entire row by the value of the pivot point,
+    //  i.e. newMatrix[targetRow][targetCol]
+    //      BUT! We need to divide by a value, not the newMatrix entry to make sure we don't have clashing issues.
+    let originalPivVal = JSON.parse(JSON.stringify(originalMatrix[targetRow][targetCol]));
+    for (var i = 0; i < originalMatrix[targetRow].length; ++i) {
+        matrix[targetRow][i] = originalMatrix[targetRow][i]/originalPivVal;
+    }
+    let newTargetRow=matrix[targetRow].slice(0);
+    
+    debugText('Divided out the leading value to make sure it is now 1. Now the matrix is:');
+    let checkInMatrix = JSON.parse(JSON.stringify(matrix));
+    debugArray(checkInMatrix);
+    
+    // Now we need to zero out the rest of the column entries using row operations.
+    for (var i = 0; i < matrix.length; ++i) {
+        if ((i !== targetRow) && (matrix[i][targetCol] !== 0)) {
+            // Now we know it isn't zero or the pivot row, so we can actually kill it off.
+            let leadingVal = JSON.parse(JSON.stringify(matrix[i][targetCol]));
+            debugText('Trying to tackle row ' + i + ' column ' + targetCol + ' which I think has relevant col value ' + leadingVal);
+            for (var j = 0; j < matrix[i].length; ++j) {
+                // Now to do some sketchy stuff to fix machine percision issues.
+                //  Note that this only works with numbers, so we will have to revisit this
+                //  If we want to use this with algebraic expressions or something.
+                matrix[i][j] = Math.round( (originalMatrix[i][j] - leadingVal*newTargetRow[j]) * (10**10))/(10**10);
+                debugText('we just replaced a number with' + matrix[i][j]);
+            }
+        }
+    }
+    debugText('Ok, now we have zeroed out everything. Maybe.');
+    
+    debugArray(matrix);
+    return matrix
+}
+
+
+function convertToRREF(f) {
+    /*
+        This function expects a numeric matrix in the normal math expressions tree format,
+        and outputs the matrix in reduced row echelon form.
+    */
+    var debugInfo=1;
+    debugText('We are starting with f.tree as...');
+    debugArray(f.tree);
+    var fMatrix = matrixForm(f);
+    debugText('Here is the matrix form for f.');
+    debugArray(fMatrix);
+    debugText('And now we will try to annhilate...')
+    var newMatrix = fMatrix.slice(0);
+    var startingCol = 0;
+    var usedRows = [];
+    //  Go through each column to try and find a pivot point.
+    for (var i = 0; i < fMatrix[0].length; ++i) {
+        var startingRow = findPivot(newMatrix,0,i,usedRows);
+        usedRows.push(startingRow);
+        debugText('So, I think the new target row is ' + startingRow);
+        debugArray(usedRows);
+        if (startingRow >= 0) {
+            // If we get a non-negative starting row, then there is a non-zero row value in that column.
+            //  So we can go ahead with the row-reduction.
+            debugText('starting from ' + startingRow + ',' + i);
+            newMatrix = anhilCol(newMatrix,startingRow,i);
+        }
+    }
+    debugText('And after doing it we get...');
+    debugArray(newMatrix); 
+    document.getElementById('rref').innerHTML = JSON.stringify(newMatrix);
+    
+    return newMatrix;   
+}
+
+\end{javascript}
+
+\begin{problem}
+
+Put in a matrix using the format: $[ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]$, and it should be converted into reduced row echelon form below. Hopefully.
+
+$\answer[validator=convertToRREF]{[ [1,2,3], [4,5,6], [7,8,9] ]}$
+
+
+\HCode{<p id='rref'>}
+\HCode{</p>}
+
+
+\end{problem}
+
+
+
+
+\end{document}

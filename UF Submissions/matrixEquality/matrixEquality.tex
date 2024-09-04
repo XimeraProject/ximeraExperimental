@@ -1,0 +1,141 @@
+\documentclass{ximera}
+%\input{../preamble}
+\title{Matrix Equality}
+
+\begin{document}
+
+\begin{abstract}
+    An attempt to develop a format for student answers, to allow students to enter a matrix and validate the answer as correct if it equals the instructor's matrix.
+\end{abstract}
+\maketitle
+
+This validator is designed to ensure that a matrix submitted by a student is the same as the matrix submitted by the instructor. This also establishes the format for how matricies should be entered into the answer box and answer command.
+
+NOTE:: This validator is still under construction. Currently this validator (seems to) work on algebraic entries of any kinda that Xronos normally supports.
+
+Specifically, a matrix should be entered into the answer box in the following format:
+
+$[ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]$.
+
+So, if a student wishes to enter the matrix:
+
+$\left[\begin{matrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{matrix}\right]$
+
+They would enter into the answer prompt: $[ [1,2,3], [4,5,6], [7,8,9] ]$.\\
+
+
+
+\begin{javascript}
+
+// We want to define a validator that allows us to check a matrix.
+function equalMatrix(f,g) {
+    /* We expect that f is a matrix provided by the student in the format:
+            [ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]
+       We expect that g is a matrix provided by the instructor in the format:
+            [ [r1c1,r1c2,r1c3],[r2c1,r2c2,r2c3],[r3c1,r3c2,r3c3] ]
+    */
+    
+    
+    debugText('Here is the student ans.');
+    
+    debugArray(f);
+    
+    debugText('Here is the instructor ans.');
+    
+    debugArray(g);
+    
+    //  Now we want to make a dummy form of the given variables so we can manipulate them without the original getting recked.
+   
+    var fTree = JSON.parse(JSON.stringify(f.tree));
+    var gTree = JSON.parse(JSON.stringify(g.tree));
+    
+    
+    // Start out by making sure that the format was entered correctly
+    //  in particular, that each sub-list is the same length.
+    //instructorAnsbkup = JSON.parse(JSON.stringify(g.tree));
+    
+    // Santize the instructor's entry.
+    
+    for (var i = 1; i < g.tree.length; ++i) {
+        if (g.tree[1].length==g.tree[i].length) {
+        } else {
+            console.log('Looks like the format for the instructors answer is off, [at least] one of the rows has the wrong number of columns!');
+            return false
+        }
+    }
+
+    // Santize the student entry.
+    for (var i = 1; i < f.tree.length; ++i) {
+        if (f.tree[1].length==f.tree[i].length) {
+        } else {
+            console.log('Looks like the format for the students answer is off, [at least] one of the rows has the wrong number of columns!');
+            return false
+        }
+    }
+    
+    // Now that we have santized the column/rows so that we know we have an actual rectangle, we'll check that the dimensions match.
+    
+    if (f.tree.length!==g.tree.length) {
+        // If the dimensions aren't the same, then the answer definitely doesn't match the instructors.
+        debugText('Looks like the matrix submitted by the student does not have the same dimension as the matrix we expect.');
+        return false;
+    }
+    
+    for (var i = 1; i < f.tree.length; ++i) {
+        if (f.tree[i].length==g.tree[i].length) {
+        } else {
+            debugText('Looks like the matrix submitted by the student does not have the same dimension as the matrix we expect.');
+            return false
+        }
+    }
+    
+    // Finally, we check the actual entries. 
+    // We assume that the matrix is a two dimensional array, i.e. no matrix entries inside our matrix. Tensors can bite me.
+    
+    for (var i = 1; i < f.tree.length; ++i) {
+        for (var j = 1; j < f.tree[i].length; ++j) {
+            debugText('Checking equality of entries in: row ' + i +', column ' + j);
+            
+            if ( compSubTree(f,fTree[i][j],gTree[i][j]) ) {
+                debugText('They appear equal in student and instructors matricies.');
+            } else {
+                console.log('Looks like [at least one] of the entries are wrong!');
+                debugText('The students answers [raw ans then copied obj ans]')
+                debugArray(f.tree[i][j]);
+                debugArray(fTree);
+                debugText('The students answers [raw ans then copied obj ans]')
+                debugArray(g.tree[i][j]);
+                debugArray(gTree);
+                return false
+            }
+        }
+    }
+    
+return true
+}
+
+
+\end{javascript}
+
+\begin{problem}
+
+The following answer box should accept the matrix:
+
+$\left[\begin{matrix}
+a^2 & 2 & 3 \\
+4 & x^2 & 6 \\
+7 & 8 & y-x+e^x
+\end{matrix}\right]$
+
+$\answer[validator=equalMatrix]{[ [a^2,2,3], [4,x^2,6], [7,8,y-x+e^x] ]}$
+    
+\end{problem}
+
+
+
+
+\end{document}
