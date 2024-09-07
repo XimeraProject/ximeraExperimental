@@ -1,0 +1,48 @@
+\documentclass{ximera}
+
+\title{Dummy Activity for Experimental Branch}
+\begin{document}
+\begin{abstract}
+    Just a dummy activity to demo new features on experimental branch.
+\end{abstract}
+\maketitle
+
+    Since this is a dummy activity to show the validator hooks feature, you should be able to compile it and have it work without any problems. But, the hook is just that - a hook - that doesn't have any actual content. 
+    
+    That being said, This also includes the supplemental commands feature, which uses the hook to generate some javascript commands that make life easier. So I will include some javascript code that calls those supplemental code parts. This should then be able to determine if the content successfully implemented, beyond just ``not crashing while compiling''.
+    
+\begin{javascript}
+function subComp(f,g) {
+    /*
+    This is a dummy command to just see if compSubTree was actually loaded correctly.
+    */
+    return compSubTree(f,f.tree,g.tree)
+    }
+    
+\end{javascript}
+
+\begin{problem}
+    The answerbox should mark the function $x^2$ correct. $\answer{x^2}$. Make sure to hit f12 (or whatever command) to open the console for your browser on the right hand side to see if it reports and error about 'subComp not defined' or something along those lines if this fails.
+\end{problem}
+
+\end{document}
+
+Below this is the javascript for compSubTree
+function compSubTree(f, treeOne,treeTwo) {
+    /* 
+        We assume that the input f is the full matrix expressions object we will need for cloning,
+        treeOne is a level of the tree that is used as the subtree to compare
+        treeTwo is a level of another tree that is used as the subtree to compare.
+        We want to see if f.treeOne = f.treeTwo in the Ximera sense of equality.
+    */
+    // First we duplicate the object structure so the equals command can be used without pitching a fit.
+    let fTemp=Object.create(f);
+    let gTemp=Object.create(f);
+    
+    // Now we assign the subtrees as the full tree of the objects.
+    fTemp.tree = treeOne;
+    gTemp.tree = treeTwo;
+    
+    // Now we return the validity of their equality using Ximera equality validation.
+    return (fTemp.equals(gTemp))
+}
