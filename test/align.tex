@@ -24,45 +24,124 @@ or better with \verb|\[ ..\]|  like
 \[
 1\;\textrm{Hz}=\frac{1}{\textrm{s}} \text{ and } x =\frac{\frac1x}{1+\frac{1}{x}}
 \] 
-\\[1cm]
-With \verb|aligned| you can align (here on '='):
-% Note: \rm is deprecated !
+
+With \verb|aligned| you can align (here on '='):\quad
 $
 \begin{aligned}
-    \qquad 1 {\rm Hz}      & = \frac{1}{{\rm s}} \\
-    \qquad 1 {\rm Hzxxxx}  & = \frac{1}{{\rm xxxxs}}
+    1\; \textrm{Hz}   & = \frac{1}{\textrm{s}}          \\
+    1 + x             & = \frac{\frac1x}{1+\frac{1}{x}} \\
 \end{aligned}
 $,
 
 and with \verb|align| you can also do that (in display mode)
 \begin{align}
-    1 {\rm Hz}      & = \frac{1}{{\rm s}} \\
-    1 {\rm Hzxxxx}  & = \frac{1}{{\rm xxxxs}} \\
+    1\; \textrm{Hz}   & = \frac{1}{\textrm{s}}          \\
+    1 + x             & = \frac{\frac1x}{1+\frac{1}{x}} 
 \end{align}
-
-\begin{onlineOnly}    % DOES not work in PDF (at least in xake2019)
-or with \verb|align| in mathmode: 
-\[
+and with a final \verb|\\| this becomes
 \begin{align}
-    1 {\rm Hz}      & = \frac{1}{{\rm s}} \\
-    1 {\rm Hzxxxx}  & = \frac{1}{{\rm xxxxs}} \\
+    1\; \textrm{Hz}   & = \frac{1}{\textrm{s}}          \\
+    1 + x             & = \frac{\frac1x}{1+\frac{1}{x}} \\
 \end{align}
-\]
-\end{onlineOnly}
 
-or with \verb|align*| if you don't want tags:
+or with \verb|align*| (no tags)
 \begin{align*}
-    1 {\rm Hz}      & = \frac{1}{{\rm s}} \\
-    1 {\rm Hzxxxx}  & = \frac{1}{{\rm xxxxs}} \\
+    1\; \textrm{Hz}   & = \frac{1}{\textrm{s}}          \\
+    1 + x             & = \frac{\frac1x}{1+\frac{1}{x}} 
 \end{align*}
 
+% \begin{onlineOnly}    % DOES not work in PDF (at least in xake2019)
+% or perhaps with \verb|align| in mathmode (BUT DOES NOT WORK in PDF!): 
+% \[
+% \begin{align}
+%     1 {\rm Hz}      & = \frac{1}{{\rm s}} \\
+%     1 {\rm Hzxxxx}  & = \frac{1}{{\rm xxxxs}} \\
+% \end{align}
+% \]
+% \end{onlineOnly}
 
-You could also use \verb|equation*|
 
+You could also use \verb|equation| (MIND THE HTML-PDF difference ?)
+
+\begin{equation}
+    1\; \textrm{Hz}   = \frac{1}{\textrm{s}}          \\
+    1 + x             = \frac{\frac1x}{1+\frac{1}{x}} \\
+    \int_0^\infty \frac{1}{x}  =  \ldots \\
+    \int_0^\infty \frac{1}{x^2}  =  \ldots 
+\end{equation}
+or \verb|equation*|
 \begin{equation*}
+    1\; \textrm{Hz}   = \frac{1}{\textrm{s}}          \\
+    1 + x             = \frac{\frac1x}{1+\frac{1}{x}} \\
     \int_0^\infty \frac{1}{x}  =  \ldots \\
     \int_0^\infty \frac{1}{x^2}  =  \ldots 
 \end{equation*}
+
+\begin{example}[The same in an example environment]\nl
+
+    With \verb|$| you get formulas like 
+$1\;\textrm{Hz}=\frac{1}{\textrm{s}}$ and $ x =\frac{\frac1x}{1+\frac{1}{x}}$
+just within the text,
+
+and with \verb|$$ ... $$| you get formulas in so-called "display mode", centered on a line, like
+
+$$
+1\;\textrm{Hz}=\frac{1}{\textrm{s}} \text{ and } x =\frac{\frac1x}{1+\frac{1}{x}}
+$$ 
+
+or better with \verb|\[ ..\]|  like
+\[
+1\;\textrm{Hz}=\frac{1}{\textrm{s}} \text{ and } x =\frac{\frac1x}{1+\frac{1}{x}}
+\] 
+
+With \verb|aligned| you can align (here on '='):
+$
+\begin{aligned}
+    1\; \textrm{Hz}   & = \frac{1}{\textrm{s}}          \\
+    1 + x             & = \frac{\frac1x}{1+\frac{1}{x}} \\
+\end{aligned}
+$,
+
+and with \verb|align| you can also do that (in display mode)
+\begin{align}
+    1\; \textrm{Hz}   & = \frac{1}{\textrm{s}}          \\
+    1 + x             & = \frac{\frac1x}{1+\frac{1}{x}} \\
+\end{align}
+
+or with \verb|align*| (no tags)
+\begin{align*}
+    1\; \textrm{Hz}   & = \frac{1}{\textrm{s}}          \\
+    1 + x             & = \frac{\frac1x}{1+\frac{1}{x}} \\
+\end{align*}
+
+% \begin{onlineOnly}    % DOES not work in PDF (at least in xake2019)
+% or perhaps with \verb|align| in mathmode (BUT DOES NOT WORK in PDF!): 
+% \[
+% \begin{align}
+%     1 {\rm Hz}      & = \frac{1}{{\rm s}} \\
+%     1 {\rm Hzxxxx}  & = \frac{1}{{\rm xxxxs}} \\
+% \end{align}
+% \]
+% \end{onlineOnly}
+
+
+You could also use \verb|equation|
+
+\begin{equation}
+    1\; \textrm{Hz}   = \frac{1}{\textrm{s}}          \\
+    1 + x             = \frac{\frac1x}{1+\frac{1}{x}} \\
+    \int_0^\infty \frac{1}{x}  =  \ldots \\
+    \int_0^\infty \frac{1}{x^2}  =  \ldots 
+\end{equation}
+or \verb|equation*|
+\begin{equation*}
+    1\; \textrm{Hz}   = \frac{1}{\textrm{s}}          \\
+    1 + x             = \frac{\frac1x}{1+\frac{1}{x}} \\
+    \int_0^\infty \frac{1}{x}  =  \ldots \\
+    \int_0^\infty \frac{1}{x^2}  =  \ldots 
+\end{equation*}
+
+\end{example}
 
 %TODO: example with tabular, more complex align (e.g., multiple columns)
 
