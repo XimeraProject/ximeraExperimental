@@ -795,7 +795,9 @@ div[class="main-content"] {
 */
 
 
-.xmhint, .xmoplossing, .xmuitkomst  {
+.xmhint, .xmoplossing, .xmuitkomst,
+/* HACK to fix specificity when inside expandable */
+.xmhint.ui-state-default, .xmoplossing.ui-state-default, .xmuitkomst.ui-state-default {
 	background-color: #1D8DB0;
 	color: white;
 	font-family: sans-serif;
