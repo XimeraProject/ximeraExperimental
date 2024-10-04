@@ -64,12 +64,12 @@
             \begin{feedback}[incorrect]{Incorrect}\end{feedback}    % !!! THIS DOES NOT WORK !!!!
             \begin{feedback}[ansr.toLowerCase() === 'twee']{Correct (because Ximera compares case-insensitive)}\end{feedback}  % but this is equivalent to [correct] ...
             \begin{feedback}[ansr === 'twee']{Correct (according to === in JS)}\end{feedback}  % but this is equivalent to [correct] ...
-            \ifonline{
-            \begin{feedback}[(ansr.toLowerCase() === 'twee') && (ansr !== 'twee')]{Correct (because Ximera compares case-insensitive) }\end{feedback}   % and this works !!!
-            }
-            {
-            \begin{feedback}[]{Correct (because Ximera compares case-insensitive) }\end{feedback}   % NO && in PDF ...?  
-            }
+            % \ifonline{
+            % \begin{feedback}[(ansr.toLowerCase() === 'twee') && (ansr !== 'twee')]{Correct (because Ximera compares case-insensitive) }\end{feedback}   % and this works !!!
+            % }
+            % {
+            % \begin{feedback}[]{Correct (because Ximera compares case-insensitive) }\end{feedback}   % NO && in PDF ...?  
+            % }
             \begin{feedback}[ansr < 'twee']{Too small}\end{feedback} % this also works, but is probably not very useful 
             \begin{feedback}[ansr > 'twee']{Too big}\end{feedback}
         \end{question}
