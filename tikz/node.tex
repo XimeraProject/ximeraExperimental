@@ -1,0 +1,49 @@
+%\documentclass{ximera}
+\documentclass{article}
+
+\usepackage{tikz}
+\usepackage{amsmath}
+
+
+\begin{document}
+
+Simple node:  \tikz{node at (0,0) {
+  Hello $x^2$
+  };}
+
+Array in node:  \tikz{node at (0,0) {
+  $\begin{array}{cc}
+    \text{cell } c_{11} &  c_{12} \\
+    \text{cell } c_{21} &  c_{22} 
+    \end{array}
+   $
+  };}
+
+
+  
+
+Matrix in node:  \tikz{node at (0,0) {
+  $\begin{bmatrix} 2 & 3 \end{bmatrix}$
+  };}
+
+  Matrix in array node:  \tikz{node at (0,0) {
+    $\begin{array}{ccc}
+      1 &  { \begin{bmatrix} 2 & 3 \end{bmatrix} }  & 3 \\
+      1 &    \begin{bmatrix} 2 & 3 \end{bmatrix}    & 3 
+    \end{array}
+    $
+    };}
+
+
+%\begin{image}[0.5\textwidth]
+  \begin{tikzpicture}%[scale=0.75]%,cap=round,transform canvas={scale=0.5}]
+
+    \path (0,0) node[below right]  {
+    $\begin{array}{cc}
+     \end{array}
+    $};
+
+  \end{tikzpicture}
+%\end{image}
+
+\end{document}
