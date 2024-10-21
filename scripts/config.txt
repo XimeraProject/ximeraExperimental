@@ -10,7 +10,7 @@
 #
 # For publishing  (you'll alss need a GPG key in .ximeraserve)
 #
-XIMERA_NAME=ximexp-basic
+XIMERA_NAME=test-abstract
 # default is localhost:2000, 
 # To overwrite, uncomment:
 #  XIMERA_URL=https://ximera.osu.edu
@@ -20,7 +20,7 @@ XIMERA_NAME=ximexp-basic
 #
 # For testing/debugging
 #
-# : "${COMMAND:=./scripts/xmlatex.test}"
+: "${COMMAND:=./scripts/xmlatex.test}"
 #
 # for LOCALLY generated/tagged images, use:
 # export DOCKER_REPO=" "
