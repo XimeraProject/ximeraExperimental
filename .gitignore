@@ -25,6 +25,7 @@ pictures/*
 *.cb2
 .*.lb
 *.DS_Store
+*.dlog
 
 ## Intermediate documents:
 *.dvi
