@@ -1,0 +1,75 @@
+\documentclass{ximera}
+% \usepackage{tikz}
+% \usepackage{pgfplots}
+% \input{./preamble.tex}
+% \addPrintStyle{..}
+
+\begin{document}
+    \title{TikZ: patterns}
+    \begin{abstract}\end{abstract}
+    \maketitle
+
+
+    \usepgfplotslibrary{fillbetween}
+    \usetikzlibrary{patterns}
+    % \usetikzlibrary{intersections,patterns}
+    %\usetikzlibrary{trees,positioning,arrows,fit,shapes,math,calc,decorations.markings,through,intersections,patterns,matrix}
+
+START
+	\begin{tikzpicture}
+	\begin{axis}[
+			axis lines=middle,
+			xlabel=$x$,	ylabel=$y$,
+			enlargelimits,
+			ymax=6,ymin=-0.2,
+			ytick=\empty,
+			xtick={1,4},
+			xticklabels={$a$,$b$},
+			]
+		\addplot[name path=F,blue,domain={1:4}] {4} node[pos=.8, above]{$h$};
+
+		\addplot[name path=G,black,domain={-.2:5}] {0}; %  node[pos=.1, below]{$g$};
+
+%		\addplot[pattern=north west lines, pattern color=brown!50]fill between[of=F and G, soft clip={domain=1:4}];
+		\node[coordinate,pin={[pin distance=2cm]93:{$A=h\cdot l=h\cdot(b-a)$}}] at (axis cs:2.5,2.5){};
+		% %\node at (axis cs:0.8,2){$h$};
+		% %\node at (axis cs:2.5,-0.3){$l$};
+
+		\draw[<->] (axis cs:{0.9},0) -- node[left] {$hXXX$} (axis cs:{0.9},{4}) ;
+		\draw[<->] (axis cs:1,-0.1) -- node[below] {$l=b-a$} (axis cs:4,-0.1) ;
+
+		
+	\end{axis}
+    \end{tikzpicture}
+END
+
+
+START
+	\begin{tikzpicture}
+	\begin{axis}[
+			axis lines=middle,
+			xlabel=$x$,	ylabel=$y$,
+			enlargelimits,
+			ymax=6,ymin=-0.2,
+			ytick=\empty,
+			xtick={1,4},
+			xticklabels={$a$,$b$},
+			]
+		\addplot[name path=F,blue,domain={1:4}] {4} node[pos=.8, above]{$h$};
+
+		\addplot[name path=G,black,domain={-.2:5}] {0}; %  node[pos=.1, below]{$g$};
+
+		\addplot[pattern=north west lines, pattern color=brown!50]fill between[of=F and G, soft clip={domain=1:4}];
+		\node[coordinate,pin={[pin distance=2cm]93:{$A=h\cdot l=h\cdot(b-a)$}}] at (axis cs:2.5,2.5){};
+		% %\node at (axis cs:0.8,2){$h$};
+		% %\node at (axis cs:2.5,-0.3){$l$};
+
+		\draw[<->] (axis cs:{0.9},0) -- node[left] {$hXXX$} (axis cs:{0.9},{4}) ;
+		\draw[<->] (axis cs:1,-0.1) -- node[below] {$l=b-a$} (axis cs:4,-0.1) ;
+
+		
+	\end{axis}
+    \end{tikzpicture}
+END
+
+\end{document}
