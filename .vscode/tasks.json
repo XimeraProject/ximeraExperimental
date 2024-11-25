@@ -3,9 +3,9 @@
     // for the documentation about the tasks.json format
     "version": "2.0.0",
     "type": "shell",
-    "command": "xmlatex.test",     // USE LOCAL VERSION (and *not* the one in the image !!!!
+    "command": "xmlatex",
     "windows": {
-        "command": ".\\scripts\\xmlatex.bat"
+        "command": ".\\xmScripts\\xmlatex.bat"
     },    
     "problemMatcher": [],
     "tasks": [
@@ -36,7 +36,7 @@
         {
             "label": "All",
             "args": [
-                "all"
+                "-d", "all"
             ],
         },
         {
@@ -85,6 +85,12 @@
                 "clean"
             ],
         },
+        {
+            "label": "Update DevEnv",
+            "args": [
+                "updateDevEnv"
+            ],
+        },
     ],
     "inputs": [
         {
@@ -97,7 +103,7 @@
     ],
     "options": {
         "env": {
-          "PATH": "/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:./scripts"  
+          "PATH": "${env:PATH}:./xmScripts"  
         }
       },    
 }
