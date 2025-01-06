@@ -1,0 +1,84 @@
+%\def\xmPrintHtmlOnlyAlsoInPdf{true}
+\documentclass{ximera}
+\input{../preamble.tex}
+\addPrintStyle{..}
+
+% \let\onlineOnly\relax
+% \let\endonlineOnly\relax
+% \let\pdfOnly\relax
+% \let\endpdfOnly\relax
+
+% \ifdefined\HCode
+% \newenvironment{onlyPdf}{\setbox0\vbox\bgroup}{\egroup}
+% % \NewEnviron{onlyHtml}{\BODY}
+% % \NewEnviron{onlineOnly}{\BODY}
+% \newenvironment{onlyHtml}{\bgroup}{\egroup}
+% \newenvironment{onlineOnly}{\bgroup}{\egroup}
+% \else
+% % \NewEnviron{onlyPdf}{\BODY}
+% \newenvironment{onlyPdf}{\bgroup}{\egroup}
+% % \newenvironment{onlyPdf}{\bgroup\color{red!50!black}}{\egroup}
+% \ifdefined\xmPrintOnlineOnlyAnywayInPdf
+% % \NewEnviron{onlyHtml}{\bgroup\color{red!50!black}\BODY\egroup}
+% % \NewEnviron{onlineOnly}{\bgroup\color{red!50!black}\BODY\egroup}
+% \newenvironment{onlyHtml}{\bgroup\color{red!50!black}}{\egroup}
+% \newenvironment{onlineOnly}{\bgroup\color{red!50!black}}{\egroup}
+% \else
+% \newenvironment{onlyHtml}{\setbox0\vbox\bgroup}{\egroup}
+% \newenvironment{onlineOnly}{\setbox0\vbox\bgroup}{\egroup}
+% % \NewEnviron{onlyHtml}{}
+% % \NewEnviron{onlineOnly}{}
+% \fi
+% \fi
+
+
+% \ifdefined\HCode
+% \newcommand{\pdfOnly}[1]{}
+% \newcommand{\htmlOnly}[1]{#1}
+% \else
+% \newcommand{\pdfOnly}[1]{#1}
+% \newcommand{\htmlOnly}[1]{}
+% \fi
+
+% % Could potentially replace \pdfOnline/\begin{onlineOnly} : 
+% % Usage= \ifonline{Hallo surfer}{Hallo PDFlezer}
+% \providecommand{\ifonline}[2]{\htmlOnly{#1}\pdfOnly{#2}}
+
+
+\begin{document}
+    \xmtitle{Use of online/pdf only}{}
+
+
+    Dit is de \ifonlineTF{online}{PDF} versie.
+
+    \ifonlineTF{Dit staat er enkel online}{}
+    \ifonlineTF{}{Dit staat er enkel in de PDF}
+
+    \pdfOnly{Dit staat er ook enkel in de PDF}
+    \htmlOnly{Dit staat er ook enkel online}
+    
+    \begin{onlyHtml} 
+        Omgeving enkel in HTML getoond
+    \end{onlyHtml}
+
+    \begin{onlyPdf} 
+        Omgeving enkel in Pdf getoond
+    \end{onlyPdf}
+        
+
+werkt \verb|\verb| gewoon of niet ?
+
+
+%% Onderstaande werkt NIET: 
+% \pdfOnly{werkt \verb|align| in pdfOnly gewoon of niet ?}
+% \htmlOnly{werkt \verb|align| in htmlOnly of niet ?}
+
+\begin{onlyHtml} 
+werkt \verb!\verb! in de Html omgeving of niet ?
+\end{onlyHtml}
+
+\begin{onlyPdf}
+werkt \verb|\verb| in de PDF omgeving of niet ?
+\end{onlyPdf}
+
+\end{document}

@@ -12,6 +12,7 @@
         {
             "label": "PDF",
             "args": [
+                "-v",
                 "compilePdf",
                 "${relativeFile}"
             ],
@@ -19,8 +20,7 @@
         {
             "label": "HTML",
             "args": [
-                "--",
-                "--skip-mathjax",
+                "-v",
                 "compile",
                 "${relativeFile}"
             ],
@@ -28,21 +28,29 @@
         {
             "label": "Bake",
             "args": [
-                "--",
-                "--skip-mathjax",
+                "-v",
                 "bake"
             ],
         },
         {
             "label": "All",
             "args": [
-                "-d", "all"
+                "-v", 
+                "all"
             ],
         },
         {
-            "label": "Serve",
+            "label": "All",
             "args": [
-                "serve"
+                "-v", 
+                "all"
+            ],
+        },
+        {
+            "label": "TEST",
+            "args": [
+                "all",
+                "--compile make4ht.html"
             ],
         },        
         {
@@ -82,7 +90,8 @@
         {
             "label": "Delete all",
             "args": [
-                "clean"
+                "-v",
+                "veryclean"
             ],
         },
         {
