@@ -12,7 +12,6 @@ brol/**
 *.pdf
 ## Folder xmPictures is in the graphicspath, and should contain the pictures used in \includegraphics
 ## So in xmPictures things presumably must be committed
-xmPictures/*
 !xmPictures/*.jpg
 !xmPictures/*.pdf
 !xmPictures/*.png
@@ -302,7 +301,10 @@ Thumbs.db
 
 # For exam-stuff ... ?
 ans[0-9]*.tex
+
+
 *.jax
+*.xmjax
 *.ids
 *.oc
 

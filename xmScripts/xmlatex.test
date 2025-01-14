@@ -7,7 +7,7 @@
 #   xmlatex bake
 #   xmlatex compile test/myximerafile.tex
 #   xmlatex serve     # this will also run 'xake frost'
-#   xmlatex -i bash   # gets a bash-shell INSIDE the container
+#   xmlatex bash      # gets a bash-shell INSIDE the container
 #
 # Advanced usage
 #   XAKE_IMAGE=ghcr.io/ximeraproject/xake2023:latest xmlatex compile demo.tex    # use a different docker image
@@ -49,7 +49,7 @@ fi
 #
 # default docker image to run; overwrite with 'export XAKE_IMAGE=myxake:0.1'
 : "${XAKE_BASE:=xake2024}"
-: "${XAKE_VERSION:=v2.4.2}"
+: "${XAKE_VERSION:=v2.4.3}"
 # : "${XAKE_BASE:=xake2019}"
 # : "${XAKE_VERSION:=v2.1.1}"
 : "${XAKE_CONTAINER:=$XAKE_BASE:$XAKE_VERSION}"
@@ -94,6 +94,12 @@ else
     then
         INTERACTIVE="-it"  # start an interactive docker session (i.e. with a terminal attached)
         shift 
+    fi 
+
+    # make the -i default for bash (finally ...)
+    if [[ "$1" == "bash" ]]
+    then
+        INTERACTIVE="-it"  # start an interactive docker session (i.e. with a terminal attached)
     fi 
 
     # LOCAL_IP is only needed if you want to serve to a ximeraServer on your localhost; do NOT use XIMERA_URL when using LOCAL_IP

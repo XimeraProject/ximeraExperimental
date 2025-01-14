@@ -1,10 +1,8 @@
 #
 # version of Ximera xake container to use (with xmlatex)
 #
-# : "${XAKE_BASE:=xake2024}"
-: "${XAKE_VERSION:=v2.5.1-b-full}"
-## Alternatives:
-# : "${XAKE_VERSION:=v2.4.2-full}"    # with texlive_full
+# : "${XAKE_BASE:=ximeralatex}"
+# : "${XAKE_VERSION:=v2.5.5}"
 
 #
 #
@@ -12,12 +10,16 @@
 # For publishing to a publicly available website, you'll need proper keys.
 #      via Codespaces: connect keys via GitHub Codespaces Secrets
 #      on your PC:     set environment variables, or edit .xmKeyFile
+# To generate a key-pair, fill in your name and email, and run 'xmlatex genKey'
+YOUR_NAME=""
+YOUR_EMAIL=""
 # !! Do NEVER commit real keys to the repo !!
+# !! DO NEVER SAVE THE KEYS THEMSELVES IN THIS FILE   !!
 #
 
 ## : "${XIMERA_NAME:=myreponame}"
 ## : "${XIMERA_URL:=http://localhost:2000/}"
-## : "${XIMERA_URL:=https://ximera.osu.edu}"
+## : "${XIMERA_URL:=https://ximera.osu.edu/}"
 ## : "${XIMERA_URL:=https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/}"
 ## : "${XIMERA_URL:=https://set.kuleuven.be/voorkennis/}"
 
@@ -39,3 +41,13 @@
 # export DOCKER_REPO=" "
 # export XM_PUSH_FORCE=1
 # export XM_FROST_WITH_UNCOMMITTED_CHANGES=1
+
+#
+# For use in Actions, and perhaps to adapt the functionality of the PDF/HTML/SERVE buttons
+#
+# export XM_COMPILE_SEQUENCE=draft.html      # which output to generate, eg "handout.pdf,draft.html"
+# export XM_TO_PROCESS=aFirstXourse.tex      # only build/frost/serve these files/courses
+# export XM_CONFIGFILE=more.cfg              # exotic: if you want to use a different TeX4ht config file
+# export XM_SETTINGSFILE=config.lua          # yet another way to set some options/Settings
+# export XM_ONLY_CHECK=1                     # do not actually compile/clean anything  (NOT IMPLEMENTED for frost/serve!)
+# export XM_FORCE=1                          # force build (even if uptodate) and serve (use push -f)
