@@ -1,0 +1,49 @@
+name: Build and publish a Ximera repo
+
+on:
+  push:
+    branches:
+      - tests_basis
+
+jobs:
+  build-ximera:
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full 
+
+      - name: Setup cache
+        uses: actions/cache@v4
+        with:
+          path: | 
+            **/*.html
+            **/*.pdf
+            **/*.svg
+            **/*.aux
+            **/*.xref
+            **/*.toc
+            !xmPictures/**
+            !.git/**
+            !.github/**
+          key: ximera-buildx-${{ github.sha }}
+          restore-keys: |
+            ximera-buildx-
+            ximera-
+
+      - name: Build and publish Ximera courses
+        env:
+          GPG_KEY: ${{ secrets.GPG_KEY }}
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+          XIMERA_URL: https://set-p-dsb-zomercursus-latest.cloud-ext.icts.kuleuven.be/
+          XIMERA_NAME: testsbasic
+        run: |
+          ls -alrt
+          ./xmScripts/xmlatex ghaction
