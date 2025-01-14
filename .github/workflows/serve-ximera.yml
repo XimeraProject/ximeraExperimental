@@ -3,7 +3,7 @@ name: Build and publish a Ximera repo
 on:
   push:
     branches:
-      - tests_basis
+      - tests_basic
 
 jobs:
   build-ximera:
